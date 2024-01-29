@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LMS</string>
+    <string name="all_lecture_and_videos">All Lecture and Videos</string>
+    <string name="all_lectures_pdf_and_exams">All Lectures, pdf and Exams</string>
+    <string name="next">Next</string>
+    <string name="quizzes_and_tracking_grades">Quizzes and tracking grades</string>
+    <string name="you_can_know_the_grades_lectures">You can know the grades , lectures</string>
+    <string name="dates_and_schedule">dates and schedule</string>
 </resources>
