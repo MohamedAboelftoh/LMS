@@ -15,7 +15,7 @@ class SplashActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySplash1Binding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        viewBinding.btnNext1.setOnClickListener {
+        viewBinding.btnNext.setOnClickListener {
             navigateToSplash2()
         }
     }

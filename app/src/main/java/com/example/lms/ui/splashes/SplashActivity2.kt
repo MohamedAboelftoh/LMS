@@ -13,7 +13,7 @@ class SplashActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySplash2Binding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        viewBinding.btnNext2.setOnClickListener {
+        viewBinding.btnNext.setOnClickListener {
             navigateToLogin()
         }
         viewBinding.iconBack.setOnClickListener {
