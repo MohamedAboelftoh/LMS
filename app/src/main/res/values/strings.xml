@@ -6,4 +6,23 @@
     <string name="quizzes_and_tracking_grades">Quizzes and tracking grades</string>
     <string name="you_can_know_the_grades_lectures">You can know the grades , lectures</string>
     <string name="dates_and_schedule">dates and schedule</string>
+    <string name="login">LOGIN</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="we_will_send_a_code_to_you_on_your_email">We will send a code to you on your Email</string>
+    <string name="enter_your_email_to_reset_your_password">Enter Your email to reset your password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_verification">Email verification</string>
+    <string name="we_have_sent_a_code_to_your_email_please_n_write_it_correctly_to_recover_your_password">We have sent a code to your email, please \n write it correctly to recover your password</string>
+    <string name="the_code_will_expire_after_3_21">The code will expire after 3:21</string>
+    <string name="new_password">New Password</string>
+    <string name="from_your_classroom_enter_the_new_password">From your classroom, enter the new password</string>
+    <string name="reset_your_password">Reset your password</string>
+    <string name="submit">Submit</string>
+    <string name="successfully_verified">Successfully verified</string>
+    <string name="your_email_has_been_successfully_verified_n_and_you_can_now_begin_your_user_n_experience">Your email has been successfully verified \n and you can now begin your user\n experience</string>
+    <string name="start">Start</string>
 </resources>
