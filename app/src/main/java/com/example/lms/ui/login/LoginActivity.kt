@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lms.databinding.ActivityLoginBinding
-import com.example.lms.ui.resetPassword.ResetPasswordActivity1
-import com.example.lms.ui.splashes.SplashActivity2
+import com.example.lms.ui.resetPassword.ResetPasswordActivity
+import com.example.lms.ui.splashes.SplashActivity
 
 class LoginActivity : AppCompatActivity() {
      private lateinit var viewBinding : ActivityLoginBinding
@@ -17,17 +17,17 @@ class LoginActivity : AppCompatActivity() {
             navigateToResetPassword()
         }
         viewBinding.iconBack.setOnClickListener {
-            navigateToSplashActivity2()
+            navigateToSplashActivity()
         }
     }
 
-    private fun navigateToSplashActivity2() {
-        val intent = Intent(this,SplashActivity2::class.java)
+    private fun navigateToSplashActivity() {
+        val intent = Intent(this,SplashActivity::class.java)
         startActivity(intent)
         finish()
     }
     private fun navigateToResetPassword() {
-        val intent = Intent(this,ResetPasswordActivity1::class.java)
+        val intent = Intent(this,ResetPasswordActivity::class.java)
         startActivity(intent)
         finish()
     }
