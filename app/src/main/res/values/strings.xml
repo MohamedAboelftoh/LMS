@@ -13,7 +13,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="we_will_send_a_code_to_you_on_your_email">We will send a code to you on your Email</string>
     <string name="enter_your_email_to_reset_your_password">Enter Your email to reset your password</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email_verification">Email verification</string>
     <string name="we_have_sent_a_code_to_your_email_please_n_write_it_correctly_to_recover_your_password">We have sent a code to your email, please \n write it correctly to recover your password</string>
