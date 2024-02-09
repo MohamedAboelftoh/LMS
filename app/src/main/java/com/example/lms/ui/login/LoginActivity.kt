@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lms.databinding.ActivityLoginBinding
+import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
 
@@ -19,6 +20,9 @@ class LoginActivity : AppCompatActivity() {
         viewBinding.iconBack.setOnClickListener {
             navigateToSplashActivity()
         }
+        viewBinding.btnLogin.setOnClickListener {
+            navigateToHome()
+        }
     }
 
     private fun navigateToSplashActivity() {
@@ -28,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun navigateToResetPassword() {
         val intent = Intent(this,ResetPasswordActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    private fun navigateToHome() {
+        val intent = Intent(this,HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
