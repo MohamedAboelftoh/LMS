@@ -7,4 +7,5 @@
     <color name="colorPrimary">#3D5CFF</color>
     <color name="secondaryColor">#3B82F6</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="secondaryTextColor">#858597</color>
 </resources>

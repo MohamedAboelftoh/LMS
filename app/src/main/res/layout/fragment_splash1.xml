@@ -9,8 +9,10 @@
 
     <ImageView
         android:id="@+id/img_splash1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintWidth_percent=".6"
         android:src="@drawable/splash1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +41,14 @@
         android:text="@string/all_lectures_pdf_and_exams"
         android:textSize="16sp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/white2"
+        android:textColor="@color/secondaryTextColor"
         />
     <ImageView
         android:id="@+id/navigation1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintWidth_percent=".16"
         app:layout_constraintTop_toBottomOf="@id/tv2"
         android:src="@drawable/navigation1"
         app:layout_constraintStart_toStartOf="parent"
