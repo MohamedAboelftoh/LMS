@@ -2,8 +2,15 @@ package com.example.lms.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
+import com.example.lms.ui.home.fragments.AccountFragment
+import com.example.lms.ui.home.fragments.CalenderFragment
+import com.example.lms.ui.home.fragments.CoursesFragment
+import com.example.lms.ui.home.fragments.home_fragment.HomeFragment
+import com.google.android.material.navigation.NavigationBarView
 
 class HomeActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityHomeBinding
@@ -11,6 +18,29 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        pushFragment(HomeFragment())
+        viewBinding.content.bottomNavigation.setOnItemSelectedListener { item ->
+            if (item.itemId == R.id.ic_hom) {
+                pushFragment(HomeFragment())
+            }
+            if (item.itemId == R.id.ic_account) {
+                pushFragment(AccountFragment())
+            }
+            if (item.itemId == R.id.ic_calender) {
+                pushFragment(CalenderFragment())
+            }
+            if (item.itemId == R.id.ic_courses) {
+                pushFragment(CoursesFragment())
+            }
+            true
+        }
+    }
+
+    private fun pushFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.home_container,fragment)
+            .commit()
     }
 
 }

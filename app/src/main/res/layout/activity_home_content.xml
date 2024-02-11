@@ -29,9 +29,4 @@
             app:itemIconTint="@drawable/bg_nav_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
