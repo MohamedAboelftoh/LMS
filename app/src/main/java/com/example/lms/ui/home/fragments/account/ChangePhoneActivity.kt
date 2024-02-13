@@ -15,11 +15,7 @@ class ChangePhoneActivity : AppCompatActivity() {
         viewBinding = ActivityChangePhoneBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         viewBinding.icBack.setOnClickListener {
-            navigateToAccount()
+            this.finish()
         }
-    }
-    private fun navigateToAccount() {
-        val intent = Intent(this,HomeActivity::class.java)
-        startActivity(intent)
     }
 }
