@@ -2,15 +2,13 @@ package com.example.lms.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
-import com.example.lms.ui.home.fragments.AccountFragment
+import com.example.lms.ui.home.fragments.account.AccountFragment
 import com.example.lms.ui.home.fragments.CalenderFragment
 import com.example.lms.ui.home.fragments.CoursesFragment
 import com.example.lms.ui.home.fragments.home_fragment.HomeFragment
-import com.google.android.material.navigation.NavigationBarView
 
 class HomeActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityHomeBinding

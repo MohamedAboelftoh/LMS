@@ -24,7 +24,6 @@ class ResetPasswordActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.resetPassword_container,fragment)
-            .addToBackStack(null)
             .commit()
     }
     private fun navigateToLoginActivity() {
