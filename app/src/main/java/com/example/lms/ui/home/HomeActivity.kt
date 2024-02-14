@@ -6,8 +6,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
-import com.example.lms.ui.home.fragments.AccountFragment
 import com.example.lms.ui.home.fragments.CalenderFragment
+import com.example.lms.ui.home.fragments.account.AccountFragment
 import com.example.lms.ui.home.fragments.courses_fragment.CoursesFragment
 import com.example.lms.ui.home.fragments.home_fragment.HomeFragment
 
