@@ -1,5 +1,6 @@
 package com.example.lms.ui.home.fragments.courses_fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,10 +47,9 @@ class CoursesFragment : Fragment() {
     }
     private fun initViews() {
         adapter.onItemClickListener= CoursesAdapter.OnItemClickListener{ position, course ->
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.home_container, CoursesContentFragment())
-                .commit()
+            val intent=Intent(requireActivity(),CourseContent::class.java)
+            startActivity(intent)
+
 
         }
 
