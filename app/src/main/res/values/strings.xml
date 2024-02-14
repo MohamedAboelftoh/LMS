@@ -27,4 +27,18 @@
     <string name="mohamed">Mohamed</string>
     <string name="fourth_year">fourth year</string>
     <string name="hi">Hi,</string>
+    <string name="department">Department</string>
+    <string name="change_phone">Change Phone Number</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="update">Update</string>
+    <string name="new_phone_number">New Phone Number</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="show_your_card">Show Your Card</string>
+    <string name="fcai_sadat_city_university">FCAI-Sadat City University</string>
+    <string name="your_name">Your Name:</string>
+    <string name="your_level">Your Level:</string>
+    <string name="academic_id">Academic ID:</string>
+    <string name="national_id">National ID:</string>
 </resources>

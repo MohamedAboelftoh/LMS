@@ -34,7 +34,6 @@ class SplashActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.splash_container,fragment)
-            .addToBackStack(null)
             .commit()
     }
 
