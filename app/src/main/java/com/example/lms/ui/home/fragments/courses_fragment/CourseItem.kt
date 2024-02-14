@@ -1,6 +1,4 @@
-package com.example.lms.ui.home.courses
-
-import android.widget.ImageView
+package com.example.lms.ui.home.fragments.courses_fragment
 
 data class CourseItem(
     var courseName:String?=null,

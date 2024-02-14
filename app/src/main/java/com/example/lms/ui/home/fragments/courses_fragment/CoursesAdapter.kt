@@ -1,4 +1,4 @@
-package com.example.lms.ui.home.courses
+package com.example.lms.ui.home.fragments.courses_fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.R
 import com.example.lms.databinding.CourseItemBinding
 
-class CoursesAdapter(var coursesList:List<CourseItem>?):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
+class CoursesAdapter(var coursesList:MutableList<CourseItem>?):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
 
     class CoursesViewHolder(val itemBinding:CourseItemBinding):RecyclerView.ViewHolder(itemBinding.root)
 
@@ -26,9 +26,13 @@ class CoursesAdapter(var coursesList:List<CourseItem>?):RecyclerView.Adapter<Cou
         holder.itemBinding.courseNameTv.text=courses.courseName
         holder.itemBinding.courseDoctor.text=courses.courseInstructor
         holder.itemBinding.courseImage.setImageResource(courses.courseImage?:R.drawable.course_image)
+        holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }
     }
 
+    var onItemClickListener:OnItemClickListener?=null
 
-
+    fun interface OnItemClickListener{
+        fun onItemClick(position:Int,course:CourseItem)
+    }
 
 }
