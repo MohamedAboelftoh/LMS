@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import com.example.lms.R
 import com.example.lms.databinding.ActivityCourseContentBinding
 import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
+import com.example.lms.ui.home.fragments.courses_fragment.grades.GradesActivity
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
 
 class CourseContent : AppCompatActivity() {
@@ -15,6 +16,9 @@ class CourseContent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        vieBinding= ActivityCourseContentBinding.inflate(layoutInflater)
         setContentView(vieBinding.root)
+        vieBinding.cardGrades.setOnClickListener {
+            navigateToGradesActivity()
+        }
         vieBinding.quizzes.setOnClickListener {
             navigateToQuizzesScreen()
         }
@@ -27,14 +31,17 @@ class CourseContent : AppCompatActivity() {
         }
     }
 
+    private fun navigateToGradesActivity() {
+        val intent = Intent(this,GradesActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun navigateToAssignmentsScreen() {
         val intent = Intent(this,AssignmentsActivity::class.java)
         startActivity(intent)
     }
-
     private fun navigateToQuizzesScreen() {
         val intent = Intent(this,QuizzesActivity::class.java)
         startActivity(intent)
     }
-
 }

@@ -56,4 +56,11 @@
     <string name="upload">Upload</string>
     <string name="upload_assignment">Upload Assignment</string>
     <string name="attach">Attach</string>
+    <string name="final_exam">Final Exam</string>
+    <string name="practical_exam">Practical Exam</string>
+    <string name="midterm_exam">Midterm Exam</string>
+    <string name="quiz2">Quiz2</string>
+    <string name="quiz1">Quiz1</string>
+    <string name="exams">Exams</string>
+    <string name="grades">Grades</string>
 </resources>
