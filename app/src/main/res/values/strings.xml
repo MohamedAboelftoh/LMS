@@ -47,4 +47,13 @@
     <string name="points">points</string>
     <string name="answers_have_been_sent_successfully">Answers have been sent successfully</string>
     <string name="finished">Finished</string>
+    <string name="you_are_a_superb_warrior">You are a superb warrior!</string>
+    <string name="done_100_task_month">Done 100 task month</string>
+    <string name="done_10_task_yesterday">Done 10 task yesterday</string>
+    <string name="done_4_task_today">Done 4 task today</string>
+    <string name="more">More</string>
+    <string name="download">Download</string>
+    <string name="upload">Upload</string>
+    <string name="upload_assignment">Upload Assignment</string>
+    <string name="attach">Attach</string>
 </resources>

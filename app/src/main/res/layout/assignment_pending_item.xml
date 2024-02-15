@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/course_item"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="5dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            android:background="@drawable/card_bg_border"
+            >
+            <ImageView
+                android:id="@+id/assignment_image"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/ic_assignment"
+                />
+            <TextView
+                android:id="@+id/course_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/assignment_image"
+                app:layout_constraintStart_toEndOf="@id/assignment_image"
+                android:text="Parallel Programing"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+
+                />
+            <TextView
+                android:id="@+id/tv_deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/course_name_tv"
+                app:layout_constraintStart_toEndOf="@id/assignment_image"
+                android:text="Deadline"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                />
+            <TextView
+                android:id="@+id/deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/course_name_tv"
+                app:layout_constraintStart_toEndOf="@id/tv_deadline"
+                android:text="1 More Day"
+                android:textColor="@color/redColor"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                app:cornerRadius="10dp"
+                android:text="@string/more"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>

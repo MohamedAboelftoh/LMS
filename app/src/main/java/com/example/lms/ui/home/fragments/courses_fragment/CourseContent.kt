@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.lms.R
 import com.example.lms.databinding.ActivityCourseContentBinding
+import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
 
 class CourseContent : AppCompatActivity() {
@@ -17,9 +18,18 @@ class CourseContent : AppCompatActivity() {
         vieBinding.quizzes.setOnClickListener {
             navigateToQuizzesScreen()
         }
+        vieBinding.cardAssignments.setOnClickListener {
+            navigateToAssignmentsScreen()
+        }
 
         vieBinding.icBack.setOnClickListener{
-           this.finish()      }
+           this.finish()
+        }
+    }
+
+    private fun navigateToAssignmentsScreen() {
+        val intent = Intent(this,AssignmentsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToQuizzesScreen() {
