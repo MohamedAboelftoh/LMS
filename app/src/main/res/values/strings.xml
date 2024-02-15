@@ -41,4 +41,10 @@
     <string name="your_level">Your Level:</string>
     <string name="academic_id">Academic ID:</string>
     <string name="national_id">National ID:</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="points">points</string>
+    <string name="answers_have_been_sent_successfully">Answers have been sent successfully</string>
+    <string name="finished">Finished</string>
 </resources>
