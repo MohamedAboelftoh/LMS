@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.lms.R
 import com.example.lms.databinding.ActivityCourseContentBinding
+import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.courses_fragment.grades.GradesActivity
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
@@ -27,8 +28,13 @@ class CourseContent : AppCompatActivity() {
         }
 
         vieBinding.icBack.setOnClickListener{
-           this.finish()
+           navigateToHome()
         }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this,HomeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToGradesActivity() {

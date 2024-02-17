@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_screens"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.splashes.SplashFragment1">
-
+    tools:context=".ui.splashes.SplashFragment2">
     <ImageView
         android:id="@+id/img_splash1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:layout_constraintWidth_percent=".7"
-        android:src="@drawable/img_splash1"
+        android:src="@drawable/img_splash3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
         android:textColor="@color/black"
-        android:text="@string/access_materials_easy"
+        android:text="@string/access_materials_offline"
         android:textSize="25sp"
         android:textStyle="bold"
         />
@@ -40,23 +38,22 @@
         app:layout_constraintTop_toBottomOf="@id/tv1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/courses_tasks_quizzes_n_and_calendar"
-        android:gravity="center"
+        android:text="@string/last_lectures_labs_and_n_assignments"
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:textColor="@color/secondaryTextColor"
+        android:gravity="center"
         />
     <ImageView
-        android:id="@+id/navigation1"
+        android:id="@+id/navigation2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:layout_constraintWidth_percent=".7"
         app:layout_constraintTop_toBottomOf="@id/tv2"
-        android:src="@drawable/ic_navigate1"
+        android:src="@drawable/ic_navigate3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="60dp"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

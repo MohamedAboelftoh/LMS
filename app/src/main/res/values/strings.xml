@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">LMS</string>
-    <string name="all_lecture_and_videos">All Lecture and Videos</string>
-    <string name="all_lectures_pdf_and_exams">All Lectures, pdf and Exams</string>
     <string name="next">Next</string>
-    <string name="quizzes_and_tracking_grades">Quizzes and tracking grades</string>
-    <string name="you_can_know_the_grades_lectures">You can know the grades , lectures</string>
     <string name="dates_and_schedule">dates and schedule</string>
     <string name="login">LOGIN</string>
     <string name="email">email</string>
@@ -63,4 +59,11 @@
     <string name="quiz1">Quiz1</string>
     <string name="exams">Exams</string>
     <string name="grades">Grades</string>
+    <string name="access_materials_easy">Access Materials easy</string>
+    <string name="courses_tasks_quizzes_n_and_calendar">Courses, tasks , quizzes \n and Calendar</string>
+    <string name="events_and_news">Events and News</string>
+    <string name="timeline_contain_posts_about_n_tasks_and_news">Timeline contain posts about \n tasks and News</string>
+    <string name="last_lectures_labs_and_n_assignments">Last lectures, labs and \n assignments</string>
+    <string name="access_materials_offline">Access Materials offline</string>
+    <string name="welcome">Welcome!</string>
 </resources>

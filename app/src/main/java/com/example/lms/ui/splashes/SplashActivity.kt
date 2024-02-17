@@ -17,11 +17,18 @@ class SplashActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         pushFragment(SplashFragment1())
         viewBinding.btnNext.setOnClickListener {
-            if(index ==  0)
+            if(index ==  0) {
                 pushFragment(SplashFragment2())
-            if(index == 1)
+                index = 1
+                return@setOnClickListener
+            }
+            if(index ==  1) {
+                pushFragment(SplashFragment3())
+                index = 2
+                return@setOnClickListener
+            }
+            if(index == 2)
                 navigateToLogin()
-            index = 1
         }
     }
 
