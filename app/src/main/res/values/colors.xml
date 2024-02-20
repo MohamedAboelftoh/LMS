@@ -10,4 +10,5 @@
     <color name="secondaryTextColor">#858597</color>
     <color name="redColor">#D90909</color>
     <color name="greenColor">#2EF206</color>
+    <color name="gray">#D9D9D9</color>
 </resources>

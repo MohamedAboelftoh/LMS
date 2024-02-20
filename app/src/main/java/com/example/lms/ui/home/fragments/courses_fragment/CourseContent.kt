@@ -1,5 +1,6 @@
 package com.example.lms.ui.home.fragments.courses_fragment
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import com.example.lms.databinding.ActivityCourseContentBinding
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.courses_fragment.grades.GradesActivity
+import com.example.lms.ui.home.fragments.courses_fragment.material.MaterialActivity
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
 
 class CourseContent : AppCompatActivity() {
@@ -18,36 +20,26 @@ class CourseContent : AppCompatActivity() {
        vieBinding= ActivityCourseContentBinding.inflate(layoutInflater)
         setContentView(vieBinding.root)
         vieBinding.cardGrades.setOnClickListener {
-            navigateToGradesActivity()
+            navigateToAnotherActivity(GradesActivity())
         }
         vieBinding.quizzes.setOnClickListener {
-            navigateToQuizzesScreen()
+            navigateToAnotherActivity(QuizzesActivity())
         }
         vieBinding.cardAssignments.setOnClickListener {
-            navigateToAssignmentsScreen()
+            navigateToAnotherActivity(AssignmentsActivity())
         }
 
         vieBinding.icBack.setOnClickListener{
-           navigateToHome()
+            navigateToAnotherActivity(HomeActivity())
+        }
+
+        vieBinding.cardMaterial.setOnClickListener {
+            navigateToAnotherActivity(MaterialActivity())
         }
     }
 
-    private fun navigateToHome() {
-        val intent = Intent(this,HomeActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun navigateToGradesActivity() {
-        val intent = Intent(this,GradesActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun navigateToAssignmentsScreen() {
-        val intent = Intent(this,AssignmentsActivity::class.java)
-        startActivity(intent)
-    }
-    private fun navigateToQuizzesScreen() {
-        val intent = Intent(this,QuizzesActivity::class.java)
+    private fun navigateToAnotherActivity(activity:AppCompatActivity) {
+        val intent = Intent(this,activity::class.java)
         startActivity(intent)
     }
 }

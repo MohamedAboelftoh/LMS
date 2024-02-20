@@ -4,7 +4,7 @@
     android:startColor="@color/colorPrimary"
     android:endColor="@color/white"
     android:centerColor="@color/white"
-    android:angle="@integer/material_motion_duration_medium_2"
+    android:angle="270"
     android:type="linear"
     />
 </shape>
