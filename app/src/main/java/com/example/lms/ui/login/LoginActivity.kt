@@ -7,6 +7,7 @@ import com.example.lms.databinding.ActivityLoginBinding
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
+import retrofit2.Retrofit
 
 class LoginActivity : AppCompatActivity() {
      private lateinit var viewBinding : ActivityLoginBinding
@@ -14,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
         viewBinding.forgetPass.setOnClickListener {
             navigateToResetPassword()
         }

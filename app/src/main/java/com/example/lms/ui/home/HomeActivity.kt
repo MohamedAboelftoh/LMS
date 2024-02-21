@@ -19,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
 
         viewBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
         pushFragment(HomeFragment())
         viewBinding.content.bottomNavigation.setOnItemSelectedListener { item ->
             if (item.itemId == R.id.ic_hom) {
