@@ -3,7 +3,9 @@ package com.example.lms.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import android.widget.VideoView
 import com.example.lms.databinding.ActivityLoginBinding
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.LoginRequest
@@ -28,12 +30,14 @@ class LoginActivity : AppCompatActivity() {
             navigateToAnotherActivity(SplashActivity())
         }
         viewBinding.btnLogin.setOnClickListener {
+            viewBinding.progrssBar.visibility = View.VISIBLE
             login()
         }
     }
 
     private fun login() {
         if(!validation()){
+            viewBinding.progrssBar.visibility = View.INVISIBLE
             return
         }
         val loginRequest = LoginRequest(viewBinding.etPassword.text.toString(),viewBinding.etEmail.text.toString())
@@ -43,14 +47,17 @@ class LoginActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     val toast = Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG)
                     toast.show()
+                    viewBinding.progrssBar.visibility = View.INVISIBLE
                     navigateToAnotherActivity(HomeActivity())
                 }
                 else{
+                    viewBinding.progrssBar.visibility = View.INVISIBLE
                     val toast = Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                viewBinding.progrssBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(this@LoginActivity, "Throwable"+t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }
