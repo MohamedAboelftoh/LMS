@@ -3,11 +3,17 @@ package com.example.lms.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.lms.databinding.ActivityLoginBinding
+import com.example.lms.ui.api.module.ApiManager
+import com.example.lms.ui.api.module.LoginRequest
+import com.example.lms.ui.api.module.LoginResponse
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
-import retrofit2.Retrofit
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
      private lateinit var viewBinding : ActivityLoginBinding
@@ -15,31 +21,65 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
         viewBinding.forgetPass.setOnClickListener {
-            navigateToResetPassword()
+            navigateToAnotherActivity(ResetPasswordActivity())
         }
         viewBinding.iconBack.setOnClickListener {
-            navigateToSplashActivity()
+            navigateToAnotherActivity(SplashActivity())
         }
         viewBinding.btnLogin.setOnClickListener {
-            navigateToHome()
+            login()
         }
     }
 
-    private fun navigateToSplashActivity() {
-        val intent = Intent(this,SplashActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun login() {
+        if(!validation()){
+            return
+        }
+        val loginRequest = LoginRequest(viewBinding.etPassword.text.toString(),viewBinding.etEmail.text.toString())
+        val loginResponseCall : Call<LoginResponse> = ApiManager.getApi().userLogin(loginRequest)
+        loginResponseCall.enqueue(object : Callback<LoginResponse>{
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if(response.isSuccessful){
+                    val toast = Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG)
+                    toast.show()
+                    navigateToAnotherActivity(HomeActivity())
+                }
+                else{
+                    val toast = Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                val toast = Toast.makeText(this@LoginActivity, "Throwable"+t.localizedMessage, Toast.LENGTH_LONG)
+                toast.show()
+            }
+        })
     }
-    private fun navigateToResetPassword() {
-        val intent = Intent(this,ResetPasswordActivity::class.java)
-        startActivity(intent)
-        finish()
+
+    private fun navigateToAnotherActivity(activity:AppCompatActivity) {
+        val intent = Intent(this,activity::class.java)
+         startActivity(intent)
     }
-    private fun navigateToHome() {
-        val intent = Intent(this,HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun validation(): Boolean {
+        var isvaild : Boolean = true
+        if(viewBinding.etEmail.text.isNullOrBlank())
+        {
+            viewBinding.etEmail.error = "Email is require"
+            isvaild = false
+        }
+        else{
+            viewBinding.etEmail.error = null
+        }
+        if(viewBinding.etPassword.text.isNullOrBlank())
+        {
+            viewBinding.etPassword.error = "Password is require"
+            isvaild = false
+        }
+        else{
+            viewBinding.etPassword.error = null
+        }
+        return isvaild
     }
+
 }
