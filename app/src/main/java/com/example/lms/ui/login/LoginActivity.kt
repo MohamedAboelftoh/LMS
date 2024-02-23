@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import android.widget.VideoView
 import com.example.lms.databinding.ActivityLoginBinding
 import com.example.lms.ui.api.module.ApiManager
-import com.example.lms.ui.api.module.LoginRequest
-import com.example.lms.ui.api.module.LoginResponse
+import com.example.lms.ui.api.login.LoginRequest
+import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
@@ -45,9 +44,9 @@ class LoginActivity : AppCompatActivity() {
         loginResponseCall.enqueue(object : Callback<LoginResponse>{
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.isSuccessful){
+                    viewBinding.progrssBar.visibility = View.INVISIBLE
                     val toast = Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG)
                     toast.show()
-                    viewBinding.progrssBar.visibility = View.INVISIBLE
                     navigateToAnotherActivity(HomeActivity())
                 }
                 else{

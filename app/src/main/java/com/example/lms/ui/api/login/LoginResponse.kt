@@ -1,4 +1,4 @@
-package com.example.lms.ui.api.module
+package com.example.lms.ui.api.login
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

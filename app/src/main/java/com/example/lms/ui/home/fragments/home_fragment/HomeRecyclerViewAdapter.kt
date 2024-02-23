@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ItemNewsHomeBinding
+import com.example.lms.ui.api.news.NewsResponseItem
 
-class HomeRecyclerViewAdapter(private val listItems :MutableList<ItemHomeNews> ) :  Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
+class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) :  Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
     class ViewHolder (val  viewBinding : ItemNewsHomeBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,16 +19,24 @@ class HomeRecyclerViewAdapter(private val listItems :MutableList<ItemHomeNews> )
     }
 
     override fun getItemCount(): Int {
-        return listItems.size
+        return newsList?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val item = listItems[position]
-      holder.viewBinding.userName.text = item.userName
-        holder.viewBinding.description.text = item.description
-        holder.viewBinding.time.text = item.time
-        holder.viewBinding.imgProfile.setImageResource(item.profileImg!!)
-        holder.viewBinding.imgDescription.setImageResource(item.postImg!!)
-        holder.viewBinding.status.text = item.state
+      val item = newsList!![position]
+      holder.viewBinding.userName.text = item?.userName
+        holder.viewBinding.description.text = item?.content
+        holder.viewBinding.status.text = item?.createdAt
+       // holder.viewBinding.imgProfile.setImageResource(item.profileImg!!)
+        Glide.with(holder.itemView)
+            .load(item?.filePath)
+            .placeholder(R.drawable.course_image)
+            .into(holder.viewBinding.imgDescription)
+       // holder.viewBinding.status.text = item.state
+    }
+
+    fun bindNews(news: List<NewsResponseItem?>?) {
+        newsList = news
+        notifyDataSetChanged()
     }
 }
