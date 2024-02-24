@@ -15,4 +15,6 @@ interface UserServices {
     fun userLogin(@Body loginRequest: LoginRequest) : Call<LoginResponse>
     @GET("api/News")
     fun getNews(): Call<NewsResponse>
+    @GET("api/Account/GetCurrentUser")
+    fun getCurrentUser(@Header("Authorization") token : String): Call<LoginResponse>
 }

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentHomeBinding
+import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.ApiManager
+import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.news.NewsResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,6 +17,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
    // private var newsList: List<NewsResponseItem?>?= null
+   private lateinit var myPreferencesToken : MyPreferencesToken
     private lateinit var homeAdapter : HomeRecyclerViewAdapter
     lateinit var viewBinding:FragmentHomeBinding
     override fun onCreateView(
@@ -27,7 +30,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPreferencesToken = MyPreferencesToken(requireContext())
         uploadNews()
+        getCurrentUser()
         homeAdapter = HomeRecyclerViewAdapter()
         viewBinding.homeRecyclerView.adapter = homeAdapter
     }
@@ -51,6 +56,27 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(requireContext(),t.localizedMessage, Toast.LENGTH_LONG)
+                toast.show()
+            }
+        })
+    }
+    private fun getCurrentUser() {
+        viewBinding.progressBar.visibility = View.VISIBLE
+        val token=myPreferencesToken.loadData("token")
+        ApiManager.getApi().getCurrentUser(token!!).enqueue(object : Callback<LoginResponse>{
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if(response.isSuccessful){
+                    viewBinding.progressBar.visibility = View.INVISIBLE
+                    viewBinding.tvName.text = response.body()?.displayName
+                }else{
+                    val toast = Toast.makeText(requireContext(), "current user fail", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                val toast = Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }
         })

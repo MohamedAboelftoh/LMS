@@ -1,6 +1,8 @@
 package com.example.lms.ui.login
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +11,7 @@ import com.example.lms.databinding.ActivityLoginBinding
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
+import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
@@ -33,20 +36,34 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
     }
-
+    private fun saveCredentials(email: String, password: String) {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("email", email)
+        editor.putString("password", password)
+        editor.apply()
+    }
     private fun login() {
         if(!validation()){
             viewBinding.progrssBar.visibility = View.INVISIBLE
             return
         }
-        val loginRequest = LoginRequest(viewBinding.etPassword.text.toString(),viewBinding.etEmail.text.toString())
+        val email:String =viewBinding.etEmail.text.toString()
+        val password:String=viewBinding.etPassword.text.toString()
+        val loginRequest = LoginRequest(password,email)
         val loginResponseCall : Call<LoginResponse> = ApiManager.getApi().userLogin(loginRequest)
         loginResponseCall.enqueue(object : Callback<LoginResponse>{
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.isSuccessful){
                     viewBinding.progrssBar.visibility = View.INVISIBLE
-                    val toast = Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG)
-                    toast.show()
+                    //save email& password in sherdPreferences
+                    val token="Bearer "+response.body()?.token
+                    saveCredentials(email,password)
+                    //store the token
+                    //  ConstantToken.token= response.body()?.token.toString()
+                    val myPreferencesToken = MyPreferencesToken(this@LoginActivity)
+                    myPreferencesToken.saveData("token",token)
+                    Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG).show()
                     navigateToAnotherActivity(HomeActivity())
                 }
                 else{
