@@ -57,7 +57,9 @@ lateinit var viewBinding :FragmentAccountBinding
     }
     private fun navigateToLoginActivity() {
         val intent = Intent(requireContext(),LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        activity?.finish()
     }
 
     private fun saveCredentials(email: String, password: String) {
@@ -96,7 +98,7 @@ lateinit var viewBinding :FragmentAccountBinding
                 posAction = { dialogInterface,i->
                     dialogInterface.dismiss()
                     logout()
-                },
+                          },
 
                 negActionName = "Cansel"
                 , negAction = { dialogInterface, i ->

@@ -14,7 +14,8 @@ class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) : 
     class ViewHolder (val  viewBinding : ItemNewsHomeBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val viewBinding = ItemNewsHomeBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+      val viewBinding = ItemNewsHomeBinding.inflate(LayoutInflater.from(parent.context)
+          ,parent,false)
         return ViewHolder(viewBinding)
     }
 
@@ -38,5 +39,9 @@ class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) : 
     fun bindNews(news: List<NewsResponseItem?>?) {
         newsList = news
         notifyDataSetChanged()
+
+//        news?.forEach(){element->
+//if(){}
+//        }
     }
 }

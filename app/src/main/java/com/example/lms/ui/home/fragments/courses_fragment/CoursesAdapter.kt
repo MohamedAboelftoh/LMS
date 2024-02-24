@@ -3,10 +3,10 @@ package com.example.lms.ui.home.fragments.courses_fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lms.R
 import com.example.lms.databinding.CourseItemBinding
+import com.example.lms.ui.api.courses.CoursesResponseItem
 
-class CoursesAdapter(var coursesList:MutableList<CourseItem>?):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
+class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
 
     class CoursesViewHolder(val itemBinding:CourseItemBinding):RecyclerView.ViewHolder(itemBinding.root)
 
@@ -23,16 +23,21 @@ class CoursesAdapter(var coursesList:MutableList<CourseItem>?):RecyclerView.Adap
 
     override fun onBindViewHolder(holder: CoursesViewHolder, position: Int) {
        val courses=coursesList!![position]
-        holder.itemBinding.courseNameTv.text=courses.courseName
-        holder.itemBinding.courseDoctor.text=courses.courseInstructor
-        holder.itemBinding.courseImage.setImageResource(courses.courseImage?:R.drawable.course_image)
+        holder.itemBinding.courseNameTv.text=courses?.name
+        holder.itemBinding.courseDoctor.text=courses?.instructorFullName
+        //holder.itemBinding.courseImage.setImageResource(courses.courseImage?:R.drawable.course_image)
         holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }
+    }
+
+    fun bindCourses(coursesResponse: List<CoursesResponseItem?>?) {
+        coursesList=coursesResponse
+        notifyDataSetChanged()
     }
 
     var onItemClickListener:OnItemClickListener?=null
 
     fun interface OnItemClickListener{
-        fun onItemClick(position:Int,course:CourseItem)
+        fun onItemClick(position:Int,course:CoursesResponseItem?)
     }
 
 }

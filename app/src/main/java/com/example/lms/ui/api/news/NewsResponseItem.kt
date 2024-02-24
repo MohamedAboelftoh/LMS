@@ -20,7 +20,7 @@ data class NewsResponseItem(
 
 	// Use @RawValue for the facultyName property to allow any type
 	@field:SerializedName("facultyName")
-	val facultyName: @RawValue Any? = null,
+	val facultyName:String? = null,
 
 	@field:SerializedName("userName")
 	val userName: String? = null,
