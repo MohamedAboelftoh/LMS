@@ -25,7 +25,16 @@ class LabsAdapter (var labsList:List<CourseMaterialResponseItem?>?=null):Recycle
     }
 
     fun bindLabs(courseMaterialResponse: List<CourseMaterialResponseItem?>?) {
-        labsList=courseMaterialResponse
+        val newLabList : MutableList<CourseMaterialResponseItem> = mutableListOf()
+        if (courseMaterialResponse != null) {
+            for(i in courseMaterialResponse){
+                if(i?.type == "Lab"){
+                    newLabList.add(i)
+                }
+            }
+        }
+        labsList = newLabList
+       // labsList=courseMaterialResponse
         notifyDataSetChanged()
     }
 }
