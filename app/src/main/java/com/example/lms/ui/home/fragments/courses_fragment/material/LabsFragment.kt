@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentLabsBinding
 import com.example.lms.ui.api.material.CourseMaterialResponse
+import com.example.lms.ui.api.material.CourseMaterialResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import retrofit2.Call
@@ -46,21 +47,39 @@ class LabsFragment : Fragment() {
     private fun getLabs() {
         val token = myPreferencesToken.loadData("token")
         ApiManager.getApi().getCourseMaterial(token!!, "CS101FALL2024")
-            .enqueue(object : Callback<CourseMaterialResponse> {
-                override fun onResponse(
+            .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
+                /* override fun onResponse(
                     call: Call<CourseMaterialResponse>,
-                    response: Response<CourseMaterialResponse>
+                    response: Response<ArrayList<CourseMaterialResponseItem>>
                 ) {
                     if (response.isSuccessful) {
-                        adapter.bindLabs(response.body()?.courseMaterialResponse)
+                        adapter.bindLectures(response.body()?.courseMaterialResponse)
                     } else {
                         Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
                     }
                 }
 
-                override fun onFailure(call: Call<CourseMaterialResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<CourseMaterialResponseItem>>, t: Throwable) {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
                 }
+
+                */
+                override fun onResponse(
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
+                    response: Response<ArrayList<CourseMaterialResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        adapter.bindLabs(response.body())
+                    } else {
+                        Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
+                    t: Throwable
+                ) {
+                    Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()                }
             })
     }
 }

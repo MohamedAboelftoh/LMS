@@ -49,10 +49,10 @@ class LectureFragment : Fragment() {
     private fun getLectures() {
         val token = myPreferencesToken.loadData("token")
         ApiManager.getApi().getCourseMaterial(token!!, "CS101FALL2024")
-            .enqueue(object : Callback<CourseMaterialResponse> {
-                override fun onResponse(
+            .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
+                /* override fun onResponse(
                     call: Call<CourseMaterialResponse>,
-                    response: Response<CourseMaterialResponse>
+                    response: Response<ArrayList<CourseMaterialResponseItem>>
                 ) {
                     if (response.isSuccessful) {
                         adapter.bindLectures(response.body()?.courseMaterialResponse)
@@ -61,9 +61,27 @@ class LectureFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<CourseMaterialResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<CourseMaterialResponseItem>>, t: Throwable) {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
                 }
+
+                */
+                override fun onResponse(
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
+                    response: Response<ArrayList<CourseMaterialResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        adapter.bindLectures(response.body())
+                    } else {
+                        Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
+                    t: Throwable
+                ) {
+                    Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()                }
             })
     }
 }

@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentCoursesBinding
 import com.example.lms.ui.api.courses.CoursesResponse
+import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.api.news.NewsResponseItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,14 +42,14 @@ class CoursesFragment : Fragment() {
 
     private fun uploadCourses() {
         val token=myPreferencesToken.loadData("token")
-       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<CoursesResponse>{
+       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<ArrayList<CoursesResponseItem>>{
+           /*
            override fun onResponse(
                call: Call<CoursesResponse>,
                response: Response<CoursesResponse>
            ) {
                if (response.isSuccessful) {
                    adapter.bindCourses(response.body()?.coursesResponse)
-
                }
                else{
                    Toast.makeText(requireContext(),"Courses not downLoaded",Toast.LENGTH_LONG).show()
@@ -58,6 +60,25 @@ class CoursesFragment : Fragment() {
            override fun onFailure(call: Call<CoursesResponse>, t: Throwable) {
                Toast.makeText(requireContext(),"onFailure "+t.localizedMessage,Toast.LENGTH_LONG).show()
 
+           }
+
+            */
+           override fun onResponse(
+               call: Call<ArrayList<CoursesResponseItem>>,
+               response: Response<ArrayList<CoursesResponseItem>>
+           ) {
+               if (response.isSuccessful) {
+                   adapter.bindCourses(response.body())
+
+               }
+               else{
+                   Toast.makeText(requireContext(),"Courses not downLoaded",Toast.LENGTH_LONG).show()
+
+               }
+           }
+
+           override fun onFailure(call: Call<ArrayList<CoursesResponseItem>>, t: Throwable) {
+               Toast.makeText(requireContext(),"onFailure "+t.localizedMessage,Toast.LENGTH_LONG).show()
            }
        })
     }

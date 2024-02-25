@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentHomeBinding
 import com.example.lms.ui.api.login.LoginResponse
+import com.example.lms.ui.api.material.CourseMaterialResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.news.NewsResponse
+import com.example.lms.ui.api.news.NewsResponseItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +41,8 @@ class HomeFragment : Fragment() {
 
     private fun uploadNews() {
         viewBinding.progressBar.visibility = View.VISIBLE
-        ApiManager.getApi().getNews().enqueue(object : Callback<NewsResponse>{
+        ApiManager.getApi().getNews().enqueue(object : Callback<ArrayList<NewsResponseItem>>{
+            /*
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 if(response.isSuccessful){
@@ -54,6 +57,29 @@ class HomeFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                val toast = Toast.makeText(requireContext(),t.localizedMessage, Toast.LENGTH_LONG)
+                toast.show()
+            }
+
+             */
+            override fun onResponse(
+                call: Call<ArrayList<NewsResponseItem>>,
+                response: Response<ArrayList<NewsResponseItem>>
+            ) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                if(response.isSuccessful) {
+                    homeAdapter.bindNews(response.body())
+                    val toast = Toast.makeText(requireContext(), "News success", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+                else{
+                    val toast = Toast.makeText(requireContext(), "News Does not Uploaded", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<NewsResponseItem>>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(requireContext(),t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
