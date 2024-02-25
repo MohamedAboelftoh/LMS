@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentLabsBinding
-import com.example.lms.ui.api.material.CourseMaterialResponse
 import com.example.lms.ui.api.material.CourseMaterialResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
@@ -45,8 +44,9 @@ class LabsFragment : Fragment() {
 
 
     private fun getLabs() {
+        val cycleId  = Variables.cycleId
         val token = myPreferencesToken.loadData("token")
-        ApiManager.getApi().getCourseMaterial(token!!, "CS101FALL2024")
+        ApiManager.getApi().getCourseMaterial(token!!, cycleId!!)
             .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
                 /* override fun onResponse(
                     call: Call<CourseMaterialResponse>,

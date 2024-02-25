@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentLectureBinding
-import com.example.lms.ui.api.material.CourseMaterialResponse
 import com.example.lms.ui.api.material.CourseMaterialResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
@@ -47,8 +46,9 @@ class LectureFragment : Fragment() {
     }
 
     private fun getLectures() {
+        val cycleId  = Variables.cycleId
         val token = myPreferencesToken.loadData("token")
-        ApiManager.getApi().getCourseMaterial(token!!, "CS101FALL2024")
+        ApiManager.getApi().getCourseMaterial(token!!, cycleId!!)
             .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
                 /* override fun onResponse(
                     call: Call<CourseMaterialResponse>,
@@ -64,7 +64,6 @@ class LectureFragment : Fragment() {
                 override fun onFailure(call: Call<ArrayList<CourseMaterialResponseItem>>, t: Throwable) {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
                 }
-
                 */
                 override fun onResponse(
                     call: Call<ArrayList<CourseMaterialResponseItem>>,
@@ -81,7 +80,8 @@ class LectureFragment : Fragment() {
                     call: Call<ArrayList<CourseMaterialResponseItem>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()                }
+                    Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
+                }
             })
     }
 }

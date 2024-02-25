@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.lms.databinding.FragmentCoursesBinding
-import com.example.lms.ui.api.courses.CoursesResponse
 import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.api.news.NewsResponseItem
+import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,6 +68,7 @@ class CoursesFragment : Fragment() {
            ) {
                if (response.isSuccessful) {
                    adapter.bindCourses(response.body())
+                   response.body()
 
                }
                else{
@@ -86,6 +86,14 @@ class CoursesFragment : Fragment() {
 
     private fun onCourseClick() {
         adapter.onItemClickListener= CoursesAdapter.OnItemClickListener{ position, course ->
+            /*
+            val bundle = Bundle()
+            bundle.putString("cycleId",course?.cycleId)
+            val lectureFragment = LectureFragment()
+            lectureFragment.arguments = bundle
+
+             */
+            Variables.cycleId = course?.cycleId
             val intent=Intent(requireActivity(),CourseContent::class.java)
             startActivity(intent)
 
