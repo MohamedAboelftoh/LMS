@@ -27,7 +27,16 @@ class LecturesAdapter (var lecturesList:List<CourseMaterialResponseItem?>?=null)
     }
 
     fun bindLectures(courseMaterialResponse: List<CourseMaterialResponseItem?>?) {
-        lecturesList=courseMaterialResponse
+        val newLectureList : MutableList<CourseMaterialResponseItem> = mutableListOf()
+        if (courseMaterialResponse != null) {
+            for(i in courseMaterialResponse){
+                 if(i?.type == "Lecture"){
+                     newLectureList.add(i)
+                 }
+            }
+        }
+        lecturesList = newLectureList
+        //lecturesList=courseMaterialResponse
         notifyDataSetChanged()
     }
 }
