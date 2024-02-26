@@ -6,14 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lms.R
+import com.example.lms.databinding.FragmentSplash2Binding
+import com.example.lms.databinding.FragmentSplash3Binding
 
 class SplashFragment3 : Fragment() {
+    lateinit var viewBinding : FragmentSplash3Binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_splash3, container, false)
+        viewBinding = FragmentSplash3Binding.inflate(inflater,container,false)
+        return viewBinding.root
+    }
+   /* override fun onResume() {
+        super.onResume()
+        viewBinding.navigation2.animate().apply {
+            duration =1000
+            rotationBy(360f)
+        }.start()
     }
 
+    */
 }

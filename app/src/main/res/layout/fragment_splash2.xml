@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_screens"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.splashes.SplashFragment2">
     <ImageView
@@ -16,16 +15,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toTopOf="@id/tv1"
         />
     <TextView
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/img_splash1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="@id/tv2"
+        app:layout_constraintEnd_toEndOf="@id/tv2"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/black"
         android:text="@string/events_and_news"
         android:textSize="25sp"
@@ -38,22 +37,10 @@
         app:layout_constraintTop_toBottomOf="@id/tv1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/timeline_contain_posts_about_n_tasks_and_news"
         android:textSize="16sp"
-        android:layout_marginTop="5dp"
         android:textColor="@color/secondaryTextColor"
         android:gravity="center"
-        />
-    <ImageView
-        android:id="@+id/navigation2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        app:layout_constraintWidth_percent=".7"
-        app:layout_constraintTop_toBottomOf="@id/tv2"
-        android:src="@drawable/ic_navigate2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

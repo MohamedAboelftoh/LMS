@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
@@ -21,11 +22,13 @@ class SplashActivity : AppCompatActivity() {
         pushFragment(SplashFragment1())
         viewBinding.btnNext.setOnClickListener {
             if(index ==  0) {
+                changeColors(0)
                 pushFragment(SplashFragment2())
                 index = 1
                 return@setOnClickListener
             }
             if(index ==  1) {
+                changeColors(1)
                 pushFragment(SplashFragment3())
                 index = 2
                 return@setOnClickListener
@@ -40,6 +43,19 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    private fun changeColors(index: Int) {
+        if(index == 0){
+            viewBinding.iv2.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+            viewBinding.iv1.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
+            viewBinding.iv3.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
+        }else if(index == 1){
+            viewBinding.iv3.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+            viewBinding.iv1.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
+            viewBinding.iv2.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
+        }
+    }
+
+
     private fun navigateToLogin() {
         val intent = Intent(this , LoginActivity::class.java)
         startActivity(intent)
@@ -48,6 +64,7 @@ class SplashActivity : AppCompatActivity() {
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             .replace(R.id.splash_container,fragment)
             .commit()
     }
@@ -63,5 +80,4 @@ class SplashActivity : AppCompatActivity() {
         val intent = Intent(this , HomeActivity::class.java)
         startActivity(intent)
     }
-
 }
