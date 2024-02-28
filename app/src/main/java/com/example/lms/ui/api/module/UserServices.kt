@@ -1,18 +1,15 @@
 package com.example.lms.ui.api.module
 
-import com.example.lms.ui.api.courses.CoursesResponse
+import com.example.lms.ui.api.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
-import com.example.lms.ui.api.material.CourseMaterialResponse
 import com.example.lms.ui.api.material.CourseMaterialResponseItem
-import com.example.lms.ui.api.news.NewsResponse
 import com.example.lms.ui.api.news.NewsResponseItem
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -31,4 +28,7 @@ interface UserServices {
     fun getCourseMaterial(@Header("Authorization")token:String
                           ,@Query("cycleId")cycleId:String
     ):Call<ArrayList<CourseMaterialResponseItem>>
+
+    @GET("api/Students/CurrentCourseTasks")
+    fun getAllAssignmentOfCourse(@Header("Authorization")token:String,@Query("cycleId")cycleId:String) : Call<MutableList<AssignmentResponseItem>>
 }
