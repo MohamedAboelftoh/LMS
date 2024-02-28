@@ -37,6 +37,7 @@
         <activity
             android:name=".ui.home.fragments.account.ChangePhoneActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.home.fragments.account.ChangePasswordActivity"
             android:exported="false" />

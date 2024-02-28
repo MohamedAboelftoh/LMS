@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.lms.databinding.CourseItemBinding
 import com.example.lms.databinding.QuizItemBinding
-import com.example.lms.ui.home.fragments.courses_fragment.CourseItem
-import com.example.lms.ui.home.fragments.courses_fragment.CoursesAdapter
+import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 
-class QuizzesAdapter(private var quizzesList:MutableList<QuizItem>?):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
+class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
     class QuizzesViewHolder(val viewBinding: QuizItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizzesViewHolder {
@@ -25,16 +23,38 @@ class QuizzesAdapter(private var quizzesList:MutableList<QuizItem>?):Adapter<Qui
 
     override fun onBindViewHolder(holder: QuizzesViewHolder, position: Int) {
         val quizItem = quizzesList!![position]
-        holder.viewBinding.courseName.text = quizItem.courseName
-        holder.viewBinding.startTime.text = quizItem.startTime
-        holder.viewBinding.endTime.text = quizItem.endTime
+
+
+
+        holder.viewBinding.courseName.text = quizItem?.title
+        holder.viewBinding.startTime.text = formatTStartTime(quizItem?.startDate)
+        holder.viewBinding.endTime.text = formatEndTime(quizItem?.endDate)
         holder.viewBinding.btnStart.setOnClickListener {
-            onBtnStartClickListener?.onClick(position,quizItem)
+            onBtnStartClickListener?.onClick(position,quizItem!!)
         }
     }
+
+    private fun formatTStartTime(startDate: String?) :String{
+        //Formatted Start Time                                      2024-02-01T00:00:00
+        val timeOnly = startDate?.split("T")?.get(1)?.split(":")
+        val formattedStartTime = timeOnly?.subList(0, 2)?.joinToString(":")
+        return formattedStartTime!!
+    }
+    private fun formatEndTime(endDate: String?) :String{
+        //Formatted End Time
+        val timeOnly = endDate?.split("T")?.get(1)?.split(":")
+        val formattedEndTime = timeOnly?.subList(0, 2)?.joinToString(":")
+        return formattedEndTime!!
+    }
+
+    fun bindQuizzes(body: List<CourseQuizzesResponseItem>?) {
+        quizzesList=body
+        notifyDataSetChanged()
+    }
+
     var onBtnStartClickListener: OnBtnStartClickListener?=null
     interface OnBtnStartClickListener{
-        fun onClick(position: Int,item: QuizItem)
+        fun onClick(position: Int, item: CourseQuizzesResponseItem)
     }
 
 }

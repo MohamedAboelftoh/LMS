@@ -19,7 +19,6 @@ import retrofit2.Response
 class LectureFragment : Fragment() {
     lateinit var viewBinding: FragmentLectureBinding
     lateinit var adapter: LecturesAdapter
-    private var lecturesList: List<CourseMaterialResponseItem> = listOf()
     lateinit var myPreferencesToken: MyPreferencesToken
     private lateinit var fragmentContext: Context // Store the context here
 

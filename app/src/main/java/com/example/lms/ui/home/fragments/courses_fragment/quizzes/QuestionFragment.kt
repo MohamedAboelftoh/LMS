@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.lms.R
 import com.example.lms.databinding.FragmentQuestionBinding
+import com.example.lms.ui.api.quizes.QuestionsItem
 
 class QuestionFragment : Fragment() {
 lateinit var viewBinding: FragmentQuestionBinding
@@ -15,11 +16,13 @@ lateinit var viewBinding: FragmentQuestionBinding
         savedInstanceState: Bundle?
     ): View {
         viewBinding = FragmentQuestionBinding.inflate(inflater,container,false)
+
         return viewBinding.root
     }
     override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onCheckBoxClicked()
+
     }
     private fun onCheckBoxClicked(){
         viewBinding.checkBox1.setOnClickListener {
@@ -47,4 +50,6 @@ lateinit var viewBinding: FragmentQuestionBinding
             viewBinding.checkBox1.isChecked = false
         }
     }
+
+
 }
