@@ -21,7 +21,7 @@ lateinit var viewBinding: FragmentQuestionBinding
     }
     override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onCheckBoxClicked()
+       // onCheckBoxClicked()
 
     }
     private fun onCheckBoxClicked(){

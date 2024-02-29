@@ -8,6 +8,7 @@ import com.example.lms.ui.api.material.CourseMaterialResponseItem
 import com.example.lms.ui.api.news.NewsResponseItem
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.quizes.QuestionsItem
+import com.example.lms.ui.api.quizes.QuizQuestionsResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -41,5 +42,5 @@ interface UserServices {
     @GET("api/Students/Quiz")
     fun getQuizQuestions(@Header("Authorization")token:String
                          ,@Query("quizId")quizId: String
-    ):Call<ArrayList<QuestionsItem>>
+    ):Call<QuizQuestionsResponse>
 }
