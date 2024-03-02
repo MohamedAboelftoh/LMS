@@ -21,7 +21,17 @@ class LabsAdapter (var labsList:List<CourseMaterialResponseItem?>?=null):Recycle
 
     override fun onBindViewHolder(holder: LabsViewHolder, position: Int) {
         val lab=labsList!![position]
-        holder.itemBinding.lecName.text=lab?.lectureName
+        val labName: String? =lab?.lectureName
+
+        if(labName!!.length >=18){
+            holder.itemBinding.lecName.text=labName.substring(0,15)+"..."
+        }
+        else{
+            holder.itemBinding.lecName.text=labName
+        }
+        holder.itemBinding.lecItemCard.setOnClickListener {
+            onItemClickListener?.onClick(position,lab!!)
+        }
     }
 
     fun bindLabs(courseMaterialResponse: List<CourseMaterialResponseItem?>?) {
@@ -36,5 +46,10 @@ class LabsAdapter (var labsList:List<CourseMaterialResponseItem?>?=null):Recycle
         labsList = newLabList
        // labsList=courseMaterialResponse
         notifyDataSetChanged()
+    }
+
+    var onItemClickListener:OnItemClickListener?=null
+    fun interface OnItemClickListener{
+        fun onClick(position:Int,item:CourseMaterialResponseItem)
     }
 }

@@ -14,8 +14,6 @@
         android:layout_height="100dp"
         android:elevation="0dp"
         app:cardCornerRadius="50dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="5dp"
@@ -25,7 +23,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/adel_shakl" />
+            android:src="@drawable/adel_shakl"
+            />
 
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
     <ImageView
@@ -92,6 +91,7 @@
         android:weightSum="3"
         >
         <TextView
+            android:id="@+id/department"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CS"
@@ -103,6 +103,7 @@
             android:gravity="center"
             />
         <TextView
+            android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4"
@@ -114,6 +115,7 @@
             android:gravity="center"
             />
         <TextView
+            android:id="@+id/gpa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3.5"
@@ -166,22 +168,39 @@
         android:id="@+id/btn_show_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/user_name"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_id_number"
         android:text="@string/show_your_card"
-        android:backgroundTint="@color/transparent"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/colorPrimary"
-        android:layout_marginHorizontal="40dp"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/user_id_number"
+        app:layout_constraintWidth_percent="0.45"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="15dp"
+        app:cornerRadius="10dp"
+        app:backgroundTint="@color/gray"
         />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/user_id_number"
+        app:layout_constraintStart_toEndOf="@id/btn_show_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.45"
+        android:text="@string/logout"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="15dp"
+        app:backgroundTint="@color/gray"
+        app:cornerRadius="10dp"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/user_id_number"
+        app:layout_constraintTop_toBottomOf="@id/btn_show_card"
         android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:gravity="center"
@@ -193,6 +212,7 @@
             android:text="@string/change_password"
             android:textSize="17sp"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:backgroundTint="@color/transparent"
             app:drawableStartCompat="@drawable/ic_password"
             app:drawableEndCompat="@drawable/ic_path_arrow"
@@ -206,6 +226,7 @@
             android:text="@string/change_phone"
             android:textSize="17sp"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:backgroundTint="@color/transparent"
             app:drawableStartCompat="@drawable/ic_phone"
             app:drawableEndCompat="@drawable/ic_path_arrow"
@@ -213,17 +234,7 @@
             android:layout_marginTop="30dp"
             android:drawablePadding="15dp"
             />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/logout"
-            android:textSize="17sp"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/black"
-            android:layout_marginHorizontal="50dp"
-            android:background="@drawable/btn_logout_background"
-            />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

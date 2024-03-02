@@ -1,6 +1,7 @@
 package com.example.lms.ui.home.fragments.courses_fragment.material
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import retrofit2.Response
 
 class LabsFragment : Fragment() {
     lateinit var adapter:LabsAdapter
-    private val labsList:MutableList<LectureItem>? = mutableListOf()
     lateinit var viewBinding:FragmentLabsBinding
     lateinit var myPreferencesToken: MyPreferencesToken
     private lateinit var fragmentContext: Context // Store the context here
@@ -40,6 +40,7 @@ class LabsFragment : Fragment() {
         adapter=LabsAdapter()
         viewBinding.labRecycler.adapter=adapter
         getLabs()
+        onLabClick()
     }
 
 
@@ -81,5 +82,13 @@ class LabsFragment : Fragment() {
                 ) {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()                }
             })
+    }
+
+    fun onLabClick(){
+        adapter.onItemClickListener=
+            LabsAdapter.OnItemClickListener { position, item ->
+                val intent= Intent(requireContext(),MaterialFiles::class.java)
+                startActivity(intent)
+            }
     }
 }

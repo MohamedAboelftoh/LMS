@@ -3,9 +3,7 @@ package com.example.lms.ui.home.fragments.courses_fragment.quizzes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lms.databinding.FinishItemBinding
 import com.example.lms.databinding.QuestionItemBinding
-import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.quizes.QuestionsItem
 
 class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder>(){
@@ -25,6 +23,11 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
         holder.itemBinding.question.text=item?.text
         holder.itemBinding.tvQuestionNumber.text=item?.questionNumber.toString()
         holder.itemBinding.nextBtn.setOnClickListener { onNextClickListener?.onItemClick(position,item) }
+
+        holder.itemBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            // Notify the activity about the selected radio button
+          onRadioButtonSelect?.onRadioButtonClicked(position, item,checkedId)
+        }
         holder.itemBinding.radio1.text=answers?.get(0)?.text
         holder.itemBinding.radio2.text=answers?.get(1)?.text
         holder.itemBinding.radio3.text=answers?.get(2)?.text
@@ -32,6 +35,8 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
 
 
     }
+
+
     var itemCountValue: Int = 0
 
     override fun getItemCount(): Int {
@@ -54,7 +59,16 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
 
     fun interface OnNextClickListener{
         fun onItemClick(position:Int,item: QuestionsItem?)
+
     }
+    var onRadioButtonSelect: OnRadioButtonSelect? =null
+    fun interface  OnRadioButtonSelect{
+        fun onRadioButtonClicked(position: Int, item:QuestionsItem?, checkedRadioButtonId: Int)
+
+    }
+
+
+
 
 
 }

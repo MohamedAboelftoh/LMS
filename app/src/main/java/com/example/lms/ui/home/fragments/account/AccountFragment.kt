@@ -10,12 +10,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.lms.R
 import com.example.lms.databinding.FragmentAccountBinding
+import com.example.lms.ui.api.account.AccountInfoResponse
+import com.example.lms.ui.api.module.ApiManager
+import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.login.LoginActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AccountFragment : Fragment() {
 lateinit var viewBinding :FragmentAccountBinding
+lateinit var myPreferencesToken: MyPreferencesToken
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,6 +33,7 @@ lateinit var viewBinding :FragmentAccountBinding
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPreferencesToken= MyPreferencesToken(requireContext())
         viewBinding.changePassword.setOnClickListener {
            navigateToChangePassword()
         }
@@ -35,6 +44,7 @@ lateinit var viewBinding :FragmentAccountBinding
             showCardFragment()
         }
         btnLogoutClickListener()
+        loadAccountInfo()
     }
 
     private fun showCardFragment() {
@@ -108,5 +118,29 @@ lateinit var viewBinding :FragmentAccountBinding
             )
 
         }
+    }
+
+    private fun loadAccountInfo(){
+        val token=myPreferencesToken.loadData("token")
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
+            override fun onResponse(
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
+            ) {
+                if (response.isSuccessful){
+                    viewBinding.userName.text=response.body()?.fullName
+                    viewBinding.department.text=response.body()?.departmentName
+                    viewBinding.level.text=response.body()?.level.toString()
+                    viewBinding.userIdNumber.text=response.body()?.academicId
+                }
+                else{
+                    Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
+                Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

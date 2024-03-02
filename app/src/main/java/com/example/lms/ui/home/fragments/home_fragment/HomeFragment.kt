@@ -86,6 +86,7 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
     private fun getCurrentUser() {
         viewBinding.progressBar.visibility = View.VISIBLE
         val token=myPreferencesToken.loadData("token")

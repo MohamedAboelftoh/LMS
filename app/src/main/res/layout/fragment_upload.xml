@@ -43,9 +43,9 @@
         android:layout_marginTop="10dp"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/file_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:hint="assignment.text"
             />
     </com.google.android.material.textfield.TextInputLayout>

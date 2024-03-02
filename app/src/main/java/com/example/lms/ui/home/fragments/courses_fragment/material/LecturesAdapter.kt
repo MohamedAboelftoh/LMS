@@ -22,7 +22,16 @@ class LecturesAdapter (var lecturesList:List<CourseMaterialResponseItem?>?=null)
 
     override fun onBindViewHolder(holder: LecturesViewHolder, position: Int) {
         val lecture=lecturesList!![position]
-        holder.itemBinding.lecName.text=lecture?.lectureName
+        val lectureName: String? =lecture?.lectureName
+        if(lectureName!!.length >=18){
+            holder.itemBinding.lecName.text=lectureName.substring(0,15)+"..."
+        }
+        else{
+            holder.itemBinding.lecName.text=lectureName
+        }
+        holder.itemBinding.lecItemCard.setOnClickListener {
+            onItemClickListener?.onClick(position,lecture!!)
+        }
 
     }
 
@@ -38,5 +47,10 @@ class LecturesAdapter (var lecturesList:List<CourseMaterialResponseItem?>?=null)
         lecturesList = newLectureList
         //lecturesList=courseMaterialResponse
         notifyDataSetChanged()
+    }
+
+    var onItemClickListener:OnItemClickListener?=null
+    fun interface OnItemClickListener{
+        fun onClick(position:Int,item:CourseMaterialResponseItem)
     }
 }

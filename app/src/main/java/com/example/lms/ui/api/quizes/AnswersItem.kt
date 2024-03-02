@@ -15,4 +15,11 @@ data class AnswersItem(
 
 	@field:SerializedName("text")
 	val text: String? = null
+
+	//	@field:SerializedName("answerId")
+//	val answerId: String? = null,
+//
+//	@field:SerializedName("questionId")
+//	val questionId: String? = null
+
 ) : Parcelable

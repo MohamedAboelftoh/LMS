@@ -1,6 +1,7 @@
 package com.example.lms.ui.home.fragments.courses_fragment.material
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,6 +43,7 @@ class LectureFragment : Fragment() {
         viewBinding.lecRecycler.adapter = adapter
 
         getLectures()
+        onLectureClick()
     }
 
     private fun getLectures() {
@@ -82,5 +84,13 @@ class LectureFragment : Fragment() {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
                 }
             })
+    }
+
+    fun onLectureClick(){
+        adapter.onItemClickListener=
+            LecturesAdapter.OnItemClickListener { position, item ->
+                val intent=Intent(requireContext(),MaterialFiles::class.java)
+                startActivity(intent)
+            }
     }
 }
