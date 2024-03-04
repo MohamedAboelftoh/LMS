@@ -14,10 +14,11 @@ class MaterialFiles : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMaterialFilesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        viewBinding.courseNameTv.text = Variables.courseName
         adapter= FilesAdapter(fileList)
         viewBinding.filesRecycler.adapter=adapter
         initializeData()
-        viewBinding.imgBack.setOnClickListener{
+        viewBinding.icBack.setOnClickListener{
             finish()
         }
     }

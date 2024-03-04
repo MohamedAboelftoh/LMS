@@ -18,24 +18,22 @@
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/ic_back"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
 
         />
     <TextView
         android:id="@+id/course_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ic_back"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Parallel Programing"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        android:textSize="28dp"
+        android:textSize="21sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-
-
         />
 
 
@@ -49,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/course_name_tv"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="20dp"
         android:elevation="5dp"
         android:backgroundTint="#D4F6E6"
@@ -68,7 +66,7 @@
                 app:layout_constraintWidth_percent="0.6"
                 app:layout_constraintHeight_percent="0.5"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/learning_img"
+                android:src="@drawable/matireal_img"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +114,8 @@
                 app:layout_constraintWidth_percent="0.6"
                 app:layout_constraintHeight_percent="0.5"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"                android:src="@drawable/learning_img"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/quiz_img"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -144,14 +143,15 @@
         app:layout_constraintTop_toBottomOf="@+id/course_name_tv"
         app:layout_constraintStart_toEndOf="@id/card_material"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="20dp"
         android:elevation="5dp"
         android:backgroundTint="#D9CEF9"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <ImageView
                 android:id="@+id/image_view_3"
@@ -163,7 +163,7 @@
                 app:layout_constraintWidth_percent="0.6"
                 app:layout_constraintHeight_percent="0.5"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/learning_img"
+                android:src="@drawable/assignment_img"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                 app:layout_constraintWidth_percent="0.6"
                 app:layout_constraintHeight_percent="0.5"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/learning_img"
+                android:src="@drawable/grad_img"
                 />
             <TextView
                 android:layout_width="wrap_content"

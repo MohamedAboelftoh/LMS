@@ -17,7 +17,6 @@ import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.quizes.QuestionsItem
 import com.example.lms.ui.api.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.quizes.submit.AnswersItem
-import com.example.lms.ui.api.quizes.submit.SubmitQuizResponse
 import com.example.lms.ui.api.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
 import retrofit2.Call
@@ -35,6 +34,7 @@ class QuestionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityQuestionsBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken= MyPreferencesToken(this)
         questionsAdapter= QuestionsAdapter()
         viewBinding.questionsRecycler.adapter=questionsAdapter
@@ -47,7 +47,7 @@ class QuestionsActivity : AppCompatActivity() {
         iconBackClick()
     }
     private fun iconBackClick(){
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.icBack.setOnClickListener {
             val layoutManager = viewBinding.questionsRecycler.layoutManager as LinearLayoutManager
             val currentPosition = layoutManager.findFirstVisibleItemPosition()
             if (currentPosition != RecyclerView.NO_POSITION && currentPosition > 0) {
@@ -81,57 +81,60 @@ class QuestionsActivity : AppCompatActivity() {
         })
     }
 
+    val ans : MutableList<AnswersItem> = mutableListOf()
+    var answer :String?=null
+    val submitResponse: ArrayList<Map<String, Boolean>> = arrayListOf()
+    fun onButtonNextClick(){
+        questionsAdapter.onNextClickListener=QuestionsAdapter.OnNextClickListener{position, item ->
+            if(position==questionsAdapter.itemCountValue-1){
+                val submitQuiz = SubmitQuizRequest(Variables.quizId,ans)
+                val token = myPreferencesToken.loadData("token")
 
-fun onButtonNextClick(){
-    questionsAdapter.onNextClickListener=QuestionsAdapter.OnNextClickListener{position, item ->
-        if(position==questionsAdapter.itemCountValue-1){
-            val submitQuiz = SubmitQuizRequest(Variables.quizId,ans)
-            val token = myPreferencesToken.loadData("token")
-            ApiManager.getApi().submitQuiz(submitQuiz,Variables.quizId!!,token!!).enqueue(object
-                :Callback<SubmitQuizResponse>{
-                override fun onResponse(
-                    call: Call<SubmitQuizResponse>,
-                    response: Response<SubmitQuizResponse>
-                ) {
-                    if (response.isSuccessful){
-                        showMessage("q1 : ${response.body()?.q0011}\n" +
-                                "q2 : ${response.body()?.q0021}\n" +
-                                "q3 : ${response.body()?.q0031}\n"+
-                                "q4 : ${response.body()?.q0041}"
-                            ,posActionName = "OK",
-                            posAction = { dialogInterface,i->
-                                dialogInterface.dismiss()
-                                val intent=Intent(this@QuestionsActivity,FinishActivity::class.java)
-                                startActivity(intent)
-                            },
+                val submitQuizResponse: MutableList<Map<String?,Boolean?>> = mutableListOf()
 
-                            negActionName = "Cansel"
-                            , negAction = { dialogInterface, i ->
-                                dialogInterface.dismiss()
+                ApiManager.getApi().submitQuiz(submitQuiz,Variables.quizId!!,token!!).enqueue(object
+                    :Callback< List<Map<String?,Boolean?>>>{
+                    override fun onResponse(
+                        call: Call< List<Map<String?,Boolean?>>>,
+                        response: Response< List<Map<String?,Boolean?>>>
+                    ) {
+                        if (response.isSuccessful){
+                            val message = StringBuilder()
+                            response?.body()?.forEach { item->
+                                submitQuizResponse.add(item)
+                                message.append("${item.keys}: ${item.values}\n")
 
                             }
-                        )
+                            showMessage(
+                                message.toString(),
+                                posActionName = "OK",
+                                posAction = { dialogInterface,i->
+                                    dialogInterface.dismiss()
+                                    val intent=Intent(this@QuestionsActivity,FinishActivity::class.java)
+                                    startActivity(intent)
+                                },
+                                negActionName = "Cancel",
+                                negAction = { dialogInterface, i ->
+                                    dialogInterface.dismiss()
+                                }
+                            )
+                        } else {
+                            Toast.makeText(this@QuestionsActivity, "Error", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    else{
-                        Toast.makeText(this@QuestionsActivity, "error ", Toast.LENGTH_SHORT).show()
+
+                    override fun onFailure(call: Call< List<Map<String?,Boolean?>>>, t: Throwable) {
+                        Toast.makeText(this@QuestionsActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                     }
-                }
+                })
 
-                override fun onFailure(call: Call<SubmitQuizResponse>, t: Throwable) {
-                    Toast.makeText(this@QuestionsActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-
-            })
-            
-        }else{
-            questionsAdapter.incrementItemCount()
-            // Scroll the RecyclerView one step forward
-            viewBinding.questionsRecycler.smoothScrollToPosition(position + 1)
+            } else {
+                questionsAdapter.incrementItemCount()
+                // Scroll the RecyclerView one step forward
+                viewBinding.questionsRecycler.smoothScrollToPosition(position + 1)
+            }
         }
     }
-}
-    val ans : ArrayList<AnswersItem> = arrayListOf()
-    var answer :String?=null
     fun onRadioBtnSelected(){
         questionsAdapter.onRadioButtonSelect=object :QuestionsAdapter.OnRadioButtonSelect{
             override fun onRadioButtonClicked(

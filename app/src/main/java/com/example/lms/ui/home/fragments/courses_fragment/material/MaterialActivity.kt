@@ -17,12 +17,11 @@ class MaterialActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding=ActivityMaterialBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        viewBinding.courseNameTv.text = Variables.courseName
         pushFragment(LectureFragment())
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.icBack.setOnClickListener {
             navigateToCourseContent()
         }
-
-
         viewBinding.tabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener{
                 override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -30,7 +29,6 @@ class MaterialActivity : AppCompatActivity() {
                         pushFragment(LectureFragment())
                     else
                         pushFragment(LabsFragment())
-
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {

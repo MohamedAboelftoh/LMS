@@ -86,18 +86,10 @@ class CoursesFragment : Fragment() {
 
     private fun onCourseClick() {
         adapter.onItemClickListener= CoursesAdapter.OnItemClickListener{ position, course ->
-            /*
-            val bundle = Bundle()
-            bundle.putString("cycleId",course?.cycleId)
-            val lectureFragment = LectureFragment()
-            lectureFragment.arguments = bundle
-
-             */
             Variables.cycleId = course?.cycleId
+            Variables.courseName = course?.name
             val intent=Intent(requireActivity(),CourseContent::class.java)
             startActivity(intent)
-
-
         }
 
     }

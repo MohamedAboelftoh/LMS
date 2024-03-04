@@ -23,8 +23,9 @@ class QuizzesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityQuizzesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken=MyPreferencesToken(this)
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.icBack.setOnClickListener {
             navigateToCourseContentActivity()
         }
         quizAdapter = QuizzesAdapter()

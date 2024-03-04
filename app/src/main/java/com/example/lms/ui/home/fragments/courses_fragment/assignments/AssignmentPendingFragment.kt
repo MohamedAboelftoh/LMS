@@ -55,16 +55,17 @@ class AssignmentPendingFragment : Fragment() {
         viewBinding.recyclerAssignmentsPending.adapter = assignmentAdapter
         assignmentAdapter.onBtnMoreClickListener = object : AssignmentPendingAdapter.OnBtnMoreClickListener{
             override fun onClick(position: Int, item: AssignmentResponseItem) {
-                navigateToAssignmentDetail(item.taskName,item.createdAt)
+                navigateToAssignmentDetail(item.taskName,item.endDate)
             }
         }
 
     }
 
-    private fun navigateToAssignmentDetail(taskName: String?, createdAt: String?) {
+    private fun navigateToAssignmentDetail(taskName: String?, endDate: String?) {
         val intent = Intent(requireActivity() , AssignmentDetailsActivity::class.java)
         intent.putExtra("taskName",taskName)
-        intent.putExtra("createdAt",createdAt)
+        intent.putExtra("endDate",endDate)
         startActivity(intent)
+        requireActivity().finish()
     }
 }

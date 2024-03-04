@@ -11,6 +11,7 @@ import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.courses_fragment.grades.GradesActivity
 import com.example.lms.ui.home.fragments.courses_fragment.material.MaterialActivity
+import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
 
 class CourseContent : AppCompatActivity() {
@@ -19,6 +20,7 @@ class CourseContent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        vieBinding= ActivityCourseContentBinding.inflate(layoutInflater)
         setContentView(vieBinding.root)
+        vieBinding.courseNameTv.text = Variables.courseName
         vieBinding.cardGrades.setOnClickListener {
             navigateToAnotherActivity(GradesActivity())
         }
@@ -41,5 +43,6 @@ class CourseContent : AppCompatActivity() {
     private fun navigateToAnotherActivity(activity:AppCompatActivity) {
         val intent = Intent(this,activity::class.java)
         startActivity(intent)
+        this.finish()
     }
 }

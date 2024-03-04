@@ -26,18 +26,16 @@ class AssignmentPendingAdapter (private var assignmentsList:MutableList<Assignme
     override fun onBindViewHolder(holder: AssignmentViewHolder, position: Int) {
         val assignmentItem = assignmentsList!![position]
         holder.viewBinding.courseNameTv.text = assignmentItem.taskName
-        holder.viewBinding.deadline.text = formatDate(assignmentItem.createdAt)
+        holder.viewBinding.deadline.text = formatDate(assignmentItem.endDate)
         holder.viewBinding.btnMore.setOnClickListener {
             onBtnMoreClickListener?.onClick(position, assignmentItem)
         }
     }
 
-    private fun formatDate(createdAt: String?) : String {
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.US)
-        val date = parser.parse(createdAt)
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val formattedDate = dateFormatter.format(date)
-        return formattedDate
+    private fun formatDate(createdAt: String?) : String? {
+        val endDate = createdAt?.split("T")
+        val date = endDate?.get(0)
+        return date
     }
 
     fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {

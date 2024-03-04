@@ -10,7 +10,6 @@ import com.example.lms.ui.api.news.NewsResponseItem
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.quizes.submit.SubmitQuizRequest
-import com.example.lms.ui.api.quizes.submit.SubmitQuizResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -48,7 +47,7 @@ interface UserServices {
 
     @POST("api/Students/quiz/submit")
     fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizId: String,
-                   @Header("Authorization")token:String) : Call<SubmitQuizResponse>
+                   @Header("Authorization")token:String) : Call< List<Map<String?,Boolean?>>>
 
     @GET("api/Students/GetStudentInfo")
     fun getAccountInfo(@Header("Authorization")token:String):Call<AccountInfoResponse>

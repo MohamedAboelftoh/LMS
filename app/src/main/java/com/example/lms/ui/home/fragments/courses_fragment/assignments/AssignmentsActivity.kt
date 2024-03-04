@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityAssimmentsBinding
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
+import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
 import com.google.android.material.tabs.TabLayout
 
 class AssignmentsActivity : AppCompatActivity() {
@@ -15,7 +16,8 @@ class AssignmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityAssimmentsBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.courseNameTv.text = Variables.courseName
+        viewBinding.icBack.setOnClickListener {
             navigateToCourseContent()
         }
         viewBinding.tabLayout.addOnTabSelectedListener(
@@ -47,6 +49,7 @@ class AssignmentsActivity : AppCompatActivity() {
     private fun navigateToCourseContent() {
         val intent = Intent(this,CourseContent::class.java)
         startActivity(intent)
+        this.finish()
     }
 
     private fun pushFragment(fragment: Fragment) {

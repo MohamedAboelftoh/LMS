@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.lms.R
 import com.example.lms.databinding.ActivityGradesBinding
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
+import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
 
 class GradesActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityGradesBinding
@@ -13,7 +14,8 @@ class GradesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityGradesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.courseNameTv.text = Variables.courseName
+        viewBinding.icBack.setOnClickListener {
             navigateToCourseContent()
         }
     }

@@ -2,7 +2,6 @@ package com.example.lms.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -12,7 +11,7 @@ import com.example.lms.databinding.ActivityHomeBinding
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.home.fragments.CalenderFragment
+import com.example.lms.ui.home.fragments.calender.CalenderFragment
 import com.example.lms.ui.home.fragments.account.AccountFragment
 import com.example.lms.ui.home.fragments.courses_fragment.CoursesFragment
 import com.example.lms.ui.home.fragments.home_fragment.HomeFragment

@@ -21,19 +21,19 @@ class AssignmentDetailsActivity : AppCompatActivity() {
 
     private fun getData() {
         val assignmentName = intent.getStringExtra("taskName")
-        val createAt = intent.getStringExtra("createdAt")
+        val endDate = intent.getStringExtra("endDate")
         viewBinding.assignmentName.text = assignmentName
-        val parts = createAt?.split("T")
-        val date = parts!![0]
-        val time = parts[1]
-        val formatter = SimpleDateFormat("HH:mm:ss.SS", Locale.US)
-        val formattedTime = formatter.parse(time)
-        val calendar = Calendar.getInstance()
-        calendar.time = formattedTime
-        val hour = calendar.get(Calendar.HOUR)
-        val minute = calendar.get(Calendar.MINUTE)
-        val amPm = if (calendar.get(Calendar.AM_PM) == Calendar.AM) "AM" else "PM"
-        viewBinding.deadline.text = "$date at $hour:$minute $amPm"
+//        val parts = createAt?.split("T")
+//        val date = parts!![0]
+//        val time = parts[1]
+//        val formatter = SimpleDateFormat("HH:mm:ss.SS", Locale.US)
+//        val formattedTime = formatter.parse(time)
+//        val calendar = Calendar.getInstance()
+//        calendar.time = formattedTime
+//        val hour = calendar.get(Calendar.HOUR)
+//        val minute = calendar.get(Calendar.MINUTE)
+//        val amPm = if (calendar.get(Calendar.AM_PM) == Calendar.AM) "AM" else "PM"
+        viewBinding.deadline.text = endDate.toString()
     }
     private fun showUploadFragment() {
         val uploadFragment = UploadFragment()
