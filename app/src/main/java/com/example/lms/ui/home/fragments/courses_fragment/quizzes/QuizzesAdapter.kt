@@ -1,9 +1,12 @@
 package com.example.lms.ui.home.fragments.courses_fragment.quizzes
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.lms.R
 import com.example.lms.databinding.QuizItemBinding
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 
@@ -23,14 +26,30 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
 
     override fun onBindViewHolder(holder: QuizzesViewHolder, position: Int) {
         val quizItem = quizzesList!![position]
-
-
-
         holder.viewBinding.courseName.text = quizItem?.title
         holder.viewBinding.startTime.text = formatTStartTime(quizItem?.startDate)
         holder.viewBinding.endTime.text = formatEndTime(quizItem?.endDate)
-        holder.viewBinding.btnStart.setOnClickListener {
-            onBtnStartClickListener?.onClick(position,quizItem!!)
+        buttonStartAvailability(quizItem, holder, position)
+    }
+
+    private fun buttonStartAvailability(
+        quizItem: CourseQuizzesResponseItem?,
+        holder: QuizzesViewHolder,
+        position: Int
+    ) {
+        if (quizItem?.status == "Not Available") {
+            holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat
+                    .getColor(holder.itemView.context, R.color.greenColor)
+            )
+            holder.viewBinding.btnStart.setOnClickListener {
+                onBtnStartClickListener?.onClick(position, quizItem)
+            }
+        } else {
+            holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat
+                    .getColor(holder.itemView.context, R.color.colorPrimary)
+            )
         }
     }
 

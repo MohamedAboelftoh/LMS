@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,6 @@ import com.example.lms.R
 import com.example.lms.databinding.ActivityQuestionsBinding
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.api.quizes.QuestionsItem
 import com.example.lms.ui.api.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.quizes.submit.AnswersItem
 import com.example.lms.ui.api.quizes.submit.SubmitQuizRequest
@@ -27,8 +27,9 @@ class QuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityQuestionsBinding
     lateinit var myPreferencesToken: MyPreferencesToken
     lateinit var questionsAdapter:QuestionsAdapter
-
-
+    val startTimeInMillis : Long = 1 * 60 * 1000
+    var remainingTime :Long = startTimeInMillis
+    private val snapHelper : SnapHelper = LinearSnapHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +37,39 @@ class QuestionsActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken= MyPreferencesToken(this)
+        startTimer()
         questionsAdapter= QuestionsAdapter()
         viewBinding.questionsRecycler.adapter=questionsAdapter
         getQuestions()
-
-        val snapHelper : SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.questionsRecycler)
         onButtonNextClick()
         onRadioBtnSelected()
         iconBackClick()
     }
+
+    private fun startTimer() {
+         object : CountDownTimer(startTimeInMillis, 1 * 1000) {
+            override fun onTick(p0: Long) {
+                remainingTime = p0
+                updateTimerText()
+            }
+
+            override fun onFinish() {
+                val intent=Intent(this@QuestionsActivity,QuizzesActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this@QuestionsActivity, "Time Ended", Toast.LENGTH_LONG).show()
+            }
+
+        }.start()
+    }
+
+    private fun updateTimerText() {
+        val minute = remainingTime.div(1000).div(60)
+        val second = remainingTime.div(1000) % 60
+        val formattedTime = String.format("%02d:%02d", minute , second)
+        viewBinding.tvClock.text = formattedTime
+    }
+
     private fun iconBackClick(){
         viewBinding.icBack.setOnClickListener {
             val layoutManager = viewBinding.questionsRecycler.layoutManager as LinearLayoutManager
@@ -57,7 +81,7 @@ class QuestionsActivity : AppCompatActivity() {
     }
 
 
-    fun getQuestions(){
+    private fun getQuestions(){
         val token =myPreferencesToken.loadData("token")
         val quizId=Variables.quizId
         ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<QuizQuestionsResponse>{
@@ -68,7 +92,6 @@ class QuestionsActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     questionsAdapter.bindQuestions(response.body()?.questions)
                     viewBinding.tvQuiz.text=response.body()?.title
-
                 }
                 else{
                     Toast.makeText(this@QuestionsActivity, "failed to get the Questions", Toast.LENGTH_SHORT).show()
@@ -81,13 +104,12 @@ class QuestionsActivity : AppCompatActivity() {
         })
     }
 
-    val ans : MutableList<AnswersItem> = mutableListOf()
-    var answer :String?=null
-    val submitResponse: ArrayList<Map<String, Boolean>> = arrayListOf()
-    fun onButtonNextClick(){
+    private val questionsAnswersList : MutableList<AnswersItem> = mutableListOf()
+    private var questionId :String?=null
+    private fun onButtonNextClick(){
         questionsAdapter.onNextClickListener=QuestionsAdapter.OnNextClickListener{position, item ->
             if(position==questionsAdapter.itemCountValue-1){
-                val submitQuiz = SubmitQuizRequest(Variables.quizId,ans)
+                val submitQuiz = SubmitQuizRequest(Variables.quizId,questionsAnswersList)
                 val token = myPreferencesToken.loadData("token")
 
                 val submitQuizResponse: MutableList<Map<String?,Boolean?>> = mutableListOf()
@@ -100,7 +122,7 @@ class QuestionsActivity : AppCompatActivity() {
                     ) {
                         if (response.isSuccessful){
                             val message = StringBuilder()
-                            response?.body()?.forEach { item->
+                            response.body()?.forEach { item->
                                 submitQuizResponse.add(item)
                                 message.append("${item.keys}: ${item.values}\n")
 
@@ -135,30 +157,28 @@ class QuestionsActivity : AppCompatActivity() {
             }
         }
     }
-    fun onRadioBtnSelected(){
-        questionsAdapter.onRadioButtonSelect=object :QuestionsAdapter.OnRadioButtonSelect{
-            override fun onRadioButtonClicked(
-                position: Int,
-                item: QuestionsItem?,
-                checkedRadioButtonId: Int
-            ) {
+    private fun onRadioBtnSelected(){
+        questionsAdapter.onRadioButtonSelect=
+            QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
                 when(checkedRadioButtonId){
                     R.id.radio_1 ->{
-                        answer = "Q001_1_A1"
+                        questionId = "Q001_1_A1"
                     }
+
                     R.id.radio_2 -> {
-                        answer = "Q002_1_A1"
+                        questionId = "Q002_1_A1"
                     }
+
                     R.id.radio_3 -> {
-                        answer = "Q003_1_A1"
+                        questionId = "Q003_1_A1"
                     }
+
                     R.id.radio_4 -> {
-                        answer = "Q004_1_A1"
+                        questionId = "Q004_1_A1"
                     }
                 }
-                ans.add(AnswersItem(answer,item?.id))
+                questionsAnswersList.add(AnswersItem(questionId,item?.id))
             }
-        }
     }
 
 
