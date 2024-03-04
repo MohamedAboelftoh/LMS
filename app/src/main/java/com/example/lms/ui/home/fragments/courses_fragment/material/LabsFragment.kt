@@ -88,6 +88,7 @@ class LabsFragment : Fragment() {
         adapter.onItemClickListener=
             LabsAdapter.OnItemClickListener { position, item ->
                 val intent= Intent(requireContext(),MaterialFiles::class.java)
+                intent.putExtra("lectureId",item.lectureId)
                 startActivity(intent)
             }
     }

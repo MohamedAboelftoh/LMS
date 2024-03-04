@@ -16,8 +16,6 @@ class AssignmentCompletedAdapter (private var assignmentsList:MutableList<Assign
         return AssignmentViewHolder(viewBinding)
     }
     //.........................................................................
-    fun CheckPush(){}
-
     override fun getItemCount(): Int {
        return assignmentsList?.size ?: 0
     }

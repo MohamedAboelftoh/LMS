@@ -6,6 +6,7 @@ import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.material.CourseMaterialResponseItem
+import com.example.lms.ui.api.material.fiels.FielslResponseItem
 import com.example.lms.ui.api.news.NewsResponseItem
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.quizes.QuizQuestionsResponse
@@ -34,7 +35,8 @@ interface UserServices {
     ):Call<ArrayList<CourseMaterialResponseItem>>
 
     @GET("api/Students/CurrentCourseTasks")
-    fun getAllAssignmentOfCourse(@Header("Authorization")token:String,@Query("cycleId")cycleId:String) : Call<MutableList<AssignmentResponseItem>>
+    fun getAllAssignmentOfCourse(@Header("Authorization")token:String
+                                 ,@Query("cycleId")cycleId:String) : Call<MutableList<AssignmentResponseItem>>
     @GET("api/Students/CurrentCourseQuizzes")
     fun getCourseQuizzes(@Header("Authorization")token:String
                          ,@Query("cycleId")cycleId:String
@@ -51,4 +53,8 @@ interface UserServices {
 
     @GET("api/Students/GetStudentInfo")
     fun getAccountInfo(@Header("Authorization")token:String):Call<AccountInfoResponse>
+    @GET("api/Students/Getfilesoflecture")
+    fun getFiles(@Header("Authorization")token:String?,
+                 @Query("lectureId")lectureId:String?):Call<MutableList<FielslResponseItem>>
+
 }

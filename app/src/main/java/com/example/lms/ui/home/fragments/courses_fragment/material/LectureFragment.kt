@@ -51,21 +51,6 @@ class LectureFragment : Fragment() {
         val token = myPreferencesToken.loadData("token")
         ApiManager.getApi().getCourseMaterial(token!!, cycleId!!)
             .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
-                /* override fun onResponse(
-                    call: Call<CourseMaterialResponse>,
-                    response: Response<ArrayList<CourseMaterialResponseItem>>
-                ) {
-                    if (response.isSuccessful) {
-                        adapter.bindLectures(response.body()?.courseMaterialResponse)
-                    } else {
-                        Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ArrayList<CourseMaterialResponseItem>>, t: Throwable) {
-                    Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-                */
                 override fun onResponse(
                     call: Call<ArrayList<CourseMaterialResponseItem>>,
                     response: Response<ArrayList<CourseMaterialResponseItem>>
@@ -90,7 +75,9 @@ class LectureFragment : Fragment() {
         adapter.onItemClickListener=
             LecturesAdapter.OnItemClickListener { position, item ->
                 val intent=Intent(requireContext(),MaterialFiles::class.java)
+                intent.putExtra("lectureId",item.lectureId)
                 startActivity(intent)
             }
     }
 }
+//CourseMaterialResponse

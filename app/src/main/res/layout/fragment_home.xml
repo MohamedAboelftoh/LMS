@@ -63,7 +63,7 @@
         android:layout_height="100dp"
         android:elevation="0dp"
         app:cardCornerRadius="50dp"
-        app:strokeWidth="2dp"
+        app:strokeWidth="3dp"
         app:strokeColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,8 +73,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/adel_shakl" />
+        android:src="@drawable/avatar_1" />
 
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,24 +36,32 @@
             android:text="10 points"
             android:textSize="17sp"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/linear_time_quiz"
+            app:layout_constraintTop_toBottomOf="@id/questions_number"
+
+            android:text="@string/from"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            />
         <LinearLayout
             android:id="@+id/linear_time_quiz"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/questions_number"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="20dp"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/from"
-                android:textSize="19sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginEnd="10dp"
-                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/start_time"
                 android:layout_width="wrap_content"
@@ -106,6 +114,7 @@
             app:strokeWidth="2dp"
             app:strokeColor="@color/colorPrimary"
             android:layout_marginTop="20dp"
+            android:paddingHorizontal="60dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -1,8 +1,10 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+
 }
 
 android {
@@ -42,6 +44,8 @@ android {
     viewBinding {
        enable=true
     }
+
+
 }
 
 dependencies {
@@ -57,6 +61,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
+
     //calender View
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.0")
 
@@ -66,7 +71,7 @@ dependencies {
     //glide library to load images from api
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     // OkHttp client
-    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     // OkHttp logging interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 }

@@ -7,23 +7,23 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class AssignmentResponseItem(
 
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
+//	@field:SerializedName("createdAt")
+//	val createdAt: String? = null,
 
-	@field:SerializedName("courseName")
-	val courseName: String? = null,
+//	@field:SerializedName("courseName")
+//	val courseName: String? = null,
 
-	@field:SerializedName("instructorName")
-	val instructorName: String? = null,
+//	@field:SerializedName("instructorName")
+//	val instructorName: String? = null,
 
 	@field:SerializedName("endDate")
 	val endDate: String? = null,
+//
+//	@field:SerializedName("taskGrade")
+//	val taskGrade: Int? = null,
 
-	@field:SerializedName("taskGrade")
-	val taskGrade: Int? = null,
-
-	@field:SerializedName("filePath")
-	val filePath: String? = null,
+//	@field:SerializedName("filePath")
+//	val filePath: String? = null,
 
 	@field:SerializedName("taskName")
 	val taskName: String? = null,

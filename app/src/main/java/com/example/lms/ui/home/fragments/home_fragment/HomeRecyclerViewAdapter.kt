@@ -39,9 +39,5 @@ class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) : 
     fun bindNews(news: List<NewsResponseItem?>?) {
         newsList = news
         notifyDataSetChanged()
-
-//        news?.forEach(){element->
-//if(){}
-//        }
     }
 }

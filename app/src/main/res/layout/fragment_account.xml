@@ -23,11 +23,12 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/adel_shakl"
+            android:src="@drawable/avatar_1"
             />
 
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
     <ImageView
+        android:id="@+id/img_pro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_camera"

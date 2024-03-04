@@ -7,6 +7,6 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class CourseMaterialResponse(
 
-	//@field:SerializedName("CourseMaterialResponse")
+	@field:SerializedName("CourseMaterialResponse")
 	val courseMaterialResponse: List<CourseMaterialResponseItem?>? = null
 ) : Parcelable
