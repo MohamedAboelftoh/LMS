@@ -23,9 +23,11 @@ import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.home.fragments.account.AccountFragment
 import com.example.lms.ui.home.fragments.calender.CalenderFragment
 import com.example.lms.ui.home.fragments.courses_fragment.CoursesFragment
+import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.drawer_grades.AllCoursesGrades
 import com.example.lms.ui.home.fragments.home_fragment.HomeFragment
 import com.example.lms.ui.login.LoginActivity
+import com.example.lms.ui.splashes.SplashActivity
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -58,12 +60,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.ic_account_info->{
                     viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
                     pushFragment(AccountFragment())
-                    val bottomNavigationView: BottomNavigationView = viewBinding.content.bottomNavigation
-                    val menuItemView = bottomNavigationView.findViewById<View>(R.id.ic_account)
-                    //مؤقتا
-                    menuItemView?. isSoundEffectsEnabled=false
-                    menuItemView?.performClick()
-                    bottomNavigationView.findViewById<View>(R.id.ic_hom).isSelected=false
+                    viewBinding.content.bottomNavigation.menu.findItem(R.id.ic_account).isChecked = true
                 }
                 R.id.ic_logout->{
                     showMessage("Do you Sure To Logout "
@@ -79,28 +76,23 @@ class HomeActivity : AppCompatActivity() {
                     )
                 }
                 R.id.ic_grades->{
-                    navigateToGradesActivity()
+                    navigateFromActivity(this@HomeActivity, AllCoursesGrades())
                 }
             }
             true
         }
     }
+
     private fun logout() {
         saveCredentials("","")
         navigateToLoginActivity()
     }
-    private fun navigateToGradesActivity() {
-        val intent = Intent(this@HomeActivity, AllCoursesGrades::class.java)
-        startActivity(intent)
-    }
-
     private fun navigateToLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }
-
     private fun saveCredentials(email: String, password: String) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -129,7 +121,7 @@ class HomeActivity : AppCompatActivity() {
         return dialogBuilder.show()
     }
 
-    fun bottomNavigationSelected(){
+    private fun bottomNavigationSelected(){
         viewBinding.content.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.ic_hom->{ pushFragment(HomeFragment())}
@@ -138,7 +130,6 @@ class HomeActivity : AppCompatActivity() {
                 R.id.ic_courses->{ pushFragment(CoursesFragment())}
 
             }
-//
             true
         }
     }
@@ -152,18 +143,22 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
-            // Check if the current fragment is not the HomeFragment
+        if(viewBinding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+        else {
             if (getCurrentFragment() !is HomeFragment) {
                 pushFragment(HomeFragment())
+                viewBinding.content.bottomNavigation.menu.findItem(R.id.ic_hom).isChecked = true
             } else {
-                super.onBackPressed() // If already on the HomeFragment, perform default back button behavior
+                super.onBackPressed()
+                navigateFromActivity(this@HomeActivity,SplashActivity())
             }
+        }
     }
 
 
 
-    // Function to get the current fragment
     private fun getCurrentFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(R.id.home_container)
     }

@@ -8,6 +8,7 @@ import com.example.lms.R
 import com.example.lms.databinding.ActivityMaterialBinding
 import com.example.lms.ui.home.fragments.Variables
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
+import com.example.lms.ui.home.navigateFromActivity
 import com.google.android.material.tabs.TabLayout
 
 class MaterialActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MaterialActivity : AppCompatActivity() {
         viewBinding.courseNameTv.text = Variables.courseName
         pushFragment(LectureFragment())
         viewBinding.icBack.setOnClickListener {
-            navigateToCourseContent()
+            navigateFromActivity(this@MaterialActivity,CourseContent())
         }
         viewBinding.tabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener{
@@ -46,9 +47,10 @@ class MaterialActivity : AppCompatActivity() {
         bindTabs()
 
     }
-    private fun navigateToCourseContent() {
-        val intent = Intent(this, CourseContent::class.java)
-        startActivity(intent)
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateFromActivity(this@MaterialActivity,CourseContent())
     }
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager

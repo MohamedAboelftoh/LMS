@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.lms.databinding.ActivityGradesBinding
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
 import com.example.lms.ui.home.fragments.Variables
+import com.example.lms.ui.home.navigateFromActivity
 
 class GradesActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityGradesBinding
@@ -15,12 +16,12 @@ class GradesActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         viewBinding.courseNameTv.text = Variables.courseName
         viewBinding.icBack.setOnClickListener {
-            navigateToCourseContent()
+            navigateFromActivity(this@GradesActivity,CourseContent())
         }
     }
 
-    private fun navigateToCourseContent() {
-        val intent = Intent(this,CourseContent::class.java)
-        startActivity(intent)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateFromActivity(this@GradesActivity,CourseContent())
     }
 }

@@ -19,7 +19,7 @@ class AssignmentsActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         viewBinding.courseNameTv.text = Variables.courseName
         viewBinding.icBack.setOnClickListener {
-            navigateToCourseContent()
+            navigateFromActivity(this@AssignmentsActivity,CourseContent())
         }
         viewBinding.tabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener{
@@ -46,13 +46,6 @@ class AssignmentsActivity : AppCompatActivity() {
         )
         bindTabs()
     }
-
-    private fun navigateToCourseContent() {
-        val intent = Intent(this,CourseContent::class.java)
-        startActivity(intent)
-        this.finish()
-    }
-
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()

@@ -31,7 +31,7 @@ class MaterialFiles : AppCompatActivity() {
         }
     }
 
-    fun initializeData(){
+    private fun initializeData(){
         val lectureId=intent.getStringExtra("lectureId")
         val token=myPreferencesToken.loadData("token")
      ApiManager.getApi().getFiles(token

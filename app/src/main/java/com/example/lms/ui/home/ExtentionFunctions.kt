@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 fun Activity.navigateFromActivity(context: Context,activity:Activity){
     val intent=Intent(context,activity::class.java)
     startActivity(intent)
+    finish()
 }
 
 

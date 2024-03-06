@@ -47,8 +47,6 @@ class HomeFragment : Fragment() {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 if(response.isSuccessful) {
                     homeAdapter.bindNews(response.body())
-                    val toast = Toast.makeText(requireContext(), "News success", Toast.LENGTH_LONG)
-                    toast.show()
                 }
                 else{
                     val toast = Toast.makeText(requireContext(), "News Does not Uploaded", Toast.LENGTH_LONG)

@@ -10,6 +10,7 @@ import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
 import com.example.lms.ui.home.fragments.Variables
+import com.example.lms.ui.home.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,28 +27,18 @@ class QuizzesActivity : AppCompatActivity() {
         viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken=MyPreferencesToken(this)
         viewBinding.icBack.setOnClickListener {
-            navigateToCourseContentActivity()
+            navigateFromActivity(this@QuizzesActivity,CourseContent())
         }
         quizAdapter = QuizzesAdapter()
         quizAdapter.onBtnStartClickListener = object : QuizzesAdapter.OnBtnStartClickListener{
             override fun onClick(position: Int, item: CourseQuizzesResponseItem) {
                  Variables.quizId=item.id
-                navigateToQuestionsActivity()
+                navigateFromActivity(this@QuizzesActivity,QuestionsActivity())
             }
         }
         viewBinding.quizzesRv.adapter =quizAdapter
         getCourseQuizzes()
     }
-
-    private fun navigateToQuestionsActivity() {
-        val intent = Intent(this , QuestionsActivity::class.java)
-        startActivity(intent)
-    }
-    private fun navigateToCourseContentActivity() {
-        val intent = Intent(this , CourseContent::class.java)
-        startActivity(intent)
-    }
-
     private fun getCourseQuizzes(){
         val token=myPreferencesToken.loadData("token")
         val cycleId= Variables.cycleId
@@ -75,7 +66,7 @@ class QuizzesActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        navigateToCourseContentActivity()
+        navigateFromActivity(this@QuizzesActivity,CourseContent())
     }
 
 }

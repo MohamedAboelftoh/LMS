@@ -1,13 +1,10 @@
 package com.example.lms.ui.home.fragments.courses_fragment.quizzes
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +47,7 @@ class QuestionsActivity : AppCompatActivity() {
         iconBackClick()
     }
 
-//    private fun startTimer() {
+    //    private fun startTimer() {
 //         object : CountDownTimer(startTimeInMillis, 1 * 1000) {
 //            override fun onTick(p0: Long) {
 //                remainingTime = p0
@@ -63,24 +60,24 @@ class QuestionsActivity : AppCompatActivity() {
 //            }
 //        }.start()
 //    }
-private fun startTimer() {
-    myCountDownTimer = MyCountDownTimer.getInstance(
-        startTimeInMillis,
-        1000, // Update interval
-        { millisUntilFinished ->
-            remainingTime = millisUntilFinished
-            updateTimerText()
-        },
-        {
-            // Timer finished
-            val intent=Intent(this@QuestionsActivity,QuizzesActivity::class.java)
-               startActivity(intent)
-            Toast.makeText(this@QuestionsActivity, "Time Ended", Toast.LENGTH_LONG).show()
-            // Handle what to do when the timer finishes, like navigate to another activity
-        }
-    )
-    myCountDownTimer.start()
-}
+    private fun startTimer() {
+        myCountDownTimer = MyCountDownTimer.getInstance(
+            startTimeInMillis,
+            1000, // Update interval
+            { millisUntilFinished ->
+                remainingTime = millisUntilFinished
+                updateTimerText()
+            },
+            {
+                // Timer finished
+                val intent=Intent(this@QuestionsActivity,QuizzesActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this@QuestionsActivity, "Time Ended", Toast.LENGTH_LONG).show()
+                // Handle what to do when the timer finishes, like navigate to another activity
+            }
+        )
+        myCountDownTimer.start()
+    }
     private fun updateTimerText() {
         val minute = remainingTime.div(1000).div(60)
         val second = remainingTime.div(1000) % 60
@@ -94,8 +91,8 @@ private fun startTimer() {
             val currentPosition = layoutManager.findFirstVisibleItemPosition()
             if (currentPosition != RecyclerView.NO_POSITION && currentPosition > 0) {
                 viewBinding.questionsRecycler.smoothScrollToPosition(currentPosition - 1)
-                }
-           }
+            }
+        }
     }
 
     private fun getQuestions(){
@@ -121,7 +118,7 @@ private fun startTimer() {
         })
     }
 
-     val questionsAnswersList : MutableList<AnswersItem> = mutableListOf()
+    val questionsAnswersList : MutableList<AnswersItem> = mutableListOf()
     private var questionId :String?=null
 
     private fun onButtonNextClick(){
