@@ -3,9 +3,7 @@ package com.example.lms.ui.home.fragments.courses_fragment.assignments
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lms.databinding.ActivityAssignmentDeatailsBinding
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import com.example.lms.ui.home.fragments.Variables
 
 class AssignmentDetailsActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityAssignmentDeatailsBinding
@@ -18,6 +16,7 @@ class AssignmentDetailsActivity : AppCompatActivity() {
             showUploadFragment()
         }
     }
+
 
     private fun getData() {
         val assignmentName = intent.getStringExtra("taskName")

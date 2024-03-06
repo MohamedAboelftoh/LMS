@@ -1,7 +1,6 @@
 package com.example.lms.ui.home.fragments.courses_fragment
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -18,7 +17,7 @@ import com.example.lms.databinding.FragmentCoursesBinding
 import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
+import com.example.lms.ui.home.fragments.Variables
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

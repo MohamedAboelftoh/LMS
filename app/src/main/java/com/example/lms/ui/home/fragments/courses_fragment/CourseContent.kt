@@ -1,18 +1,16 @@
 package com.example.lms.ui.home.fragments.courses_fragment
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import com.example.lms.R
 import com.example.lms.databinding.ActivityCourseContentBinding
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.home.fragments.courses_fragment.grades.GradesActivity
 import com.example.lms.ui.home.fragments.courses_fragment.material.MaterialActivity
-import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
+import com.example.lms.ui.home.fragments.Variables
 import com.example.lms.ui.home.fragments.courses_fragment.quizzes.QuizzesActivity
+import com.example.lms.ui.home.navigateFromActivity
 
 class CourseContent : AppCompatActivity() {
     lateinit var vieBinding:ActivityCourseContentBinding
@@ -44,5 +42,10 @@ class CourseContent : AppCompatActivity() {
         val intent = Intent(this,activity::class.java)
         startActivity(intent)
         this.finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateFromActivity(this@CourseContent,HomeActivity())
     }
 }

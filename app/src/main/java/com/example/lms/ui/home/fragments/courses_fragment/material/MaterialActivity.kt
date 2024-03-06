@@ -6,9 +6,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityMaterialBinding
+import com.example.lms.ui.home.fragments.Variables
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
-import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentCompletedFragment
-import com.example.lms.ui.home.fragments.courses_fragment.assignments.AssignmentPendingFragment
 import com.google.android.material.tabs.TabLayout
 
 class MaterialActivity : AppCompatActivity() {

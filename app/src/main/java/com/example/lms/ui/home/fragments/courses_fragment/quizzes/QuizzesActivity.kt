@@ -9,7 +9,7 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
-import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
+import com.example.lms.ui.home.fragments.Variables
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +50,7 @@ class QuizzesActivity : AppCompatActivity() {
 
     private fun getCourseQuizzes(){
         val token=myPreferencesToken.loadData("token")
-        val cycleId=Variables.cycleId
+        val cycleId= Variables.cycleId
         ApiManager.getApi().getCourseQuizzes(token!!,cycleId!!).enqueue(object :Callback<ArrayList<CourseQuizzesResponseItem>>{
             override fun onResponse(
                 call: Call<ArrayList<CourseQuizzesResponseItem>>,
@@ -71,6 +71,11 @@ class QuizzesActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateToCourseContentActivity()
     }
 
 }

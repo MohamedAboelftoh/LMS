@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.databinding.AssignmentPendingItemBinding
 import com.example.lms.ui.api.assignments.AssignmentResponseItem
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class AssignmentPendingAdapter (private var assignmentsList:MutableList<AssignmentResponseItem>?=null):Adapter<AssignmentPendingAdapter.AssignmentViewHolder>(){
@@ -37,11 +38,23 @@ class AssignmentPendingAdapter (private var assignmentsList:MutableList<Assignme
         val date = endDate?.get(0)
         return date
     }
+fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
+    val assignPendingList: MutableList<AssignmentResponseItem> = mutableListOf()
+    val currentDate = Calendar.getInstance().time
 
-    fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
-        assignmentsList = newAssignmentList
-        notifyDataSetChanged()
+    if (newAssignmentList != null) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        for (assignment in newAssignmentList) {
+            val endDateString = assignment.endDate
+            val endDate = dateFormat.parse(endDateString)
+            if (endDate != null && currentDate.after(endDate)) {
+                assignPendingList.add(assignment)
+            }
+        }
     }
+    assignmentsList = assignPendingList
+    notifyDataSetChanged()
+}
 
     var onBtnMoreClickListener: OnBtnMoreClickListener?=null
     interface OnBtnMoreClickListener{

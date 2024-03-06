@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityAssimmentsBinding
 import com.example.lms.ui.home.fragments.courses_fragment.CourseContent
-import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
+import com.example.lms.ui.home.fragments.Variables
+import com.example.lms.ui.home.navigateFromActivity
 import com.google.android.material.tabs.TabLayout
 
 class AssignmentsActivity : AppCompatActivity() {
@@ -66,5 +67,10 @@ class AssignmentsActivity : AppCompatActivity() {
         val tab2 = viewBinding.tabLayout.newTab()
         tab2.text = "Completed"
         viewBinding.tabLayout.addTab(tab2)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateFromActivity(this@AssignmentsActivity,CourseContent())
     }
 }

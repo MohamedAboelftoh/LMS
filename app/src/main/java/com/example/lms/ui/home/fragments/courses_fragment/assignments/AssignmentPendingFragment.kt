@@ -10,7 +10,7 @@ import com.example.lms.databinding.FragmentAssignmentPendingBinding
 import com.example.lms.ui.api.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.home.fragments.courses_fragment.material.Variables
+import com.example.lms.ui.home.fragments.Variables
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +44,7 @@ class AssignmentPendingFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     assignmentAdapter.bindAssignments(response.body())
+
                 }
             }
 
@@ -55,13 +56,15 @@ class AssignmentPendingFragment : Fragment() {
         viewBinding.recyclerAssignmentsPending.adapter = assignmentAdapter
         assignmentAdapter.onBtnMoreClickListener = object : AssignmentPendingAdapter.OnBtnMoreClickListener{
             override fun onClick(position: Int, item: AssignmentResponseItem) {
-                navigateToAssignmentDetail(item.taskName,item.endDate)
+                Variables.taskId=item.taskId
+                navigateToAssignmentDetail(item.taskName,item.endDate,item.taskId)
+
             }
         }
 
     }
 
-    private fun navigateToAssignmentDetail(taskName: String?, endDate: String?) {
+    private fun navigateToAssignmentDetail(taskName: String?, endDate: String?,taskId:String?) {
         val intent = Intent(requireActivity() , AssignmentDetailsActivity::class.java)
         intent.putExtra("taskName",taskName)
         intent.putExtra("endDate",endDate)

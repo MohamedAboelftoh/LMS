@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.QuestionItemBinding
 import com.example.lms.ui.api.quizes.QuestionsItem
 
-class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder>(){
+class QuestionsAdapter (private var questionsList:List<QuestionsItem?>?=null):RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder>(){
     class QuestionsViewHolder(val itemBinding: QuestionItemBinding):RecyclerView.ViewHolder(itemBinding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionsViewHolder {
           val itemBinding = QuestionItemBinding.inflate(
@@ -14,7 +14,6 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
           )
          return QuestionsViewHolder(itemBinding)
     }
-
 
     override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int) {
         val item=questionsList!![position]
@@ -32,13 +31,10 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
         holder.itemBinding.radio2.text=answers?.get(1)?.text
         holder.itemBinding.radio3.text=answers?.get(2)?.text
         holder.itemBinding.radio4.text=answers?.get(3)?.text
-
+        holder.itemBinding.tvQuestionNumber.text="${position+1}"
 
     }
-
-
     var itemCountValue: Int = 0
-
     override fun getItemCount(): Int {
         itemCountValue = questionsList?.size ?: 0
 
@@ -59,16 +55,10 @@ class QuestionsAdapter (var questionsList:List<QuestionsItem?>?=null):RecyclerVi
 
     fun interface OnNextClickListener{
         fun onItemClick(position:Int,item: QuestionsItem?)
-
     }
     var onRadioButtonSelect: OnRadioButtonSelect? =null
     fun interface  OnRadioButtonSelect{
         fun onRadioButtonClicked(position: Int, item:QuestionsItem?, checkedRadioButtonId: Int)
-
     }
-
-
-
-
 
 }
