@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
 import com.example.lms.ui.home.HomeActivity
+import com.example.lms.ui.home.navigateFromActivity
 import com.example.lms.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -35,13 +36,14 @@ class SplashActivity : AppCompatActivity() {
             }
             if(index == 2) {
                 if (isLoggedIn()) {
-                    navigateToHome()
+                    navigateFromActivity(this@SplashActivity,HomeActivity())
                 } else {
-                    navigateToLogin()
+                    navigateFromActivity(this@SplashActivity,LoginActivity())
                 }
             }
         }
     }
+
 
     private fun changeColors(index: Int) {
         if(index == 0){
@@ -54,13 +56,6 @@ class SplashActivity : AppCompatActivity() {
             viewBinding.iv2.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
         }
     }
-
-
-    private fun navigateToLogin() {
-        val intent = Intent(this , LoginActivity::class.java)
-        startActivity(intent)
-    }
-
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
@@ -76,8 +71,10 @@ class SplashActivity : AppCompatActivity() {
         // Check if both email and password are present
         return !email.isNullOrEmpty() && !password.isNullOrEmpty()
     }
-    private fun navigateToHome() {
-        val intent = Intent(this , HomeActivity::class.java)
-        startActivity(intent)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
+
+
 }
