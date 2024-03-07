@@ -1,10 +1,12 @@
 package com.example.lms.ui.home.fragments.courses_fragment.quizzes
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +31,8 @@ class QuestionsActivity : AppCompatActivity() {
     private lateinit var myCountDownTimer: CountDownTimer
     lateinit var finish:FinishActivity
     private val snapHelper : SnapHelper = LinearSnapHelper()
-
+    private val questionsAnswersList : ArrayList<AnswersItem> = arrayListOf()
+    private var questionsNumber = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityQuestionsBinding.inflate(layoutInflater)
@@ -70,10 +73,8 @@ class QuestionsActivity : AppCompatActivity() {
             },
             {
                 // Timer finished
-                val intent=Intent(this@QuestionsActivity,QuizzesActivity::class.java)
-                startActivity(intent)
+                navigateFromActivity(this@QuestionsActivity,QuizzesActivity())
                 Toast.makeText(this@QuestionsActivity, "Time Ended", Toast.LENGTH_LONG).show()
-                // Handle what to do when the timer finishes, like navigate to another activity
             }
         )
         myCountDownTimer.start()
@@ -117,15 +118,13 @@ class QuestionsActivity : AppCompatActivity() {
             }
         })
     }
-
-    val questionsAnswersList : MutableList<AnswersItem> = mutableListOf()
-    private var questionId :String?=null
-
     private fun onButtonNextClick(){
-        questionsAdapter.onNextClickListener=QuestionsAdapter.OnNextClickListener{position, item ->
+        questionsAdapter.onNextClickListener=QuestionsAdapter.OnNextClickListener{ position, item ->
             if(position==questionsAdapter.itemCountValue-1){
-                val intent=Intent(this@QuestionsActivity,FinishActivity::class.java)
-                intent.putExtra("questionsAnswersList", ArrayList(questionsAnswersList))
+                questionsNumber = position + 1
+                val intent = Intent(this,FinishActivity::class.java)
+                intent.putExtra("questionsAnswersList",questionsAnswersList)
+                intent.putExtra("questionNumbers",questionsNumber)
                 startActivity(intent)
             } else {
                 questionsAdapter.incrementItemCount()
@@ -133,32 +132,57 @@ class QuestionsActivity : AppCompatActivity() {
             }
         }
     }
-    private fun onRadioBtnSelected(){
-        questionsAdapter.onRadioButtonSelect=
-            QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
-                when(checkedRadioButtonId){
-                    R.id.radio_1 ->{
-                        questionId = "Q001_1_A1"
-                    }
-
-                    R.id.radio_2 -> {
-                        questionId = "Q002_1_A1"
-                    }
-
-                    R.id.radio_3 -> {
-                        questionId = "Q003_1_A1"
-                    }
-
-                    R.id.radio_4 -> {
-                        questionId = "Q004_1_A1"
-                    }
-                }
-                questionsAnswersList.add(AnswersItem(questionId,item?.id))
+    private fun onRadioBtnSelected() {
+        questionsAdapter.onRadioButtonSelect = QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
+            // Get the question ID
+            val questionId = item?.id
+            // Get the selected answer ID from the radio button ID
+            val selectedAnswerId = when (checkedRadioButtonId) {
+                R.id.radio_1 -> item?.answers?.get(0)?.id
+                R.id.radio_2 -> item?.answers?.get(1)?.id
+                R.id.radio_3 -> item?.answers?.get(2)?.id
+                R.id.radio_4 -> item?.answers?.get(3)?.id
+                else -> null
             }
+            // Check if an answer for this question already exists in the list
+            val existingAnswer = questionsAnswersList.find { it.questionId == questionId }
+            // If an answer already exists, update it; otherwise, add a new answer
+            if (existingAnswer != null) {
+                // Update the existing answer with the selected option
+                existingAnswer.answerId = selectedAnswerId
+            } else {
+                // Add a new answer to the list
+                questionsAnswersList.add(AnswersItem(selectedAnswerId, questionId))
+            }
+        }
     }
 
+
+//    private fun onRadioBtnSelected() {
+//        questionsAdapter.onRadioButtonSelect=
+//            QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
+//                when(checkedRadioButtonId){
+//                    R.id.radio_1 ->{
+//                        questionId = item?.answers?.get(0)?.id
+//                    }
+//
+//                    R.id.radio_2 -> {
+//                        questionId = item?.answers?.get(1)?.id
+//                    }
+//
+//                    R.id.radio_3 -> {
+//                        questionId = item?.answers?.get(2)?.id
+//                    }
+//
+//                    R.id.radio_4 -> {
+//                        questionId = item?.answers?.get(3)?.id
+//                    }
+//                }
+//                questionsAnswersList.add(AnswersItem(questionId,item?.id))
+//            }
+//    }
+
     override fun onBackPressed() {
-        super.onBackPressed()
-        navigateFromActivity(this@QuestionsActivity,QuizzesActivity())
+
     }
 }

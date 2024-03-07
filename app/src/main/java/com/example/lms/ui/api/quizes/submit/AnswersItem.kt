@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class AnswersItem(
 
 	@field:SerializedName("answerId")
-	val answerId: String? = null,
+	var answerId: String? = null,
 
 	@field:SerializedName("questionId")
 	val questionId: String? = null

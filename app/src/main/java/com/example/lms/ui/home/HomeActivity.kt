@@ -94,11 +94,13 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
     private fun saveCredentials(email: String, password: String) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString("email", email)
-        editor.putString("password", password)
-        editor.apply()
+          myPreferencesToken.saveData("email", email)
+          myPreferencesToken.saveData("password", password)
+//        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//        editor.putString("email", email)
+//        editor.putString("password", password)
+//        editor.apply()
     }
     fun showMessage(message:String
                     ,posActionName:String?=null

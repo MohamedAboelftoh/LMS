@@ -38,10 +38,11 @@
     <string name="academic_id">Academic ID : </string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="done">Done</string>
     <string name="quizzes">Quizzes</string>
     <string name="points">points</string>
     <string name="answers_have_been_sent_successfully">Answers have been sent successfully</string>
-    <string name="finished">Finished</string>
+    <string name="finished">Finished !</string>
     <string name="you_are_a_superb_warrior">You are a superb warrior!</string>
     <string name="done_100_task_month">Done 100 task month</string>
     <string name="done_10_task_yesterday">Done 10 task yesterday</string>
@@ -65,4 +66,5 @@
     <string name="last_lectures_labs_and_n_assignments">Last lectures, labs and \n assignments</string>
     <string name="access_materials_offline">Access Materials offline</string>
     <string name="welcome">Welcome!</string>
+    <string name="are_you_sure_to_submit_your_answers">Are you sure to Submit Your Answers ?</string>
 </resources>

@@ -1,8 +1,5 @@
 package com.example.lms.ui.login
-
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,10 +18,12 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
      private lateinit var viewBinding : ActivityLoginBinding
+     lateinit var myPreferencesToken : MyPreferencesToken
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        myPreferencesToken = MyPreferencesToken(this)
         viewBinding.forgetPass.setOnClickListener {
             navigateToAnotherActivity(ResetPasswordActivity())
         }
@@ -36,34 +35,27 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
     }
-    private fun saveCredentials(email: String, password: String) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString("email", email)
-        editor.putString("password", password)
-        editor.apply()
+    private fun saveCredentials(email: String, password: String , token: String) {
+        myPreferencesToken.saveData("email", email)
+        myPreferencesToken.saveData("password", password)
+        myPreferencesToken.saveData("token",token)
     }
     private fun login() {
         if(!validation()){
             viewBinding.progrssBar.visibility = View.INVISIBLE
             return
         }
-        val email:String =viewBinding.etEmail.text.toString()
-        val password:String=viewBinding.etPassword.text.toString()
+        val email =viewBinding.etEmail.text.toString()
+        val password =viewBinding.etPassword.text.toString()
         val loginRequest = LoginRequest(password,email)
         val loginResponseCall : Call<LoginResponse> = ApiManager.getApi().userLogin(loginRequest)
         loginResponseCall.enqueue(object : Callback<LoginResponse>{
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.isSuccessful){
                     viewBinding.progrssBar.visibility = View.INVISIBLE
-                    //save email& password in sherdPreferences
+                    //save email& password , token in sherdPreferences
                     val token="Bearer "+response.body()?.token
-                    saveCredentials(email,password)
-                    //store the token
-                    //  ConstantToken.token= response.body()?.token.toString()
-                    val myPreferencesToken = MyPreferencesToken(this@LoginActivity)
-                    myPreferencesToken.saveData("token",token)
-                    Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_LONG).show()
+                    saveCredentials(email,password,token)
                     navigateToAnotherActivity(HomeActivity())
                 }
                 else{

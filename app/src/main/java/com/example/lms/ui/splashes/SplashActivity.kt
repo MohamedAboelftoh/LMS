@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
+import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.home.HomeActivity
 import com.example.lms.ui.home.navigateFromActivity
 import com.example.lms.ui.login.LoginActivity
@@ -16,10 +17,12 @@ import com.example.lms.ui.login.LoginActivity
 class SplashActivity : AppCompatActivity() {
     private var index : Int = 0
     private lateinit var viewBinding : ActivitySplashBinding
+    lateinit var myPreferencesToken : MyPreferencesToken
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        myPreferencesToken = MyPreferencesToken(this)
         pushFragment(SplashFragment1())
         viewBinding.btnNext.setOnClickListener {
             if(index ==  0) {
@@ -64,11 +67,8 @@ class SplashActivity : AppCompatActivity() {
             .commit()
     }
     private fun isLoggedIn(): Boolean {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val email = sharedPreferences.getString("email", null)
-        val password = sharedPreferences.getString("password", null)
-
-        // Check if both email and password are present
+        val email = myPreferencesToken.loadData("email")
+        val password = myPreferencesToken.loadData("password")
         return !email.isNullOrEmpty() && !password.isNullOrEmpty()
     }
     override fun onBackPressed() {
