@@ -29,6 +29,10 @@ class CalenderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.calendarView.selectedDate = CalendarDay.today()
         fillList()
+        viewBinding.floatingActionBtn.setOnClickListener {
+            val addEventFragment = AddEventFragment()
+            addEventFragment.show(parentFragmentManager,"")
+        }
         calenderAdapter = CalenderAdapter(calenderList)
         viewBinding.recyclerViewCalender.adapter = calenderAdapter
 //        viewBinding.calendarView.setOnDateChangedListener { widget, date, selected ->

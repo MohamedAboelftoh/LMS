@@ -19,6 +19,9 @@ data class QuizQuestionsResponse(
 	@field:SerializedName("grade")
 	val grade: Int? = null,
 
+	@field:SerializedName("duration")
+	val duration: String? = null,
+
 	@field:SerializedName("questions")
 	val questions: ArrayList<QuestionsItem?>? = null,
 

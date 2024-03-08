@@ -88,7 +88,6 @@ class FinishActivity : AppCompatActivity() {
         viewBinding.grade.text = "$grade/$questionNumber"
         viewBinding.answerSuccessfully.text = getString(R.string.answers_have_been_sent_successfully)
         viewBinding.tvFinished.setTextColor(ContextCompat.getColor(this, R.color.greenColor))
-        viewBinding.answerSuccessfully.setTextColor(ContextCompat.getColor(this, R.color.greenColor))
     }
 
     private fun calculateGrade(submitQuizResponse: MutableList<Map<String?, Boolean?>>) {

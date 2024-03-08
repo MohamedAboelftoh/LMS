@@ -26,8 +26,9 @@ class QuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityQuestionsBinding
     lateinit var myPreferencesToken: MyPreferencesToken
     lateinit var questionsAdapter:QuestionsAdapter
-    val startTimeInMillis : Long = 1 * 60 * 1000
-    var remainingTime :Long = startTimeInMillis
+     var duration : Long ?= 1 * 60 * 1000
+   // val startTimeInMillis : Long = 1 * 60 * 1000
+   private var remainingTime :Long = duration!!
     private lateinit var myCountDownTimer: CountDownTimer
     lateinit var finish:FinishActivity
     private val snapHelper : SnapHelper = LinearSnapHelper()
@@ -40,7 +41,6 @@ class QuestionsActivity : AppCompatActivity() {
         finish=FinishActivity()
         viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken= MyPreferencesToken(this)
-        startTimer()
         questionsAdapter= QuestionsAdapter()
         viewBinding.questionsRecycler.adapter=questionsAdapter
         getQuestions()
@@ -65,7 +65,7 @@ class QuestionsActivity : AppCompatActivity() {
 //    }
     private fun startTimer() {
         myCountDownTimer = MyCountDownTimer.getInstance(
-            startTimeInMillis,
+            duration!!,
             1000, // Update interval
             { millisUntilFinished ->
                 remainingTime = millisUntilFinished
@@ -104,6 +104,8 @@ class QuestionsActivity : AppCompatActivity() {
                 call: Call<QuizQuestionsResponse>,
                 response: Response<QuizQuestionsResponse>
             ) {
+                duration = convertTimeToMilliseconds(response.body()?.duration!!)
+                startTimer()
                 if(response.isSuccessful){
                     questionsAdapter.bindQuestions(response.body()?.questions)
                     viewBinding.tvQuiz.text=response.body()?.title
@@ -184,5 +186,18 @@ class QuestionsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+    }
+    fun convertTimeToMilliseconds(timeStr: String): Long {
+        val parts = timeStr.split(":")
+        if (parts.size != 3) {
+            throw IllegalArgumentException("Invalid time format")
+        }
+
+        val hours = parts[0].toLong()
+        val minutes = parts[1].toLong()
+        val seconds = parts[2].toLong()
+
+        // Convert the time to seconds and then to milliseconds
+        return (hours * 3600 + minutes * 60 + seconds) * 1000
     }
 }
