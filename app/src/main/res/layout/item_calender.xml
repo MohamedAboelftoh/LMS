@@ -15,14 +15,6 @@
     android:background="@color/firstColorCalender"
     >
     <TextView
-        android:id="@+id/course_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Parallel Programming - Dr Amr Masoud"
-        android:textColor="@color/white2"
-        android:textSize="13sp"
-        />
-    <TextView
         android:id="@+id/quiz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

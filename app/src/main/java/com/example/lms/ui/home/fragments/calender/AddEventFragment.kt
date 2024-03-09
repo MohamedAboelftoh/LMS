@@ -43,6 +43,9 @@ class AddEventFragment : BottomSheetDialogFragment() {
           showDateBicker()
         }
         viewBinding.btnAdd.setOnClickListener {
+            if (!validation()){
+                return@setOnClickListener
+            }
             addEvent()
         }
     }
@@ -52,6 +55,26 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val minutes = calendar.get(Calendar.MINUTE)
         val seconds = calendar.get(Calendar.SECOND)
         return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    private fun validation(): Boolean {
+        var isvaild : Boolean = true
+        if(viewBinding.event.text.isNullOrBlank())
+        {
+            viewBinding.eventContainer.error = "Event is require"
+            isvaild = false
+        }
+        else{
+            viewBinding.eventContainer.error = null
+        }
+        if(viewBinding.date.text.isNullOrBlank())
+        {
+            viewBinding.tvSelectDateContainer.error = "Date is require"
+            isvaild = false
+        }
+        else{
+            viewBinding.tvSelectDateContainer.error = null
+        }
+        return isvaild
     }
     private fun addEvent() {
         val token = myPreferencesToken.loadData("token")
