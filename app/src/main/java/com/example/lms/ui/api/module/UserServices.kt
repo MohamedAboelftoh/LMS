@@ -3,6 +3,7 @@ package com.example.lms.ui.api.module
 import com.example.lms.ui.api.account.AccountInfoResponse
 import com.example.lms.ui.api.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.calender.CalenderRequest
+import com.example.lms.ui.api.calender.CalenderResponseItem
 import com.example.lms.ui.api.courses.CoursesResponseItem
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
@@ -73,5 +74,11 @@ interface UserServices {
     ): Call<ResponseBody>
 
     @POST("api/Calendar")
-    fun addNewEvent(@Header("Authorization")token:String , @Body calenderRequest: CalenderRequest) : Call<ResponseBody>
+    fun addNewEvent(@Header("Authorization")token:String
+                    , @Body calenderRequest: CalenderRequest) : Call<ResponseBody>
+
+    @GET("api/Calendar/GetByStartAndEnd")
+    fun getCalenderEvents(@Header("Authorization") token:String,
+                          @Query("start") startDate:String,
+                          @Query("end") endDate:String ):Call<ArrayList<CalenderResponseItem>>
 }

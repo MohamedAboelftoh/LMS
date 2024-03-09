@@ -70,7 +70,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //glide library to load images from api
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-    // OkHttp client
+    // OkHttp client if api not security
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     // OkHttp logging interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")

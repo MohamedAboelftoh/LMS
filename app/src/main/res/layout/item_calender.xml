@@ -31,7 +31,15 @@
         android:textSize="15sp"
         />
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/start_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9:00 AM - 10:00 AM"
+        android:textColor="@color/white2"
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="9:00 AM - 10:00 AM"

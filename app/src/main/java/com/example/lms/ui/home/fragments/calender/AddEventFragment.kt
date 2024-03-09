@@ -25,6 +25,8 @@ class AddEventFragment : BottomSheetDialogFragment() {
     lateinit var viewBinding : FragmentAddEventBinding
     val calendar = Calendar.getInstance()
     lateinit var myPreferencesToken: MyPreferencesToken
+    lateinit var endDate:String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,8 +57,8 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val token = myPreferencesToken.loadData("token")
         val startTime = viewBinding.date.text.toString()
         val event = viewBinding.event.text.toString()
-        val calenderRequest = CalenderRequest(startTime , event , startTime)
-      ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
+        val calenderRequest = CalenderRequest(endDate , event , startTime)
+             ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
           .enqueue(object : Callback<ResponseBody>{
               override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                   if (response.isSuccessful){
@@ -68,7 +70,6 @@ class AddEventFragment : BottomSheetDialogFragment() {
               override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                   Toast.makeText(requireContext(),"Not Added",Toast.LENGTH_LONG).show()
               }
-
           })
     }
 
@@ -77,6 +78,8 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val dateBicker = DatePickerDialog(requireContext())
         dateBicker.setOnDateSetListener { datePicker, year, month, day ->
             val formattedDate = String.format("%d-%02d-%02d", year, month + 1, day)+"T"+getCurrentTime()
+             endDate = String.format("%d-%02d-%02d", year, month + 1, day+1)+"T"+getCurrentTime()
+
             viewBinding.date.text = formattedDate
             calendar.set(year,month,day)
             calendar.set(Calendar.HOUR_OF_DAY,0)

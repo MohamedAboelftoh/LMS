@@ -73,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         super.onBackPressed()
-        finishAffinity()
+       finishAffinity()
     }
 
 
