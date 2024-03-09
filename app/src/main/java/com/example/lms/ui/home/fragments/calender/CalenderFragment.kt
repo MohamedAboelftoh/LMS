@@ -72,14 +72,11 @@ class CalenderFragment : Fragment() {
                         ) {
                             if (response.isSuccessful){
                                 calenderAdapter.bindEvents(response.body())
-                                Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT)
-                                    .show()
                             }
                         }
                         override fun onFailure(call: Call<ArrayList<CalenderResponseItem>>, t: Throwable) {
                             Toast.makeText(requireContext(), "onFailure "+t.localizedMessage, Toast.LENGTH_SHORT)
                                 .show()
-                            Log.e("TAG", "${t.localizedMessage}: ", )
                         }
                     })
             }

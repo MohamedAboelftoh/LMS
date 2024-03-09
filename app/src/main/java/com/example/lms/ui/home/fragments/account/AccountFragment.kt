@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.FragmentAccountBinding
 import com.example.lms.ui.api.account.AccountInfoResponse
@@ -132,6 +133,10 @@ lateinit var myPreferencesToken: MyPreferencesToken
                     viewBinding.department.text=response.body()?.departmentName
                     viewBinding.level.text=response.body()?.level.toString()
                     viewBinding.userIdNumber.text=response.body()?.academicId
+                    Glide.with(viewBinding.imgPro)
+                        .load(response.body()?.imagePath)
+                        .placeholder(R.drawable.avatar_1)
+                        .into(viewBinding.profile)
                 }
                 else{
                     Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()

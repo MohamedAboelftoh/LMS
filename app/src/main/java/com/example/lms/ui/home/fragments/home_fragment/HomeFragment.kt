@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.lms.R
 import com.example.lms.databinding.FragmentHomeBinding
+import com.example.lms.ui.api.account.AccountInfoResponse
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
@@ -65,22 +68,30 @@ class HomeFragment : Fragment() {
     private fun getCurrentUser() {
         viewBinding.progressBar.visibility = View.VISIBLE
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getCurrentUser(token!!).enqueue(object : Callback<LoginResponse>{
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
+            override fun onResponse(
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
+            ) {
                 if(response.isSuccessful){
                     viewBinding.progressBar.visibility = View.INVISIBLE
-                    viewBinding.tvName.text = response.body()?.displayName
+                   viewBinding.tvName.text = response.body()?.fullName
+                    Glide.with(viewBinding.profile)
+                        .load(response.body()?.imagePath)
+                        .placeholder(R.drawable.avatar_1)
+                        .into(viewBinding.profile)
                 }else{
                     val toast = Toast.makeText(requireContext(), "current user fail", Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }
+
         })
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.FragmentCardDialogBinding
 import com.example.lms.ui.api.account.AccountInfoResponse
@@ -50,6 +51,10 @@ class CardDialogFragment : DialogFragment() {
                     viewBinding.level.text=response.body()?.level.toString()
                     viewBinding.academicId.text=response.body()?.academicId
                     viewBinding.universityName.text=response.body()?.universityName
+                    Glide.with(viewBinding.profile)
+                        .load(response.body()?.imagePath)
+                        .placeholder(R.drawable.avatar_1)
+                        .into(viewBinding.profile)
                 }
                 else{
                     Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()

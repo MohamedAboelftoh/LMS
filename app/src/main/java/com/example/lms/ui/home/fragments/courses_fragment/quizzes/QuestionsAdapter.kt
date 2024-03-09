@@ -27,6 +27,9 @@ class QuestionsAdapter (private var questionsList:List<QuestionsItem?>?=null):Re
             // Notify the activity about the selected radio button
           onRadioButtonSelect?.onRadioButtonClicked(position, item,checkedId)
         }
+        if (position == questionsList!!.size-1){
+            holder.itemBinding.nextBtn.text = "Submit"
+        }
         holder.itemBinding.radio1.text=answers?.get(0)?.text
         holder.itemBinding.radio2.text=answers?.get(1)?.text
         holder.itemBinding.radio3.text=answers?.get(2)?.text

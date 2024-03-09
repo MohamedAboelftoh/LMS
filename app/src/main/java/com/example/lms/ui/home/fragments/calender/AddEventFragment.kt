@@ -81,7 +81,7 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val startTime = viewBinding.date.text.toString()
         val event = viewBinding.event.text.toString()
         val calenderRequest = CalenderRequest(endDate , event , startTime)
-             ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
+        ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
           .enqueue(object : Callback<ResponseBody>{
               override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                   if (response.isSuccessful){

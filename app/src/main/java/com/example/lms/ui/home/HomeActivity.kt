@@ -10,13 +10,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
+import com.example.lms.ui.api.account.AccountInfoResponse
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
@@ -171,22 +174,30 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun getCurrentUser() {
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getCurrentUser(token!!).enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
+            override fun onResponse(
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
+            ) {
                 if(response.isSuccessful){
                     val header = viewBinding.navView.getHeaderView(0)
                     val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
-                    dateTextView.text= "Hi,"+response.body()?.displayName
+                    val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
+                    dateTextView.text= "Hi,"+response.body()?.fullName
+                    Glide.with(viewBinding.navView)
+                        .load(response.body()?.imagePath)
+                        .placeholder(R.drawable.avatar_1)
+                        .into(imgProfile)
                 }else{
                     val toast = Toast.makeText(this@HomeActivity, "current user fail", Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 val toast = Toast.makeText(this@HomeActivity, t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }
+
         })
     }
 
