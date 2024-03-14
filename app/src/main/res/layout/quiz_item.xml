@@ -17,24 +17,28 @@
         >
         <TextView
             android:id="@+id/course_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:autoSizeTextType="uniform"
+            android:gravity="center"
+            app:layout_constraintHeight_percent=".15"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="parallel programing quiz 1"
-            android:textSize="20sp"
             android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/questions_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintHeight_percent=".13"
+            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/course_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="10 points"
-            android:textSize="17sp"
             />
         <TextView
             android:layout_width="wrap_content"

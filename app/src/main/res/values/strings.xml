@@ -69,4 +69,7 @@
     <string name="are_you_sure_to_submit_your_answers">Are you sure to Submit Your Answers ?</string>
     <string name="select_date">Select Date :</string>
     <string name="you_can_login_here">You can login here</string>
+    <string name="courses">Courses</string>
+    <string name="mark">Mark</string>
+    <string name="material">Material</string>
 </resources>
