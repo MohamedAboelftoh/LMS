@@ -29,5 +29,8 @@ data class NewsResponseItem(
 	val userId: String? = null,
 
 	@field:SerializedName("content")
-	val content: String? = null
+	val content: String? = null,
+
+	@field:SerializedName("userImage")
+val userImage: String? = null
 ) : Parcelable

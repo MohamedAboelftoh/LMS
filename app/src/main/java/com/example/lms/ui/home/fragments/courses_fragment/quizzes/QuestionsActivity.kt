@@ -138,6 +138,36 @@ class QuestionsActivity : AppCompatActivity() {
         questionsAdapter.onRadioButtonSelect = QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
             // Get the question ID
             val questionId = item?.id
+            // Check if item and answers list are not null and contains at least one element
+            if (item != null && item.answers?.isNotEmpty() == true) {
+                // Get the selected answer ID from the radio button ID
+                val selectedAnswerId = when (checkedRadioButtonId) {
+                    R.id.radio_1 -> if (item.answers.size >= 1) item.answers[0]?.id else null
+                    R.id.radio_2 -> if (item.answers.size >= 2) item.answers[1]?.id else null
+                    R.id.radio_3 -> if (item.answers.size >= 3) item.answers[2]?.id else null
+                    R.id.radio_4 -> if (item.answers.size >= 4) item.answers[3]?.id else null
+                    else -> null
+                }
+                // Check if an answer for this question already exists in the list
+                val existingAnswer = questionsAnswersList.find { it.questionId == questionId }
+                // If an answer already exists, update it; otherwise, add a new answer
+                if (existingAnswer != null) {
+                    // Update the existing answer with the selected option
+                    existingAnswer.answerId = selectedAnswerId
+                } else {
+                    // Add a new answer to the list
+                    questionsAnswersList.add(AnswersItem(selectedAnswerId, questionId))
+                }
+            }
+        }
+    }
+
+    /*
+    //new
+    private fun onRadioBtnSelected() {
+        questionsAdapter.onRadioButtonSelect = QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
+            // Get the question ID
+            val questionId = item?.id
             // Get the selected answer ID from the radio button ID
             val selectedAnswerId = when (checkedRadioButtonId) {
                 R.id.radio_1 -> item?.answers?.get(0)?.id
@@ -158,31 +188,8 @@ class QuestionsActivity : AppCompatActivity() {
             }
         }
     }
+    */
 
-
-//    private fun onRadioBtnSelected() {
-//        questionsAdapter.onRadioButtonSelect=
-//            QuestionsAdapter.OnRadioButtonSelect { position, item, checkedRadioButtonId ->
-//                when(checkedRadioButtonId){
-//                    R.id.radio_1 ->{
-//                        questionId = item?.answers?.get(0)?.id
-//                    }
-//
-//                    R.id.radio_2 -> {
-//                        questionId = item?.answers?.get(1)?.id
-//                    }
-//
-//                    R.id.radio_3 -> {
-//                        questionId = item?.answers?.get(2)?.id
-//                    }
-//
-//                    R.id.radio_4 -> {
-//                        questionId = item?.answers?.get(3)?.id
-//                    }
-//                }
-//                questionsAnswersList.add(AnswersItem(questionId,item?.id))
-//            }
-//    }
 
     override fun onBackPressed() {
 

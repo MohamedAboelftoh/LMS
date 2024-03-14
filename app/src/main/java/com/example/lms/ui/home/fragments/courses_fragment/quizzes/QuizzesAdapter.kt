@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.R
 import com.example.lms.databinding.QuizItemBinding
 import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
     class QuizzesViewHolder(val viewBinding: QuizItemBinding): RecyclerView.ViewHolder(viewBinding.root)
@@ -52,6 +55,34 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
             )
         }
     }
+ /*   private fun buttonStartAvailability(
+        quizItem: CourseQuizzesResponseItem?,
+        holder: QuizzesViewHolder,
+        position: Int
+    ) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+
+        if (quizItem != null) {
+            val startDate: Date = dateFormat.parse(quizItem.startDate)
+            val endDate: Date = dateFormat.parse(quizItem.endDate)
+
+            val currentDate = Date()
+            if (startDate.before(currentDate) && endDate.after(currentDate)) {
+                holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat
+                        .getColor(holder.itemView.context, R.color.greenColor)
+                )
+                holder.viewBinding.btnStart.setOnClickListener {
+                    onBtnStartClickListener?.onClick(position, quizItem)
+                }
+            } else {
+                holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat
+                        .getColor(holder.itemView.context, R.color.colorPrimary)
+                )
+            }
+        }
+    }*/
 
     private fun formatTStartTime(startDate: String?) :String{
         //Formatted Start Time                                      2024-02-01T00:00:00

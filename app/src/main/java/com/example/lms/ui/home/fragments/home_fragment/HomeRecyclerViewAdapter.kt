@@ -33,6 +33,11 @@ class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) : 
             .load(item?.filePath)
             .placeholder(R.drawable.course_image)
             .into(holder.viewBinding.imgDescription)
+
+        Glide.with(holder.itemView)
+            .load(item?.userImage)
+            .placeholder(R.drawable.course_image)
+            .into(holder.viewBinding.profileNews)
        // holder.viewBinding.status.text = item.state
     }
 

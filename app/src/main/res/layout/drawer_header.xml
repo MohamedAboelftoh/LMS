@@ -13,6 +13,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:cardCornerRadius="50dp"
+          android:layout_marginTop="20dp"
           app:strokeWidth="2dp"
           app:strokeColor="@color/white"
           >
@@ -58,7 +59,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           android:textSize="22sp"
-          android:layout_marginBottom="10dp"
+          android:layout_marginBottom="20dp"
           android:layout_marginTop="10dp"
           android:text="Hi, Mohamed"
           android:textColor="@color/black"

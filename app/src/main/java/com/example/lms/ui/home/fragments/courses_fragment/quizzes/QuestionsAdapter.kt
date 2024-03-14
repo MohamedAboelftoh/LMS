@@ -1,6 +1,7 @@
 package com.example.lms.ui.home.fragments.courses_fragment.quizzes
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.QuestionItemBinding
@@ -18,7 +19,7 @@ class QuestionsAdapter (private var questionsList:List<QuestionsItem?>?=null):Re
     override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int) {
         val item=questionsList!![position]
 
-        val answers=item?.answers
+      //  val answers=item?.answers
         holder.itemBinding.question.text=item?.text
         holder.itemBinding.tvQuestionNumber.text=item?.questionNumber.toString()
         holder.itemBinding.nextBtn.setOnClickListener { onNextClickListener?.onItemClick(position,item) }
@@ -30,13 +31,35 @@ class QuestionsAdapter (private var questionsList:List<QuestionsItem?>?=null):Re
         if (position == questionsList!!.size-1){
             holder.itemBinding.nextBtn.text = "Submit"
         }
-        holder.itemBinding.radio1.text=answers?.get(0)?.text
-        holder.itemBinding.radio2.text=answers?.get(1)?.text
-        holder.itemBinding.radio3.text=answers?.get(2)?.text
-        holder.itemBinding.radio4.text=answers?.get(3)?.text
-        holder.itemBinding.tvQuestionNumber.text="${position+1}"
+
+        handelNumberOfAnswers(holder,position)
+    //        holder.itemBinding.radio1.text=answers?.get(0)?.text
+//        holder.itemBinding.radio2.text=answers?.get(1)?.text
+//        holder.itemBinding.radio3.text=answers?.get(2)?.text
+//        holder.itemBinding.radio4.text=answers?.get(3)?.text
+//        holder.itemBinding.tvQuestionNumber.text="${position+1}"
 
     }
+
+    private fun handelNumberOfAnswers(holder: QuestionsAdapter.QuestionsViewHolder, position: Int) {
+        val item=questionsList!![position]
+
+        val answers=item?.answers
+        holder.itemBinding.radio1.text = answers?.getOrNull(0)?.text
+        holder.itemBinding.radio2.text = answers?.getOrNull(1)?.text
+        holder.itemBinding.radio3.text = answers?.getOrNull(2)?.text
+        holder.itemBinding.radio4.text = answers?.getOrNull(3)?.text
+        holder.itemBinding.tvQuestionNumber.text = "${position + 1}"
+
+// Set visibility for RadioButtons based on answer availability
+        holder.itemBinding.radio1.visibility = if (answers?.getOrNull(0)?.text != null) View.VISIBLE else View.GONE
+        holder.itemBinding.radio2.visibility = if (answers?.getOrNull(1)?.text != null) View.VISIBLE else View.GONE
+        holder.itemBinding.radio3.visibility = if (answers?.getOrNull(2)?.text != null) View.VISIBLE else View.GONE
+        holder.itemBinding.radio4.visibility = if (answers?.getOrNull(3)?.text != null) View.VISIBLE else View.GONE
+
+    }
+
+
     var itemCountValue: Int = 0
     override fun getItemCount(): Int {
         itemCountValue = questionsList?.size ?: 0
