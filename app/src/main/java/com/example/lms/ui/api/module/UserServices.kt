@@ -1,6 +1,7 @@
 package com.example.lms.ui.api.module
 
 import com.example.lms.ui.api.account.AccountInfoResponse
+import com.example.lms.ui.api.assignments.AssignmentByIdResponse
 import com.example.lms.ui.api.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.calender.CalenderRequest
 import com.example.lms.ui.api.calender.CalenderResponseItem
@@ -81,4 +82,6 @@ interface UserServices {
     fun getCalenderEvents(@Header("Authorization") token:String,
                           @Query("start") startDate:String,
                           @Query("end") endDate:String ):Call<ArrayList<CalenderResponseItem>>
+    @GET("api/Students/GetAssignment")
+    fun getAssignment(@Header("Authorization") token : String , @Query("taskId") taskId : String) : Call<AssignmentByIdResponse>
 }

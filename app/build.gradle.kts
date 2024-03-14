@@ -74,4 +74,6 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     // OkHttp logging interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    // pdfViewer
+    implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
 }

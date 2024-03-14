@@ -23,7 +23,9 @@ class FilesAdapter(var filesList:MutableList<FielslResponseItem>?=null) :Recycle
     override fun onBindViewHolder(holder: FilesViewHolder, position: Int) {
         val item=filesList!![position]
         holder.itemBinding.lecName.text=item?.fileName
-
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.onItemClick(item , position)
+        }
 //        val extention=item?.fileName?.split(".")?.get(1)
 //        holder.itemBinding.fileExtension.text="."+extention
 
@@ -34,6 +36,8 @@ class FilesAdapter(var filesList:MutableList<FielslResponseItem>?=null) :Recycle
         filesList=body
         notifyDataSetChanged()
     }
-
-
+ var onItemClickListener : OnItemClickListener ?= null
+interface OnItemClickListener{
+    fun onItemClick(item : FielslResponseItem , position : Int)
+}
 }

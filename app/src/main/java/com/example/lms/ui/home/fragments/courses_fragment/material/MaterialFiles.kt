@@ -1,5 +1,6 @@
 package com.example.lms.ui.home.fragments.courses_fragment.material
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.example.lms.ui.api.material.fiels.FielslResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.home.fragments.Variables
+import com.example.lms.ui.home.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +30,13 @@ class MaterialFiles : AppCompatActivity() {
         initializeData()
         viewBinding.icBack.setOnClickListener{
             finish()
+        }
+        adapter.onItemClickListener = object : FilesAdapter.OnItemClickListener{
+            override fun onItemClick(item: FielslResponseItem, position: Int) {
+                Variables.filePath = item.filePath
+                navigateFromActivity(this@MaterialFiles,FilePdfActivity())
+            }
+
         }
     }
 
