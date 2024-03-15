@@ -29,7 +29,7 @@
         app:layout_constraintHeight_percent=".05"
         app:autoSizeTextType="uniform"
         tools:text="Parallel Programing"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         />

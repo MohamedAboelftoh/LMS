@@ -23,7 +23,14 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
 
     override fun onBindViewHolder(holder: CoursesViewHolder, position: Int) {
        val courses=coursesList!![position]
-        holder.itemBinding.courseNameTv.text=courses?.name
+        val courseName: String? =courses?.name
+        if(courseName!!.length >=18){
+            holder.itemBinding.courseNameTv.text=courseName.substring(0,15)+"..."
+        }
+        else{
+            holder.itemBinding.courseNameTv.text=courseName
+        }
+        //holder.itemBinding.courseNameTv.text=courses?.name
         holder.itemBinding.courseDoctor.text=courses?.instructorFullName
         //holder.itemBinding.courseImage.setImageResource(courses.courseImage?:R.drawable.course_image)
         holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }

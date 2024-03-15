@@ -72,4 +72,9 @@
     <string name="courses">Courses</string>
     <string name="mark">Mark</string>
     <string name="material">Material</string>
+    <string name="level">Level</string>
+    <string name="semester">Semester</string>
+    <string name="add_event">Add Event</string>
+    <string name="timeline_n_here">Timeline \n here</string>
+    <string name="show_card">Show Card</string>
 </resources>

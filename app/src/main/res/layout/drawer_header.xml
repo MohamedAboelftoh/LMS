@@ -12,15 +12,16 @@
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:cardCornerRadius="50dp"
+          app:layout_constraintBottom_toTopOf="@id/name_drawer_tv"
+          app:cardCornerRadius="60dp"
           android:layout_marginTop="20dp"
           app:strokeWidth="2dp"
           app:strokeColor="@color/white"
           >
             <ImageView
                 android:id="@+id/profile_header"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/avatar_1"
                 />
       </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
@@ -52,13 +53,15 @@
 
       <TextView
           android:id="@+id/name_drawer_tv"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:autoSizeTextType="uniform"
+          app:layout_constraintHeight_percent=".16"
+          android:gravity="center"
           app:layout_constraintTop_toBottomOf="@id/profile_img"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          android:textSize="22sp"
           android:layout_marginBottom="20dp"
           android:layout_marginTop="10dp"
           android:text="Hi, Mohamed"
