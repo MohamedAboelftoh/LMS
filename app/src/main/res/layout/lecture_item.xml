@@ -7,46 +7,63 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/lec_item_card"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintHeight_percent="0.6"
         android:layout_marginVertical="30dp"
         android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:cardCornerRadius="12dp"
         android:elevation="5dp"
 
         android:backgroundTint="@color/gray">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            >
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
+                android:id="@+id/icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lec_name"
+                app:layout_constraintWidth_percent="0.13"
+                app:layout_constraintHeight_percent="0.45"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/ic_folder" />
 
             <TextView
                 android:id="@+id/lec_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginVertical="5dp"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.58"
+                app:layout_constraintWidth_percent="0.85"
+                android:layout_marginStart="5dp"
+                app:autoSizeTextType="uniform"
+                android:gravity="start"
                 android:layout_marginEnd="10dp"
                 android:maxLength="18"
                 android:minLines="1"
                 android:maxLines="1"
                 android:text="Lectures"
                 android:textColor="@color/black"
-                android:textSize="14sp"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

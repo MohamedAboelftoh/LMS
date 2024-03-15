@@ -42,17 +42,17 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // Event is ongoing
         if (startDate.before(currentDate) && endDate.after(currentDate)) {
-            holder.viewBinding.linearLayout.setBackgroundResource(R.color.firstColorCalender)
+            holder.viewBinding.constraintLayout.setBackgroundResource(R.color.firstColorCalender)
             holder.viewBinding.view.setBackgroundResource(R.color.firstColorCalenderView)
         }
         // Event has not started yet
         else if (startDate.after(currentDate)) {
-            holder.viewBinding.linearLayout.setBackgroundResource(R.color.secondColorCalender)
+            holder.viewBinding.constraintLayout.setBackgroundResource(R.color.secondColorCalender)
             holder.viewBinding.view.setBackgroundResource(R.color.secondColorCalenderView)
         }
         // Event has ended
         else if (endDate.before(currentDate)) {
-            holder.viewBinding.linearLayout.setBackgroundResource(R.color.thirdColorCalender)
+            holder.viewBinding.constraintLayout.setBackgroundResource(R.color.thirdColorCalender)
             holder.viewBinding.view.setBackgroundResource(R.color.thirdColorCalenderView)
         }
     }

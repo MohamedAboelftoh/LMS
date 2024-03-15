@@ -24,8 +24,8 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
     override fun onBindViewHolder(holder: CoursesViewHolder, position: Int) {
        val courses=coursesList!![position]
         val courseName: String? =courses?.name
-        if(courseName!!.length >=18){
-            holder.itemBinding.courseNameTv.text=courseName.substring(0,15)+"..."
+        if(courseName!!.length >=25){
+            holder.itemBinding.courseNameTv.text=courseName.substring(0,22)+"..."
         }
         else{
             holder.itemBinding.courseNameTv.text=courseName

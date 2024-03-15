@@ -21,9 +21,11 @@
                 android:id="@+id/assignment_image"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent=".8"
+                app:layout_constraintHeight_percent=".98"
+                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_assignment"
                 />
@@ -50,8 +52,8 @@
                 app:layout_constraintEnd_toStartOf="@id/deadline"
                 app:layout_constraintBottom_toBottomOf="@id/deadline"
                 android:text="Deadline"
-                app:layout_constraintWidth_percent=".2"
-                app:layout_constraintHeight_percent=".4"
+                app:layout_constraintWidth_percent=".25"
+                app:layout_constraintHeight_percent=".45"
                 android:layout_marginStart="10dp"
                 />
             <TextView
@@ -59,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:autoSizeTextType="uniform"
-                app:layout_constraintHeight_percent=".4"
+                app:layout_constraintHeight_percent=".45"
                 app:layout_constraintTop_toBottomOf="@id/course_name_tv"
                 app:layout_constraintStart_toEndOf="@id/tv_deadline"
                 app:layout_constraintEnd_toStartOf="@id/btn_more"
