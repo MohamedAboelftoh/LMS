@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ItemNewsHomeBinding
-import com.example.lms.ui.api.news.NewsResponseItem
+import com.example.lms.ui.api.api_student.news.NewsResponseItem
 
-class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) :  Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
+class HomeRecyclerViewAdapter( var newsList: List<com.example.lms.ui.api.api_student.news.NewsResponseItem?>?= null ) :  Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
     class ViewHolder (val  viewBinding : ItemNewsHomeBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +40,7 @@ class HomeRecyclerViewAdapter( var newsList: List<NewsResponseItem?>?= null ) : 
        // holder.viewBinding.status.text = item.state
     }
 
-    fun bindNews(news: List<NewsResponseItem?>?) {
+    fun bindNews(news: List<com.example.lms.ui.api.api_student.news.NewsResponseItem?>?) {
         newsList = news
         notifyDataSetChanged()
     }

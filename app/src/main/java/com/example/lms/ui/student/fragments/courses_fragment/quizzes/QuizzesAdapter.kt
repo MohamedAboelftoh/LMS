@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.R
 import com.example.lms.databinding.QuizItemBinding
-import com.example.lms.ui.api.quizes.CourseQuizzesResponseItem
+import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 
-class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
+class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
     class QuizzesViewHolder(val viewBinding: QuizItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizzesViewHolder {
@@ -33,7 +33,7 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
     }
 
     private fun buttonStartAvailability(
-        quizItem: CourseQuizzesResponseItem?,
+        quizItem: com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem?,
         holder: QuizzesViewHolder,
         position: Int
     ) {
@@ -94,14 +94,14 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
         return formattedEndTime!!
     }
 
-    fun bindQuizzes(body: List<CourseQuizzesResponseItem>?) {
+    fun bindQuizzes(body: List<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>?) {
         quizzesList=body
         notifyDataSetChanged()
     }
 
     var onBtnStartClickListener: OnBtnStartClickListener?=null
     interface OnBtnStartClickListener{
-        fun onClick(position: Int, item: CourseQuizzesResponseItem)
+        fun onClick(position: Int, item: com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem)
     }
 
 }

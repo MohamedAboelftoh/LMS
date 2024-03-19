@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.databinding.AssignmentCompletedItemBinding
-import com.example.lms.ui.api.assignments.AssignmentResponseItem
+import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar
 
-class AssignmentCompletedAdapter (private var assignmentsList:MutableList<AssignmentResponseItem>?=null):Adapter<AssignmentCompletedAdapter.AssignmentViewHolder>(){
+class AssignmentCompletedAdapter (private var assignmentsList:MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?=null):Adapter<AssignmentCompletedAdapter.AssignmentViewHolder>(){
     class AssignmentViewHolder(val viewBinding: AssignmentCompletedItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
@@ -34,8 +34,8 @@ class AssignmentCompletedAdapter (private var assignmentsList:MutableList<Assign
 //        notifyDataSetChanged()
 //    }
 
-    fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
-        val assignCompletedList: MutableList<AssignmentResponseItem> = mutableListOf()
+    fun bindAssignments(newAssignmentList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?) {
+        val assignCompletedList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem> = mutableListOf()
         val currentDate = Calendar.getInstance().time
 
         if (newAssignmentList != null) {

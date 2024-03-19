@@ -128,7 +128,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.lms.databinding.FragmentCalenderBinding
-import com.example.lms.ui.api.calender.CalenderResponseItem
+import com.example.lms.ui.api.api_student.calender.CalenderResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -182,17 +182,17 @@ class CalenderFragment : Fragment() {
         val endDate = String.format("%d-%02d-%02d", date.year, date.month , date.day + 1)
 
         ApiManager.getApi().getCalenderEvents(token!!, startDate, endDate)
-            .enqueue(object : Callback<ArrayList<CalenderResponseItem>> {
+            .enqueue(object : Callback<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>> {
                 override fun onResponse(
-                    call: Call<ArrayList<CalenderResponseItem>>,
-                    response: Response<ArrayList<CalenderResponseItem>>
+                    call: Call<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>,
+                    response: Response<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>
                 ) {
                     if (response.isSuccessful) {
                         calenderAdapter.bindEvents(response.body())
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<CalenderResponseItem>>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>, t: Throwable) {
                     Toast.makeText(
                         requireContext(),
                         "onFailure " + t.localizedMessage,

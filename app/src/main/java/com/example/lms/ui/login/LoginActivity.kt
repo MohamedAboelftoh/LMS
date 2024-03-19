@@ -9,6 +9,7 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.doctor.DrMainActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
 import com.example.lms.ui.student.HomeActivity
@@ -60,10 +61,11 @@ class LoginActivity : AppCompatActivity() {
                     viewBinding.progrssBar.visibility = View.INVISIBLE
                     //save email& password , token in sherdPreferences
                     val token="Bearer "+response.body()?.token
-                    saveCredentials(email,password,token)
+                    val role=response.body()?.userRole
+                    saveCredentials(email,password,token,role!!)
                     if (response.body()?.userRole == "Doctor"){
                         navigateFromActivity(this@LoginActivity,
-                            com.example.lms.ui.doctor.home.HomeActivity()
+                            DrMainActivity()
                         )
                     }
                     else{
@@ -85,10 +87,12 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun saveCredentials(email: String, password: String , token: String) {
+    private fun saveCredentials(email: String, password: String , token: String,role:String) {
         myPreferencesToken.saveData("email", email)
         myPreferencesToken.saveData("password", password)
         myPreferencesToken.saveData("token",token)
+        myPreferencesToken.saveData("role",role)
+
     }
     private fun studentLogin() {
         if(!validation()){
@@ -105,7 +109,8 @@ class LoginActivity : AppCompatActivity() {
                     viewBinding.progrssBar.visibility = View.INVISIBLE
                     //save email& password , token in sherdPreferences
                     val token="Bearer "+response.body()?.token
-                    saveCredentials(email,password,token)
+                    val role =response.body()?.userRole
+                    saveCredentials(email,password,token,role!!)
                     if (response.body()?.userRole == "Student"){
                         navigateFromActivity(this@LoginActivity,
                             HomeActivity()

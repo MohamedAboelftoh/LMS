@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.CourseItemBinding
-import com.example.lms.ui.api.courses.CoursesResponseItem
+import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
 
-class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
+class CoursesAdapter(var coursesList:List<com.example.lms.ui.api.api_student.courses.CoursesResponseItem?>?=null):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
 
     class CoursesViewHolder(val itemBinding:CourseItemBinding):RecyclerView.ViewHolder(itemBinding.root)
 
@@ -36,7 +36,7 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
         holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }
     }
 
-    fun bindCourses(coursesResponse: List<CoursesResponseItem?>?) {
+    fun bindCourses(coursesResponse: List<com.example.lms.ui.api.api_student.courses.CoursesResponseItem?>?) {
         coursesList=coursesResponse
         notifyDataSetChanged()
     }
@@ -44,7 +44,7 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
     var onItemClickListener:OnItemClickListener?=null
 
     fun interface OnItemClickListener{
-        fun onItemClick(position:Int,course:CoursesResponseItem?)
+        fun onItemClick(position:Int,course: com.example.lms.ui.api.api_student.courses.CoursesResponseItem?)
     }
 
 }

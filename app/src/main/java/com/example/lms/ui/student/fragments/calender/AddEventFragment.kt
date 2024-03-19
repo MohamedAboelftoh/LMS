@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.lms.databinding.FragmentAddEventBinding
-import com.example.lms.ui.api.calender.CalenderRequest
+import com.example.lms.ui.api.api_student.calender.CalenderRequest
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -79,7 +79,8 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val token = myPreferencesToken.loadData("token")
         val startTime = viewBinding.date.text.toString()
         val event = viewBinding.event.text.toString()
-        val calenderRequest = CalenderRequest(endDate , event , startTime)
+        val calenderRequest =
+            com.example.lms.ui.api.api_student.calender.CalenderRequest(endDate, event, startTime)
         ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
           .enqueue(object : Callback<ResponseBody>{
               override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

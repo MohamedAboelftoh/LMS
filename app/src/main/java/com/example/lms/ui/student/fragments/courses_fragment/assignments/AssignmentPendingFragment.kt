@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lms.databinding.FragmentAssignmentPendingBinding
-import com.example.lms.ui.api.assignments.AssignmentResponseItem
+import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
@@ -37,10 +37,10 @@ class AssignmentPendingFragment : Fragment() {
         myPreferencesToken = MyPreferencesToken(requireContext())
         val token = myPreferencesToken.loadData("token")
         val cycleId = Variables.cycleId
-        ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object : Callback<MutableList<AssignmentResponseItem>>{
+        ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object : Callback<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>{
             override fun onResponse(
-                call: Call<MutableList<AssignmentResponseItem>>,
-                response: Response<MutableList<AssignmentResponseItem>>
+                call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>,
+                response: Response<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>
             ) {
                 if(response.isSuccessful){
                     assignmentAdapter.bindAssignments(response.body())
@@ -48,14 +48,14 @@ class AssignmentPendingFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<AssignmentResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
         assignmentAdapter = AssignmentPendingAdapter()
         viewBinding.recyclerAssignmentsPending.adapter = assignmentAdapter
         assignmentAdapter.onBtnMoreClickListener = object : AssignmentPendingAdapter.OnBtnMoreClickListener{
-            override fun onClick(position: Int, item: AssignmentResponseItem) {
+            override fun onClick(position: Int, item: com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem) {
                 Variables.taskId=item.taskId
                 navigateToAssignmentDetail(item.taskName,item.endDate,item.taskId)
 

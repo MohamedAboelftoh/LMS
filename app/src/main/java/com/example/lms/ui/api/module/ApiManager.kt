@@ -16,7 +16,7 @@ class ApiManager {
             }
             return retrofit!!
         }
-        fun getApi():UserServices{
+        fun getApi(): UserServices {
             return getInstance().create(UserServices::class.java)
         }
     }

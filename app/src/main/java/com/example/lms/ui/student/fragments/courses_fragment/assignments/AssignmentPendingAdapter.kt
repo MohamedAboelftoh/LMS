@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.databinding.AssignmentPendingItemBinding
-import com.example.lms.ui.api.assignments.AssignmentResponseItem
+import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class AssignmentPendingAdapter (private var assignmentsList:MutableList<AssignmentResponseItem>?=null):Adapter<AssignmentPendingAdapter.AssignmentViewHolder>(){
+class AssignmentPendingAdapter (private var assignmentsList:MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?=null):Adapter<AssignmentPendingAdapter.AssignmentViewHolder>(){
     class AssignmentViewHolder(val viewBinding: AssignmentPendingItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
@@ -38,8 +38,8 @@ class AssignmentPendingAdapter (private var assignmentsList:MutableList<Assignme
         val date = endDate?.get(0)
         return date
     }
-fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
-    val assignPendingList: MutableList<AssignmentResponseItem> = mutableListOf()
+fun bindAssignments(newAssignmentList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?) {
+    val assignPendingList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem> = mutableListOf()
     val currentDate = Calendar.getInstance().time
 
     if (newAssignmentList != null) {
@@ -58,7 +58,7 @@ fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
 
     var onBtnMoreClickListener: OnBtnMoreClickListener?=null
     interface OnBtnMoreClickListener{
-        fun onClick(position: Int,item: AssignmentResponseItem)
+        fun onClick(position: Int,item: com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem)
     }
 
 }

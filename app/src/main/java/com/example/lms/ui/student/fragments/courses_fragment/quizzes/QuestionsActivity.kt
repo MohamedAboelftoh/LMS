@@ -13,8 +13,8 @@ import com.example.lms.R
 import com.example.lms.databinding.ActivityQuestionsBinding
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.api.quizes.QuizQuestionsResponse
-import com.example.lms.ui.api.quizes.submit.AnswersItem
+import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
+import com.example.lms.ui.api.api_student.quizes.submit.AnswersItem
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
@@ -30,7 +30,7 @@ class QuestionsActivity : AppCompatActivity() {
     private lateinit var myCountDownTimer: CountDownTimer
     lateinit var finish:FinishActivity
     private val snapHelper : SnapHelper = LinearSnapHelper()
-    private val questionsAnswersList : ArrayList<AnswersItem> = arrayListOf()
+    private val questionsAnswersList : ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem> = arrayListOf()
     private var questionsNumber = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,10 +97,10 @@ class QuestionsActivity : AppCompatActivity() {
     private fun getQuestions(){
         val token =myPreferencesToken.loadData("token")
         val quizId= Variables.quizId
-        ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<QuizQuestionsResponse>{
+        ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>{
             override fun onResponse(
-                call: Call<QuizQuestionsResponse>,
-                response: Response<QuizQuestionsResponse>
+                call: Call<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>,
+                response: Response<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>
             ) {
                 duration = convertTimeToMilliseconds(response.body()?.duration!!)
                 startTimer()
@@ -113,7 +113,7 @@ class QuestionsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<QuizQuestionsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>, t: Throwable) {
                 Toast.makeText(this@QuestionsActivity, "onFailure " + t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })
@@ -154,7 +154,12 @@ class QuestionsActivity : AppCompatActivity() {
                     existingAnswer.answerId = selectedAnswerId
                 } else {
                     // Add a new answer to the list
-                    questionsAnswersList.add(AnswersItem(selectedAnswerId, questionId))
+                    questionsAnswersList.add(
+                        com.example.lms.ui.api.api_student.quizes.submit.AnswersItem(
+                            selectedAnswerId,
+                            questionId
+                        )
+                    )
                 }
             }
         }

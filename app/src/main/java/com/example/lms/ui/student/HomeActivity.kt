@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
-import com.example.lms.ui.api.account.AccountInfoResponse
+import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.account.AccountFragment
@@ -29,12 +29,12 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityHomeBinding
-    lateinit var myPreferencesToken:MyPreferencesToken
+    lateinit var myPreferencesToken: MyPreferencesToken
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        myPreferencesToken=MyPreferencesToken(this)
+        myPreferencesToken= MyPreferencesToken(this)
 
         viewBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -163,10 +163,10 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun getCurrentUser() {
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse>{
             override fun onResponse(
-                call: Call<AccountInfoResponse>,
-                response: Response<AccountInfoResponse>
+                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
+                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
             ) {
                 if(response.isSuccessful){
                     val header = viewBinding.navView.getHeaderView(0)
@@ -182,7 +182,7 @@ class HomeActivity : AppCompatActivity() {
                     toast.show()
                 }
             }
-            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
                 val toast = Toast.makeText(this@HomeActivity, t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }

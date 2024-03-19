@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.lms.R
 import com.example.lms.databinding.FragmentCoursesBinding
-import com.example.lms.ui.api.courses.CoursesResponseItem
+import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
@@ -47,10 +47,10 @@ class CoursesFragment : Fragment() {
     }
     private fun uploadCourses() {
         val token=myPreferencesToken.loadData("token")
-       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<ArrayList<CoursesResponseItem>>{
+       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>{
            override fun onResponse(
-               call: Call<ArrayList<CoursesResponseItem>>,
-               response: Response<ArrayList<CoursesResponseItem>>
+               call: Call<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>,
+               response: Response<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>
            ) {
                if (response.isSuccessful) {
                    adapter.bindCourses(response.body())
@@ -59,7 +59,7 @@ class CoursesFragment : Fragment() {
                    Toast.makeText(requireContext(),"Courses not downLoaded",Toast.LENGTH_LONG).show()
                }
            }
-           override fun onFailure(call: Call<ArrayList<CoursesResponseItem>>, t: Throwable) {
+           override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>, t: Throwable) {
                Toast.makeText(requireContext(),"onFailure "+t.localizedMessage,Toast.LENGTH_LONG).show()
            }
        })

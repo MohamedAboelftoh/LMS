@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lms.databinding.FragmentAssignmentCompletedBinding
-import com.example.lms.ui.api.assignments.AssignmentResponseItem
+import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
@@ -38,10 +38,10 @@ class AssignmentCompletedFragment : Fragment() {
         val token = myPreferencesToken.loadData("token")
         val cycleId = Variables.cycleId
         ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object :
-            Callback<MutableList<AssignmentResponseItem>> {
+            Callback<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>> {
             override fun onResponse(
-                call: Call<MutableList<AssignmentResponseItem>>,
-                response: Response<MutableList<AssignmentResponseItem>>
+                call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>,
+                response: Response<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>
             ) {
                 if(response.isSuccessful){
                     adapter.bindAssignments(response.body())
@@ -49,7 +49,7 @@ class AssignmentCompletedFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<AssignmentResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })

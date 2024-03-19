@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.doctor.DrMainActivity
 import com.example.lms.ui.student.HomeActivity
 import com.example.lms.ui.student.navigateFromActivity
 import com.example.lms.ui.login.LoginActivity
@@ -35,9 +36,17 @@ class SplashActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             if(index == 2) {
-                if (isLoggedIn()) {
+               val role= myPreferencesToken.loadData("role")
+                if (isLoggedIn()&& role=="Student") {
+
                     navigateFromActivity(this@SplashActivity,HomeActivity())
-                } else {
+                }
+
+                else if(isLoggedIn()&& role=="Doctor"){
+                    navigateFromActivity(this@SplashActivity, DrMainActivity())
+
+                }
+                else {
                     navigateFromActivity(this@SplashActivity,LoginActivity())
                 }
             }

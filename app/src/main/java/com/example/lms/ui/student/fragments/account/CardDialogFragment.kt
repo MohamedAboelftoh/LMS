@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.FragmentCardDialogBinding
-import com.example.lms.ui.api.account.AccountInfoResponse
+import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import retrofit2.Call
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class CardDialogFragment : DialogFragment() {
     lateinit var viewBinding:FragmentCardDialogBinding
-    lateinit var myPreferencesToken:MyPreferencesToken
+    lateinit var myPreferencesToken: MyPreferencesToken
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,8 +26,8 @@ class CardDialogFragment : DialogFragment() {
         // Inflate the layout for this fragment
         viewBinding=FragmentCardDialogBinding.inflate(inflater
             ,container,false)
-        myPreferencesToken=MyPreferencesToken(requireContext())
-        getDialog()?.getWindow()?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment);
+        myPreferencesToken= MyPreferencesToken(requireContext())
+        getDialog()?.getWindow()?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment)
 
 
         return viewBinding.root
@@ -39,10 +39,10 @@ class CardDialogFragment : DialogFragment() {
     }
     fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse> {
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse> {
             override fun onResponse(
-                call: Call<AccountInfoResponse>,
-                response: Response<AccountInfoResponse>
+                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
+                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
             ) {
                 if (response.isSuccessful){
                     viewBinding.name.text=response.body()?.fullName
@@ -60,7 +60,7 @@ class CardDialogFragment : DialogFragment() {
                 }
             }
 
-            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
                 Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })

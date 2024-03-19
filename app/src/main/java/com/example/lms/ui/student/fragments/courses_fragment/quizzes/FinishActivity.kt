@@ -9,8 +9,8 @@ import com.example.lms.R
 import com.example.lms.databinding.ActivityFinishBinding
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.api.quizes.submit.AnswersItem
-import com.example.lms.ui.api.quizes.submit.SubmitQuizRequest
+import com.example.lms.ui.api.api_student.quizes.submit.AnswersItem
+import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
@@ -22,13 +22,13 @@ class FinishActivity : AppCompatActivity() {
     lateinit var myPreferencesToken: MyPreferencesToken
     private var grade = 0
      private var questionNumber : Int ?= 0
-    private var listAnswers: ArrayList<AnswersItem>? = null
+    private var listAnswers: ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityFinishBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         myPreferencesToken= MyPreferencesToken(this)
-        listAnswers = intent.getSerializableExtra("questionsAnswersList") as? ArrayList<AnswersItem>
+        listAnswers = intent.getSerializableExtra("questionsAnswersList") as? ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem>
         questionNumber = intent.getIntExtra("questionNumbers",0)
         viewBinding.back.setOnClickListener {
             finish()
@@ -46,7 +46,10 @@ class FinishActivity : AppCompatActivity() {
 
     private fun submitQuiz() {
         MyCountDownTimer.cancelTimer()
-        val submitQuiz = SubmitQuizRequest(Variables.quizId, listAnswers)
+        val submitQuiz = com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest(
+            Variables.quizId,
+            listAnswers
+        )
         val token = myPreferencesToken.loadData("token")
         val submitQuizResponse: MutableList<Map<String?, Boolean?>> = mutableListOf()
         ApiManager.getApi().submitQuiz(submitQuiz, Variables.quizId!!, token!!).enqueue(object

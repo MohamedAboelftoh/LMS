@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.R
 import com.example.lms.databinding.ItemCalenderBinding
-import com.example.lms.ui.api.calender.CalenderResponseItem
+import com.example.lms.ui.api.api_student.calender.CalenderResponseItem
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class CalenderAdapter (private var calenderList : ArrayList<CalenderResponseItem>?=null) : Adapter<CalenderAdapter.ViewHolder>() {
+class CalenderAdapter (private var calenderList : ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>?=null) : Adapter<CalenderAdapter.ViewHolder>() {
      var viewHolder: ViewHolder? = null
     class ViewHolder(var viewBinding : ItemCalenderBinding) : RecyclerView.ViewHolder (viewBinding.root)
 
@@ -57,7 +57,7 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     }
 }
 
-    fun bindEvents(eventsList: ArrayList<CalenderResponseItem>?) {
+    fun bindEvents(eventsList: ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>?) {
         calenderList=eventsList
 
         notifyDataSetChanged()

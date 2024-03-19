@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 
 import com.example.lms.databinding.ActivityMaterialFilesBinding
-import com.example.lms.ui.api.material.fiels.FielslResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
@@ -31,7 +31,7 @@ class MaterialFiles : AppCompatActivity() {
             finish()
         }
         adapter.onItemClickListener = object : FilesAdapter.OnItemClickListener{
-            override fun onItemClick(item: FielslResponseItem, position: Int) {
+            override fun onItemClick(item: com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem, position: Int) {
                 Variables.filePath = item.filePath
                 navigateFromActivity(this@MaterialFiles,FilePdfActivity())
             }
@@ -43,10 +43,10 @@ class MaterialFiles : AppCompatActivity() {
         val lectureId=intent.getStringExtra("lectureId")
         val token=myPreferencesToken.loadData("token")
      ApiManager.getApi().getFiles(token
-         ,lectureId).enqueue(object :Callback<MutableList<FielslResponseItem>>{
+         ,lectureId).enqueue(object :Callback<MutableList<com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem>>{
          override fun onResponse(
-             call: Call<MutableList<FielslResponseItem>>,
-             response: Response<MutableList<FielslResponseItem>>
+             call: Call<MutableList<com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem>>,
+             response: Response<MutableList<com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem>>
          ) {
              if (response.isSuccessful) {
                  adapter.bindFiles(response.body())
@@ -60,7 +60,7 @@ class MaterialFiles : AppCompatActivity() {
              }
          }
 
-         override fun onFailure(call: Call<MutableList<FielslResponseItem>>, t: Throwable) {
+         override fun onFailure(call: Call<MutableList<com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem>>, t: Throwable) {
              Toast.makeText(this@MaterialFiles,"OnFailure"+t.localizedMessage, Toast.LENGTH_LONG).show()
          }
 
