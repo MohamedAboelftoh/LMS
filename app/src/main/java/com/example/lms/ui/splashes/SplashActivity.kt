@@ -1,8 +1,5 @@
 package com.example.lms.ui.splashes
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -10,8 +7,8 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.home.HomeActivity
-import com.example.lms.ui.home.navigateFromActivity
+import com.example.lms.ui.student.HomeActivity
+import com.example.lms.ui.student.navigateFromActivity
 import com.example.lms.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {

@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class FielslResponseItem(
 
-	@field:SerializedName("createdAt")
+	@field:SerializedName("CreatedAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("fileName")
+	@field:SerializedName("FileName")
 	val fileName: String? = null,
 
-	@field:SerializedName("filePath")
+	@field:SerializedName("FilePath")
 	val filePath: String? = null
 ) : Parcelable

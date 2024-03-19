@@ -4,55 +4,59 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.LMS"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.fragments.courses_fragment.material.FilePdfActivity"
+            android:name=".ui.doctor.home.DoctorHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.drawer_grades.AllCoursesGrades"
+            android:name=".ui.student.fragments.courses_fragment.material.FilePdfActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.material.MaterialFiles"
+            android:name=".ui.student.fragments.drawer_grades.AllCoursesGrades"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.material.MaterialActivity"
+            android:name=".ui.student.fragments.courses_fragment.material.MaterialFiles"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.grades.GradesActivity"
+            android:name=".ui.student.fragments.courses_fragment.material.MaterialActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.assignments.AssignmentDetailsActivity"
+            android:name=".ui.student.fragments.courses_fragment.grades.GradesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.assignments.AssignmentsActivity"
+            android:name=".ui.student.fragments.courses_fragment.assignments.AssignmentDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.quizzes.FinishActivity"
+            android:name=".ui.student.fragments.courses_fragment.assignments.AssignmentsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.quizzes.QuestionsActivity"
+            android:name=".ui.student.fragments.courses_fragment.quizzes.FinishActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.quizzes.QuizzesActivity"
+            android:name=".ui.student.fragments.courses_fragment.quizzes.QuestionsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.account.ChangePhoneActivity"
+            android:name=".ui.student.fragments.courses_fragment.quizzes.QuizzesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.account.ChangePasswordActivity"
+            android:name=".ui.student.fragments.account.ChangePhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragments.courses_fragment.CourseContent"
+            android:name=".ui.student.fragments.account.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.student.fragments.courses_fragment.CourseContent"
             android:exported="false" />
         <activity
             android:name=".ui.resetPassword.ResetPasswordActivity"
@@ -61,7 +65,7 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.student.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.splashes.SplashActivity"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.fragments.courses_fragment.quizzes.FinishActivity">
+    tools:context=".ui.student.fragments.courses_fragment.quizzes.FinishActivity">
     <ImageView
         android:id="@+id/back"
         android:layout_width="0dp"
