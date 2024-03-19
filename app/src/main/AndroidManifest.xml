@@ -17,7 +17,19 @@
         android:theme="@style/Theme.LMS"
         tools:targetApi="31">
         <activity
-            android:name=".ui.doctor.home.DoctorHomeActivity"
+            android:name=".ui.doctor.home.fragments.news.NewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.home.fragments.courses.CoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.home.fragments.calender.CalenderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.home.fragments.account.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.student.fragments.courses_fragment.material.FilePdfActivity"

@@ -1,5 +1,4 @@
 package com.example.lms.ui.login
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,10 +9,9 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.module.MyPreferencesToken
-import com.example.lms.ui.doctor.home.DoctorHomeActivity
-import com.example.lms.ui.student.HomeActivity
 import com.example.lms.ui.resetPassword.ResetPasswordActivity
 import com.example.lms.ui.splashes.SplashActivity
+import com.example.lms.ui.student.HomeActivity
 import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -64,7 +62,9 @@ class LoginActivity : AppCompatActivity() {
                     val token="Bearer "+response.body()?.token
                     saveCredentials(email,password,token)
                     if (response.body()?.userRole == "Doctor"){
-                        navigateFromActivity(this@LoginActivity,DoctorHomeActivity())
+                        navigateFromActivity(this@LoginActivity,
+                            com.example.lms.ui.doctor.home.HomeActivity()
+                        )
                     }
                     else{
                         val toast = Toast.makeText(this@LoginActivity, "You Are Student", Toast.LENGTH_LONG)
@@ -107,7 +107,9 @@ class LoginActivity : AppCompatActivity() {
                     val token="Bearer "+response.body()?.token
                     saveCredentials(email,password,token)
                     if (response.body()?.userRole == "Student"){
-                        navigateFromActivity(this@LoginActivity,HomeActivity())
+                        navigateFromActivity(this@LoginActivity,
+                            HomeActivity()
+                        )
                     }
                     else{
                         val toast = Toast.makeText(this@LoginActivity, "You Are Doctor", Toast.LENGTH_LONG)
