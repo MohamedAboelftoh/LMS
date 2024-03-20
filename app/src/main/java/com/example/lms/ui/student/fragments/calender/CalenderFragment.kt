@@ -182,17 +182,17 @@ class CalenderFragment : Fragment() {
         val endDate = String.format("%d-%02d-%02d", date.year, date.month , date.day + 1)
 
         ApiManager.getApi().getCalenderEvents(token!!, startDate, endDate)
-            .enqueue(object : Callback<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>> {
+            .enqueue(object : Callback<ArrayList<CalenderResponseItem>> {
                 override fun onResponse(
-                    call: Call<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>,
-                    response: Response<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>
+                    call: Call<ArrayList<CalenderResponseItem>>,
+                    response: Response<ArrayList<CalenderResponseItem>>
                 ) {
                     if (response.isSuccessful) {
                         calenderAdapter.bindEvents(response.body())
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<CalenderResponseItem>>, t: Throwable) {
                     Toast.makeText(
                         requireContext(),
                         "onFailure " + t.localizedMessage,

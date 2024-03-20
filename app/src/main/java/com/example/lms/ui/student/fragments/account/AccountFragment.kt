@@ -123,10 +123,10 @@ lateinit var myPreferencesToken: MyPreferencesToken
 
     private fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse>{
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
-                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
             ) {
                 if (response.isSuccessful){
                     viewBinding.userName.text=response.body()?.fullName
@@ -143,7 +143,7 @@ lateinit var myPreferencesToken: MyPreferencesToken
                 }
             }
 
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })

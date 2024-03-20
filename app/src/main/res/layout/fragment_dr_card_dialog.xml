@@ -57,19 +57,19 @@
         app:layout_constraintEnd_toStartOf="@id/name"
         />
     <TextView
-        android:id="@+id/tv_level"
+        android:id="@+id/tv_faculty"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintHeight_percent=".17"
         app:layout_constraintWidth_percent=".25"
-        android:text="@string/your_level"
+        android:text="Faculty"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@id/img_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
-        app:layout_constraintEnd_toStartOf="@id/level"
+        app:layout_constraintEnd_toStartOf="@id/faculty"
         />
     <TextView
         android:id="@+id/tv_id"
@@ -83,7 +83,7 @@
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@id/img_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_level"
+        app:layout_constraintTop_toBottomOf="@id/tv_faculty"
         app:layout_constraintEnd_toStartOf="@id/tv_id"
         />
 
@@ -119,13 +119,13 @@
         />
 
     <TextView
-        android:id="@+id/level"
+        android:id="@+id/faculty"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintHeight_percent=".17"
         app:layout_constraintEnd_toEndOf="@id/name"
-        android:text="4"
+        android:text="FCAI"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
@@ -138,13 +138,13 @@
         android:layout_height="0dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintHeight_percent=".17"
-        app:layout_constraintEnd_toEndOf="@id/level"
+        app:layout_constraintEnd_toEndOf="@id/faculty"
         android:text=" 123445"
         android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/level"
-        app:layout_constraintTop_toBottomOf="@id/level"
+        app:layout_constraintStart_toStartOf="@id/faculty"
+        app:layout_constraintTop_toBottomOf="@id/faculty"
         />
 
     <TextView

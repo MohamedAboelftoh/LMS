@@ -10,6 +10,7 @@ import com.example.lms.ui.doctor.fragments.account.DrAccountFragment
 import com.example.lms.ui.doctor.fragments.calender.DrCalenderFragment
 import com.example.lms.ui.doctor.fragments.courses.DrCoursesFragment
 import com.example.lms.ui.doctor.fragments.news.DrNewsFragment
+import com.example.lms.ui.student.fragments.calender.CalenderFragment
 
 class DrMainActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityDoctorMainBinding
@@ -27,7 +28,7 @@ class DrMainActivity : AppCompatActivity() {
             when(item.itemId){
                 R.id.ic_hom->{ pushFragment(DrNewsFragment())}
                 R.id.ic_account->{ pushFragment(DrAccountFragment())}
-                R.id.ic_calender->{ pushFragment(DrCalenderFragment())}
+                R.id.ic_calender->{ pushFragment(CalenderFragment())}
                 R.id.ic_courses->{ pushFragment(DrCoursesFragment())}
 
             }

@@ -10,11 +10,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.lms.R
 import com.example.lms.databinding.FragmentDrAccountBinding
+import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
+import com.example.lms.ui.api.module.ApiManager
+import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.login.LoginActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DrAccountFragment : Fragment() {
 lateinit var viewBinding:FragmentDrAccountBinding
+lateinit var myPreferencesToken: MyPreferencesToken
 
 
     override fun onCreateView(
@@ -27,6 +37,7 @@ lateinit var viewBinding:FragmentDrAccountBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPreferencesToken= MyPreferencesToken(requireContext())
         viewBinding.btnShowCard.setOnClickListener {
             showCardFragment()
         }
@@ -34,7 +45,34 @@ lateinit var viewBinding:FragmentDrAccountBinding
         viewBinding.logoutBtn.setOnClickListener {
             btnLogoutClickListener()
         }
+        getInstructorInfo()
 
+    }
+    fun getInstructorInfo(){
+        val token=myPreferencesToken.loadData("token")
+        ApiManager.getApi().getInstructorInfo(token!!).enqueue(object :Callback<InstructorInfoResponse>{
+            override fun onResponse(
+                call: Call<InstructorInfoResponse>,
+                response: Response<InstructorInfoResponse>
+            ) {
+                if (response.isSuccessful){
+                    viewBinding.userName.text=response.body()?.fullName
+
+//                    Glide.with(viewBinding.imgPro)
+//                        .load(response.body()?.imagePath)
+//                        .placeholder(R.drawable.avatar_1)
+//                        .into(viewBinding.profile)
+                }
+                else{
+                    Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<InstructorInfoResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
     private fun showCardFragment() {
         val cardFragment = DrCardDialogFragment()
