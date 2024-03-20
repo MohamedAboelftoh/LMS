@@ -1,6 +1,7 @@
 package com.example.lms.ui.api.module
 
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
+import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
@@ -30,40 +31,42 @@ interface UserServices {
     @POST("api/Account/login")
     fun userLogin(@Body loginRequest: LoginRequest) : Call<LoginResponse>
     @GET("api/News")
-    fun getNews(): Call<ArrayList<com.example.lms.ui.api.api_student.news.NewsResponseItem>>
+    fun getNews(): Call<ArrayList<NewsResponseItem>>
     @GET("api/Account/GetCurrentUser")
     fun getCurrentUser(@Header("Authorization") token : String): Call<LoginResponse>
 
     @GET("api/Students/CurrentCourcesInfo")
-    fun getAllCourses(@Header("Authorization")token:String): Call<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>
+    fun getAllCourses(@Header("Authorization")token:String): Call<ArrayList<CoursesResponseItem>>
+    @GET("api/Instructor/CurrentCoursesInfo")
+    fun getAllDrCourses(@Header("Authorization")token:String): Call<ArrayList<DrCoursesResponseItem>>
 
     @GET("api/Students/CurrentCourseMaterial")
     fun getCourseMaterial(@Header("Authorization")token:String
                           ,@Query("cycleId")cycleId:String
-    ):Call<ArrayList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem>>
+    ):Call<ArrayList<CourseMaterialResponseItem>>
 
     @GET("api/Students/CurrentCourseTasks")
     fun getAllAssignmentOfCourse(@Header("Authorization")token:String
-                                 ,@Query("cycleId")cycleId:String) : Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>
+                                 , @Query("cycleId")cycleId:String) : Call<MutableList<AssignmentResponseItem>>
     @GET("api/Students/CurrentCourseQuizzes")
     fun getCourseQuizzes(@Header("Authorization")token:String
-                         ,@Query("cycleId")cycleId:String
-    ):Call<ArrayList<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>>
+                         , @Query("cycleId")cycleId:String
+    ):Call<ArrayList<CourseQuizzesResponseItem>>
 
     @GET("api/Students/Quiz")
     fun getQuizQuestions(@Header("Authorization")token:String
                          ,@Query("quizId")quizId: String
-    ):Call<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>
+    ):Call<QuizQuestionsResponse>
 
     @POST("api/Students/quiz/submit")
-    fun submitQuiz(@Body submitQuizRequest: com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest, @Query("quizId")quizId: String,
+    fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizId: String,
                    @Header("Authorization")token:String) : Call< List<Map<String?,Boolean?>>>
 
     @GET("api/Students/GetStudentInfo")
-    fun getAccountInfo(@Header("Authorization")token:String):Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
+    fun getAccountInfo(@Header("Authorization")token:String):Call<AccountInfoResponse>
     @GET("api/Students/Getfilesoflecture")
     fun getFiles(@Header("Authorization")token:String?,
-                 @Query("lectureId")lectureId:String?):Call<MutableList<com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem>>
+                 @Query("lectureId")lectureId:String?):Call<MutableList<FielslResponseItem>>
 
     @Multipart
     @POST("api/Students/File/Upload")
@@ -77,15 +80,15 @@ interface UserServices {
 
     @POST("api/Calendar")
     fun addNewEvent(@Header("Authorization")token:String
-                    , @Body calenderRequest: com.example.lms.ui.api.api_student.calender.CalenderRequest
+                    , @Body calenderRequest: CalenderRequest
     ) : Call<ResponseBody>
 
     @GET("api/Calendar/GetByStartAndEnd")
     fun getCalenderEvents(@Header("Authorization") token:String,
                           @Query("start") startDate:String,
-                          @Query("end") endDate:String ):Call<ArrayList<com.example.lms.ui.api.api_student.calender.CalenderResponseItem>>
+                          @Query("end") endDate:String ):Call<ArrayList<CalenderResponseItem>>
     @GET("api/Students/GetAssignment")
-    fun getAssignment(@Header("Authorization") token : String , @Query("taskId") taskId : String) : Call<com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse>
+    fun getAssignment(@Header("Authorization") token : String , @Query("taskId") taskId : String) : Call<AssignmentByIdResponse>
 
     @GET("api/Instructor/GetInstructorInfo")
     fun getInstructorInfo(@Header("Authorization") token : String) : Call<InstructorInfoResponse>

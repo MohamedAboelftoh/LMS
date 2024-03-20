@@ -8,5 +8,5 @@ import com.google.gson.annotations.SerializedName
 data class CourseMaterialResponse(
 
 	@field:SerializedName("CourseMaterialResponse")
-	val courseMaterialResponse: List<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem?>? = null
+	val courseMaterialResponse: List<CourseMaterialResponseItem?>? = null
 ) : Parcelable

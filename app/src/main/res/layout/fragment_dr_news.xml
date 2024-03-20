@@ -1,14 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.doctor.fragments.news.DrNewsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/transparent"
+                android:padding="40dp"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_hi"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintHeight_percent=".3"
+                    app:layout_constraintWidth_percent=".1"
+                    android:text="@string/hi"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_name"
+                    />
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    tools:text="@string/mohamed"
+                    app:layout_constraintHeight_percent=".3"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/black"
+                    app:autoSizeTextType="uniform"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/tv_hi"
+                    app:layout_constraintTop_toTopOf="@id/tv_hi"
+                    app:layout_constraintEnd_toStartOf="@id/roundCardView"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_hi"
+                    />
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintHeight_percent=".5"
+                    android:text="@string/timeline_n_here"
+                    android:textColor="@color/white2"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hi"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_name"
+                    />
+                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                    android:id="@+id/roundCardView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:elevation="0dp"
+                    app:cardCornerRadius="50dp"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <ImageView
+                        android:id="@+id/profile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/avatar_1" />
+
+                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_news_home"
+                />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

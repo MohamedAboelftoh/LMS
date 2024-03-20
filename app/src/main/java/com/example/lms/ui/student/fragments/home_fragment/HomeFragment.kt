@@ -41,10 +41,10 @@ class HomeFragment : Fragment() {
 
     private fun uploadNews() {
         viewBinding.progressBar.visibility = View.VISIBLE
-        ApiManager.getApi().getNews().enqueue(object : Callback<ArrayList<com.example.lms.ui.api.api_student.news.NewsResponseItem>>{
+        ApiManager.getApi().getNews().enqueue(object : Callback<ArrayList<NewsResponseItem>>{
             override fun onResponse(
-                call: Call<ArrayList<com.example.lms.ui.api.api_student.news.NewsResponseItem>>,
-                response: Response<ArrayList<com.example.lms.ui.api.api_student.news.NewsResponseItem>>
+                call: Call<ArrayList<NewsResponseItem>>,
+                response: Response<ArrayList<NewsResponseItem>>
             ) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 if(response.isSuccessful) {
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.news.NewsResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<NewsResponseItem>>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(requireContext(),t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
@@ -67,10 +67,10 @@ class HomeFragment : Fragment() {
     private fun getCurrentUser() {
         viewBinding.progressBar.visibility = View.VISIBLE
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse>{
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
-                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
             ) {
                 if(response.isSuccessful){
                     viewBinding.progressBar.visibility = View.INVISIBLE
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 val toast = Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()

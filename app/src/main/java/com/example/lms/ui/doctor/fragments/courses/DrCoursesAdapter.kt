@@ -1,18 +1,19 @@
-package com.example.lms.ui.student.fragments.courses_fragment
-
+package com.example.lms.ui.doctor.fragments.courses
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lms.databinding.CourseItemBinding
-import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
+import com.bumptech.glide.Glide
+import com.example.lms.R
+import com.example.lms.databinding.DrCourseItemBinding
+import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 
-class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerView.Adapter<CoursesAdapter.CoursesViewHolder>() {
+class DrCoursesAdapter(private var coursesList:List<DrCoursesResponseItem?>?=null):RecyclerView.Adapter<DrCoursesAdapter.CoursesViewHolder>() {
 
-    class CoursesViewHolder(val itemBinding:CourseItemBinding):RecyclerView.ViewHolder(itemBinding.root)
+    class CoursesViewHolder(val itemBinding:DrCourseItemBinding):RecyclerView.ViewHolder(itemBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoursesViewHolder {
 
-        val viewBinding=CourseItemBinding.inflate(LayoutInflater.from(parent.context)
+        val viewBinding=DrCourseItemBinding.inflate(LayoutInflater.from(parent.context)
             ,parent,false)
         return CoursesViewHolder(viewBinding)
     }
@@ -22,7 +23,7 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
     }
 
     override fun onBindViewHolder(holder: CoursesViewHolder, position: Int) {
-       val courses=coursesList!![position]
+        val courses=coursesList!![position]
         val courseName: String? =courses?.name
         if(courseName!!.length >=25){
             holder.itemBinding.courseNameTv.text=courseName.substring(0,22)+"..."
@@ -30,13 +31,15 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
         else{
             holder.itemBinding.courseNameTv.text=courseName
         }
-        //holder.itemBinding.courseNameTv.text=courses?.name
-        holder.itemBinding.courseDoctor.text=courses?.instructorFullName
-        //holder.itemBinding.courseImage.setImageResource(courses.courseImage?:R.drawable.course_image)
+        Glide.with(holder.itemView)
+            .load(courses.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(holder.itemBinding.courseImage)
+        holder.itemBinding.hours.text = courses.hours.toString()
         holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }
     }
 
-    fun bindCourses(coursesResponse: List<CoursesResponseItem?>?) {
+    fun bindCourses(coursesResponse: List<DrCoursesResponseItem?>?) {
         coursesList=coursesResponse
         notifyDataSetChanged()
     }
@@ -44,7 +47,7 @@ class CoursesAdapter(var coursesList:List<CoursesResponseItem?>?=null):RecyclerV
     var onItemClickListener:OnItemClickListener?=null
 
     fun interface OnItemClickListener{
-        fun onItemClick(position:Int,course: CoursesResponseItem?)
+        fun onItemClick(position:Int,course: DrCoursesResponseItem?)
     }
 
 }

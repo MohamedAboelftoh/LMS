@@ -17,6 +17,9 @@
         android:theme="@style/Theme.LMS"
         tools:targetApi="31">
         <activity
+            android:name=".ui.doctor.fragments.courses.DrCourseContentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.doctor.fragments.news.NewsActivity"
             android:exported="false" />
         <activity

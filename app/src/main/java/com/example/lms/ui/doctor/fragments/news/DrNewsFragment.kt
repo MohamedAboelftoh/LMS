@@ -5,56 +5,88 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.lms.R
+import com.example.lms.databinding.FragmentDrNewsBinding
+import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
+import com.example.lms.ui.api.api_student.account.AccountInfoResponse
+import com.example.lms.ui.api.api_student.news.NewsResponseItem
+import com.example.lms.ui.api.module.ApiManager
+import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.student.fragments.home_fragment.HomeRecyclerViewAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DrNewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DrNewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var myPreferencesToken : MyPreferencesToken
+    private lateinit var homeAdapter : HomeRecyclerViewAdapter
+    lateinit var viewBinding : FragmentDrNewsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dr_news, container, false)
+        viewBinding = FragmentDrNewsBinding.inflate(inflater,container,false)
+        return viewBinding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DrNewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DrNewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        myPreferencesToken = MyPreferencesToken(requireContext())
+        uploadNews()
+        getCurrentUser()
+        homeAdapter = HomeRecyclerViewAdapter()
+        viewBinding.homeRecyclerView.adapter = homeAdapter
+    }
+    private fun uploadNews() {
+        viewBinding.progressBar.visibility = View.VISIBLE
+        ApiManager.getApi().getNews().enqueue(object : Callback<ArrayList<NewsResponseItem>> {
+            override fun onResponse(
+                call: Call<ArrayList<NewsResponseItem>>,
+                response: Response<ArrayList<NewsResponseItem>>
+            ) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                if(response.isSuccessful) {
+                    homeAdapter.bindNews(response.body())
+                }
+                else{
+                    val toast = Toast.makeText(requireContext(), "News Does not Uploaded", Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
+
+            override fun onFailure(call: Call<ArrayList<NewsResponseItem>>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                val toast = Toast.makeText(requireContext(),t.localizedMessage, Toast.LENGTH_LONG)
+                toast.show()
+            }
+        })
+    }
+    private fun getCurrentUser() {
+        val token=myPreferencesToken.loadData("token")
+        ApiManager.getApi().getInstructorInfo(token!!).enqueue(object : Callback<InstructorInfoResponse>{
+            override fun onResponse(
+                call: Call<InstructorInfoResponse>,
+                response: Response<InstructorInfoResponse>
+            ) {
+                if(response.isSuccessful){
+                    viewBinding.tvName.text = response.body()?.fullName
+//                    Glide.with(viewBinding.profile)
+//                        .load(response.body()?.imagePath)
+//                        .placeholder(R.drawable.avatar_1)
+//                        .into(viewBinding.profile)
+                }else{
+                    val toast = Toast.makeText(requireContext(), "current user fail", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+
+            override fun onFailure(call: Call<InstructorInfoResponse>, t: Throwable) {
+                val toast = Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_LONG)
+                toast.show()
+            }
+
+        })
     }
 }
