@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
-import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.account.AccountFragment
@@ -34,19 +33,16 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        myPreferencesToken= MyPreferencesToken(this)
-
         viewBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
+        myPreferencesToken= MyPreferencesToken(this)
         pushFragment(HomeFragment())
         bottomNavigationSelected()
-
         openDrawer()
         getCurrentUser()
         drawerItemsSelected()
     }
-    fun drawerItemsSelected(){
+    private fun drawerItemsSelected(){
         viewBinding.navView.setNavigationItemSelectedListener{menuItem->
             when(menuItem.itemId){
                 R.id.ic_account_info->{
@@ -88,17 +84,12 @@ class HomeActivity : AppCompatActivity() {
     private fun saveCredentials(email: String, password: String) {
           myPreferencesToken.saveData("email", email)
           myPreferencesToken.saveData("password", password)
-//        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//        editor.putString("email", email)
-//        editor.putString("password", password)
-//        editor.apply()
     }
-    fun showMessage(message:String
-                    ,posActionName:String?=null
-                    ,posAction: DialogInterface.OnClickListener?=null
-                    ,negActionName:String?=null
-                    ,negAction: DialogInterface.OnClickListener?=null
+    private fun showMessage(message:String
+                            , posActionName:String?=null
+                            , posAction: DialogInterface.OnClickListener?=null
+                            , negActionName:String?=null
+                            , negAction: DialogInterface.OnClickListener?=null
 
     ): AlertDialog {
         val dialogBuilder= AlertDialog.Builder(this)
@@ -131,7 +122,7 @@ class HomeActivity : AppCompatActivity() {
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_container,fragment)
+            .replace(R.id.home_dr_container,fragment)
             .addToBackStack(null)
             .commit()
     }
@@ -154,7 +145,7 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun getCurrentFragment(): Fragment? {
-        return supportFragmentManager.findFragmentById(R.id.home_container)
+        return supportFragmentManager.findFragmentById(R.id.home_dr_container)
     }
     private fun openDrawer(){
         viewBinding.content.icDrawer.setOnClickListener {
