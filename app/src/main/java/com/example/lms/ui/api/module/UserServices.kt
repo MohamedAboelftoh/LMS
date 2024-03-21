@@ -16,6 +16,7 @@ import com.example.lms.ui.api.api_student.news.NewsResponseItem
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
+import com.example.lms.ui.doctor.DrFilesResponseItem
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -67,6 +68,9 @@ interface UserServices {
     @GET("api/Students/Getfilesoflecture")
     fun getFiles(@Header("Authorization")token:String?,
                  @Query("lectureId")lectureId:String?):Call<MutableList<FielslResponseItem>>
+    @GET("api/Instructor/Getfilesoflecture")
+    fun getDrFiles(@Header("Authorization")token:String?,
+                 @Query("lectureId")lectureId:String?):Call<MutableList<DrFilesResponseItem>>
 
     @Multipart
     @POST("api/Students/File/Upload")
