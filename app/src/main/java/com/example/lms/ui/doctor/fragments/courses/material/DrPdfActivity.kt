@@ -1,12 +1,10 @@
-package com.example.lms.ui.doctor
+package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.lms.R
 import com.example.lms.databinding.ActivityDrPdfBinding
-import com.example.lms.databinding.ActivityFilePdfBinding
 import com.example.lms.ui.student.fragments.Variables
 import okhttp3.OkHttpClient
 import okhttp3.Request

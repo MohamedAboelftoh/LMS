@@ -17,10 +17,13 @@
         android:theme="@style/Theme.LMS"
         tools:targetApi="31">
         <activity
-            android:name=".ui.doctor.DrPdfActivity"
+            android:name=".ui.doctor.fragments.courses.material.DrPdfActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.doctor.DrFilesActivity"
+            android:name=".ui.doctor.fragments.courses.material.DrFilesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.fragments.courses.material.DrMaterialActivity"
             android:exported="false" />
         <activity
             android:name=".ui.doctor.fragments.courses.DrCourseContentActivity"

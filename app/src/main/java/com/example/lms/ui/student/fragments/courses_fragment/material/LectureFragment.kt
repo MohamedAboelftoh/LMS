@@ -51,10 +51,10 @@ class LectureFragment : Fragment() {
         val cycleId  = Variables.cycleId
         val token = myPreferencesToken.loadData("token")
         ApiManager.getApi().getCourseMaterial(token!!, cycleId!!)
-            .enqueue(object : Callback<ArrayList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem>> {
+            .enqueue(object : Callback<ArrayList<CourseMaterialResponseItem>> {
                 override fun onResponse(
-                    call: Call<ArrayList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem>>,
-                    response: Response<ArrayList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem>>
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
+                    response: Response<ArrayList<CourseMaterialResponseItem>>
                 ) {
                     if (response.isSuccessful) {
                         adapter.bindLectures(response.body())
@@ -64,7 +64,7 @@ class LectureFragment : Fragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<ArrayList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem>>,
+                    call: Call<ArrayList<CourseMaterialResponseItem>>,
                     t: Throwable
                 ) {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()

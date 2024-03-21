@@ -1,9 +1,10 @@
-package com.example.lms.ui.doctor
+package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.FileItemBinding
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 
 class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=null) :RecyclerView.Adapter<DrFilesAdapter.FilesViewHolder>(){
     class FilesViewHolder(val itemBinding: FileItemBinding): RecyclerView.ViewHolder(itemBinding.root)
@@ -31,7 +32,7 @@ class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=nu
         filesList=body
         notifyDataSetChanged()
     }
-    var onItemClickListener : OnItemClickListener ?= null
+    var onItemClickListener : OnItemClickListener?= null
     interface OnItemClickListener{
         fun onItemClick(item : DrFilesResponseItem, position : Int)
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.doctor.DrFilesActivity">
+    tools:context=".ui.doctor.fragments.courses.material.DrFilesActivity">
         <ImageView
             android:id="@+id/ic_back"
             android:layout_width="wrap_content"
@@ -106,4 +106,15 @@
             tools:listitem="@layout/file_item"
 
             />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.lms.ui.api.module
 
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
@@ -16,7 +17,7 @@ import com.example.lms.ui.api.api_student.news.NewsResponseItem
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
-import com.example.lms.ui.doctor.DrFilesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -96,4 +97,9 @@ interface UserServices {
 
     @GET("api/Instructor/GetInstructorInfo")
     fun getInstructorInfo(@Header("Authorization") token : String) : Call<InstructorInfoResponse>
+
+    @GET("api/Instructor/CurrentCourseMaterial")
+    fun getDrCourseMaterial(@Header("Authorization")token:String
+                          ,@Query("CycleId")cycleId:String
+    ):Call<ArrayList<DrLecturesResponseItem>>
 }

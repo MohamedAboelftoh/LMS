@@ -1,17 +1,15 @@
-package com.example.lms.ui.doctor
+package com.example.lms.ui.doctor.fragments.courses.material
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.lms.R
+import androidx.fragment.app.FragmentActivity
 import com.example.lms.databinding.ActivityDrFilesBinding
-import com.example.lms.databinding.ActivityMaterialFilesBinding
-import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
-import com.example.lms.ui.student.fragments.courses_fragment.material.FilePdfActivity
-import com.example.lms.ui.student.fragments.courses_fragment.material.FilesAdapter
+import com.example.lms.ui.student.fragments.calender.AddEventFragment
 import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,15 +31,22 @@ class DrFilesActivity : AppCompatActivity() {
         viewBinding.icBack.setOnClickListener{
             finish()
         }
-        adapter.onItemClickListener = object : DrFilesAdapter.OnItemClickListener{
+        adapter.onItemClickListener = object : DrFilesAdapter.OnItemClickListener {
             override fun onItemClick(item: DrFilesResponseItem, position: Int) {
                 Variables.filePath = item.filePath
                 navigateFromActivity(this@DrFilesActivity, DrPdfActivity())
             }
         }
+
+
+        viewBinding.floatingActionBtn.setOnClickListener {
+            val drUploadFileFragment = DrUploadFileFragment()
+
+            drUploadFileFragment.show(supportFragmentManager, "")
+        }
     }
     private fun initializeData(){
-        val lectureId= "L001"//intent.getStringExtra("lectureId")
+        val lectureId=intent.getStringExtra("lectureId")
         val token=myPreferencesToken.loadData("token")
         ApiManager.getApi().getDrFiles(token
             ,lectureId).enqueue(object : Callback<MutableList<DrFilesResponseItem>> {
