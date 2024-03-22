@@ -1,5 +1,6 @@
 package com.example.lms.ui.api.module
 
+import com.example.lms.ui.api.api_doctor.DrUploadFileResponse
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
@@ -82,6 +83,14 @@ interface UserServices {
 
         @Header("Authorization") token: String
     ): Call<ResponseBody>
+    @Multipart
+    @POST("api/Instructor/UploadLectureFile")
+    fun drUploadFile(
+        @Query("lectureId") lectureId: String,
+        @Query("file_Name") fileName: String,
+        @Part file: MultipartBody.Part,
+        @Header("Authorization") token: String
+    ): Call<DrUploadFileResponse>
 
     @POST("api/Calendar")
     fun addNewEvent(@Header("Authorization")token:String

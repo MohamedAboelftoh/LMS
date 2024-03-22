@@ -6,4 +6,5 @@ object Variables {
     var courseName : String ?= null
     var taskId:String?=null
     var filePath:String?=null
+    var lecId : String ?= null
 }

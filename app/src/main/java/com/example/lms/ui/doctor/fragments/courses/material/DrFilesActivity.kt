@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DrFilesActivity : AppCompatActivity() {
+class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileListener {
     lateinit var viewBinding: ActivityDrFilesBinding
     lateinit var myPreferencesToken: MyPreferencesToken
     lateinit var adapter: DrFilesAdapter
@@ -41,12 +41,12 @@ class DrFilesActivity : AppCompatActivity() {
 
         viewBinding.floatingActionBtn.setOnClickListener {
             val drUploadFileFragment = DrUploadFileFragment()
-
+            drUploadFileFragment.listener = this  // Set the activity as the listener
             drUploadFileFragment.show(supportFragmentManager, "")
         }
     }
     private fun initializeData(){
-        val lectureId=intent.getStringExtra("lectureId")
+        val lectureId = Variables.lecId
         val token=myPreferencesToken.loadData("token")
         ApiManager.getApi().getDrFiles(token
             ,lectureId).enqueue(object : Callback<MutableList<DrFilesResponseItem>> {
@@ -66,5 +66,9 @@ class DrFilesActivity : AppCompatActivity() {
                 Toast.makeText(this@DrFilesActivity,"OnFailure"+t.localizedMessage, Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    override fun onFileUploaded() {
+        initializeData()
     }
 }

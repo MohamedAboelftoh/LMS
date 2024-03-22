@@ -17,6 +17,7 @@ import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.fragments.courses_fragment.material.LecturesAdapter
 import com.example.lms.ui.student.fragments.courses_fragment.material.MaterialFiles
+import com.example.lms.ui.student.navigateFromFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,12 +69,11 @@ class DrLectureFragment : Fragment() {
             }
         })
     }
-    fun onLectureClick(){
+    private fun onLectureClick(){
         adapter.onItemClickListener=
             DrLecturesAdapter.OnItemClickListener { position, item ->
-                val intent= Intent(requireContext(), DrFilesActivity::class.java)
-                intent.putExtra("lectureId",item.lectureId)
-                startActivity(intent)
+                Variables.lecId = item.lectureId
+                navigateFromFragment(requireContext(),DrFilesActivity())
             }
     }
 }

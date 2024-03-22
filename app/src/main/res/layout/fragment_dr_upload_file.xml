@@ -53,6 +53,7 @@
             android:id="@+id/file_name_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:enabled="false"
             android:hint="File Name"
             />
     </com.google.android.material.textfield.TextInputLayout>
