@@ -46,6 +46,9 @@ class DrAssignActivity : AppCompatActivity() {
             }
         )
         bindTabs()
+        viewBinding.floatingActionBtn.setOnClickListener{
+            navigateFromActivity(this@DrAssignActivity,DrAddAssignmentActivity())
+        }
     }
 
     private fun pushFragment(fragment: Fragment) {

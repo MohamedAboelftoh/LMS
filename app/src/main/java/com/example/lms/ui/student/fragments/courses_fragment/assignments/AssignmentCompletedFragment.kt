@@ -38,10 +38,10 @@ class AssignmentCompletedFragment : Fragment() {
         val token = myPreferencesToken.loadData("token")
         val cycleId = Variables.cycleId
         ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object :
-            Callback<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>> {
+            Callback<MutableList<AssignmentResponseItem>> {
             override fun onResponse(
-                call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>,
-                response: Response<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>
+                call: Call<MutableList<AssignmentResponseItem>>,
+                response: Response<MutableList<AssignmentResponseItem>>
             ) {
                 if(response.isSuccessful){
                     adapter.bindAssignments(response.body())
@@ -49,7 +49,7 @@ class AssignmentCompletedFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<AssignmentResponseItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
