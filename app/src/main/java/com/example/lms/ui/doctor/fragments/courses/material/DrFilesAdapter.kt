@@ -26,6 +26,10 @@ class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=nu
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(item , position)
         }
+        holder.itemBinding.icMore.setOnClickListener{
+            onIconMoreClickListener?.onIconMoreClick(item,position,holder)
+
+        }
     }
 
     fun bindFiles(body: MutableList<DrFilesResponseItem>?) {
@@ -35,5 +39,10 @@ class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=nu
     var onItemClickListener : OnItemClickListener?= null
     interface OnItemClickListener{
         fun onItemClick(item : DrFilesResponseItem, position : Int)
+    }
+
+    var onIconMoreClickListener:OnIconMoreClickListener?=null
+    interface OnIconMoreClickListener{
+        fun onIconMoreClick(item: DrFilesResponseItem, position: Int, holder: FilesViewHolder)
     }
 }

@@ -75,7 +75,6 @@ class DrUploadFileFragment : BottomSheetDialogFragment() {
     private fun uploadFile(fileUri: Uri) {
         val token = myPreferencesToken.loadData("token")
         val lecId = Variables.lecId
-
         val filesDir = requireContext().filesDir
         val file = File(filesDir,"file.pdf")
 

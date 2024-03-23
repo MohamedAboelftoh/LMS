@@ -74,6 +74,7 @@ class DrLabsFragment : Fragment() {
         adapter.onItemClickListener=
             DrLabsAdapter.OnItemClickListener { position, item ->
                 Variables.lecId = item.lectureId
+                Variables.lectureName=item.lectureName
                 navigateFromFragment(requireContext(),DrFilesActivity())
             }
     }

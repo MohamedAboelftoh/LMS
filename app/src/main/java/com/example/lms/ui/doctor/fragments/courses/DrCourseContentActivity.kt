@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrCourseContentBinding
 import com.example.lms.ui.doctor.DrMainActivity
+import com.example.lms.ui.doctor.fragments.courses.assignment.DrAssignActivity
 import com.example.lms.ui.doctor.fragments.courses.material.DrMaterialActivity
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.fragments.courses_fragment.CourseContent
@@ -21,6 +22,10 @@ class DrCourseContentActivity : AppCompatActivity() {
         viewBinding.courseNameTv.text = Variables.courseName
         viewBinding.cardMaterial.setOnClickListener {
             navigateFromActivity(this,DrMaterialActivity())
+        }
+        viewBinding.cardAssignments.setOnClickListener{
+            navigateFromActivity(this,DrAssignActivity())
+
         }
         viewBinding.icBack.setOnClickListener{
             navigateFromActivity(this,DrMainActivity())

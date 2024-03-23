@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@color/gray"
     app:cardCornerRadius="20dp"
-    android:layout_margin="20dp">
+    android:layout_margin="10dp"
+
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="141dp">
+        android:layout_height="150dp"
+        android:layout_marginBottom="5dp"
+
+        >
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/tv_pdf"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toTopOf="@id/lec_name"
-    android:layout_margin="5dp"
+    app:layout_constraintHeight_percent="0.6"
+    android:layout_marginHorizontal="5dp"
+
     android:backgroundTint="@color/secondaryTextColor"
     >
     <TextView
@@ -38,20 +45,34 @@
         />
 
 </com.google.android.material.card.MaterialCardView>
+        <ImageView
+            android:id="@+id/ic_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_pdf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_more"
+            android:layout_marginEnd="5dp"
+            />
         <TextView
             android:id="@+id/lec_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent=".3"
+            app:layout_constraintHeight_percent=".2"
             app:autoSizeTextType="uniform"
             tools:text="programing parallel"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:gravity="center"
+            android:maxLines="2"
             app:layout_constraintTop_toBottomOf="@id/tv_pdf"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ic_more"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="2dp"
+
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -21,7 +21,7 @@ class DrPdfActivity : AppCompatActivity() {
         viewBinding.icBack.setOnClickListener {
             finish()
         }
-        viewBinding.courseNameTv.text = Variables.courseName
+        viewBinding.fileName.text = Variables.fileName
         loadPdf()
     }
     private fun downloadPdfFromUrl(pdfUrl: String) {
