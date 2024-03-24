@@ -93,9 +93,8 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
                 val popupMenu = PopupMenu(this@DrFilesActivity,holder.itemBinding.icMore)
                 popupMenu.inflate(R.menu.drop_down_menu)
                 val filePath=item.filePath
-                 val fileId=item.lectureFileId
+                val fileId=item.lectureFileId
                 val fileName=item.fileName
-
                 popupMenu.setOnMenuItemClickListener { item: MenuItem? ->
                     when (item?.itemId) {
                         R.id.download -> {
@@ -105,12 +104,11 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
                                     requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),STORGE_PERMISSION_CODE)
                                 }
                                 else{
-                                    //Toast.makeText(this@DrFilesActivity,"$filePath",Toast.LENGTH_LONG).show()
-                                    startDownloading(Uri.parse(filePath),fileName)
+                                    downloadData(filePath!!,fileName!!)
                                 }
                             }
                             else{
-                                startDownloading(Uri.parse(filePath),fileName)
+                                downloadData(filePath!!,fileName!!)
                             }
                             true
                         }
@@ -146,16 +144,16 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
         })
 
     }
-
-    private fun startDownloading(uri: Uri?,fileName:String?) {
+    fun downloadData(url: String, fileName: String) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(uri).apply {
+        val request = DownloadManager.Request(Uri.parse(url)).apply {
             setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             setTitle("Download")
-            setDescription("Downloading file...")
+            setDescription("Downloading ...")
             setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            // Saves the downloaded file to this location. Adjust if necessary.
-            setDestinationInExternalFilesDir(this@DrFilesActivity, Environment.DIRECTORY_DOWNLOADS, "$fileName")
+            // Set MIME type for images
+            setMimeType("pdf/*")
+            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
         }
         downloadManager.enqueue(request)
     }

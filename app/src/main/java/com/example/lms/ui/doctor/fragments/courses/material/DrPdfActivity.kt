@@ -1,9 +1,14 @@
 package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.lms.R
 import com.example.lms.databinding.ActivityDrPdfBinding
 import com.example.lms.ui.student.fragments.Variables
 import okhttp3.OkHttpClient
@@ -54,5 +59,8 @@ class DrPdfActivity : AppCompatActivity() {
     private fun loadPdf() {
         val pdfUrl = Variables.filePath
         downloadPdfFromUrl(pdfUrl!!)
+        Glide.with(this)
+            .load(pdfUrl)
+            .into(viewBinding.img)
     }
 }

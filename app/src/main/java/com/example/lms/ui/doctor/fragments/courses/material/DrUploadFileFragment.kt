@@ -47,7 +47,7 @@ class DrUploadFileFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-      viewBinding=FragmentDrUploadFileBinding.inflate(inflater,container,false)
+        viewBinding=FragmentDrUploadFileBinding.inflate(inflater,container,false)
         return viewBinding.root
     }
 
