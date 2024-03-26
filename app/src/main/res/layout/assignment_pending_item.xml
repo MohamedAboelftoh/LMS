@@ -39,7 +39,7 @@
                 app:layout_constraintStart_toEndOf="@id/assignment_image"
                 app:layout_constraintEnd_toStartOf="@id/btn_more"
                 android:text="Parallel Programing"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/black"
                 />
@@ -51,10 +51,10 @@
                 app:layout_constraintStart_toEndOf="@id/assignment_image"
                 app:layout_constraintEnd_toStartOf="@id/deadline"
                 app:layout_constraintBottom_toBottomOf="@id/deadline"
-                android:text="Deadline"
-                app:layout_constraintWidth_percent=".25"
+                android:text="Deadline :"
+                app:layout_constraintWidth_percent=".19"
                 app:layout_constraintHeight_percent=".45"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 />
             <TextView
                 android:id="@+id/deadline"
@@ -67,7 +67,7 @@
                 app:layout_constraintEnd_toStartOf="@id/btn_more"
                 android:text="20/2/2022"
                 android:textColor="@color/redColor"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
                 />
             <com.google.android.material.button.MaterialButton

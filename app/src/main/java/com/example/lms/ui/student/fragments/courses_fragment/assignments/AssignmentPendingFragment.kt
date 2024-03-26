@@ -37,10 +37,10 @@ class AssignmentPendingFragment : Fragment() {
         myPreferencesToken = MyPreferencesToken(requireContext())
         val token = myPreferencesToken.loadData("token")
         val cycleId = Variables.cycleId
-        ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object : Callback<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>{
+        ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object : Callback<MutableList<AssignmentResponseItem>>{
             override fun onResponse(
-                call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>,
-                response: Response<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>
+                call: Call<MutableList<AssignmentResponseItem>>,
+                response: Response<MutableList<AssignmentResponseItem>>
             ) {
                 if(response.isSuccessful){
                     assignmentAdapter.bindAssignments(response.body())
@@ -48,14 +48,14 @@ class AssignmentPendingFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<AssignmentResponseItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
         assignmentAdapter = AssignmentPendingAdapter()
         viewBinding.recyclerAssignmentsPending.adapter = assignmentAdapter
         assignmentAdapter.onBtnMoreClickListener = object : AssignmentPendingAdapter.OnBtnMoreClickListener{
-            override fun onClick(position: Int, item: com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem) {
+            override fun onClick(position: Int, item: AssignmentResponseItem) {
                 Variables.taskId=item.taskId
                 navigateToAssignmentDetail(item.taskName,item.endDate,item.taskId)
 

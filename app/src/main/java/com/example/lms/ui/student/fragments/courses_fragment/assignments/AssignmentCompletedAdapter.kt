@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar
 
-class AssignmentCompletedAdapter (private var assignmentsList:MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?=null):Adapter<AssignmentCompletedAdapter.AssignmentViewHolder>(){
+class AssignmentCompletedAdapter (private var assignmentsList:MutableList<AssignmentResponseItem>?=null):Adapter<AssignmentCompletedAdapter.AssignmentViewHolder>(){
     class AssignmentViewHolder(val viewBinding: AssignmentCompletedItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
@@ -34,8 +34,8 @@ class AssignmentCompletedAdapter (private var assignmentsList:MutableList<com.ex
 //        notifyDataSetChanged()
 //    }
 
-    fun bindAssignments(newAssignmentList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem>?) {
-        val assignCompletedList: MutableList<com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem> = mutableListOf()
+    fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
+        val assignCompletedList: MutableList<AssignmentResponseItem> = mutableListOf()
         val currentDate = Calendar.getInstance().time
 
         if (newAssignmentList != null) {

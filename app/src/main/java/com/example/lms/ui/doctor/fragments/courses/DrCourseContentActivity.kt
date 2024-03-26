@@ -15,6 +15,7 @@ import com.example.lms.ui.student.navigateFromActivity
 
 class DrCourseContentActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityDrCourseContentBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityDrCourseContentBinding.inflate(layoutInflater)

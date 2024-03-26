@@ -5,6 +5,7 @@ import com.example.lms.ui.api.api_doctor.DrUploadFileResponse
 import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.assignments.DrAllAssignmentsResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse
@@ -137,4 +138,9 @@ interface UserServices {
                        ,@Query("name") name: String
                        ,@Query("lectureId") lectureId: String
     ):Call<DrUpdateFolderNameResponse>
+    @GET("api/Instructor/GetCurrentCourseTasks")
+    fun drGetAllAssignment(
+        @Header("Authorization")token:String
+        ,@Query("cycleId") cycleId:String
+    ):Call<ArrayList<DrAllAssignmentsResponseItem>>
 }

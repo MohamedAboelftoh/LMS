@@ -18,6 +18,11 @@ class EditAssignmentFragment : DialogFragment() {
         viewBinding = FragmentEditAssignmentBinding.inflate(inflater,container,false)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment)
         return viewBinding.root
+
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
 }
