@@ -12,12 +12,10 @@ import com.google.android.material.tabs.TabLayout
 
 class DrMaterialActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityDrMaterialBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding=ActivityDrMaterialBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
         viewBinding.courseNameTv.text = Variables.courseName
         pushFragment(DrLectureFragment())
         viewBinding.icBack.setOnClickListener {

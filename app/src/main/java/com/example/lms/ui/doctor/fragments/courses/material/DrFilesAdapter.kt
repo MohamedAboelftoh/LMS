@@ -2,7 +2,10 @@ package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.lms.R
 import com.example.lms.databinding.FileItemBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 
@@ -22,6 +25,15 @@ class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=nu
 
     override fun onBindViewHolder(holder: FilesViewHolder, position: Int) {
         val item=filesList!![position]
+        val path = item.filePath?.substringAfterLast('/')
+        val extension = path?.substringAfterLast('.', "")
+        if(extension.equals("pdf")){
+            holder.itemBinding.pdf.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.redColor))
+        }
+        else if (extension.equals("docx")){
+            holder.itemBinding.pdf.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.colorPrimary))
+        }
+        holder.itemBinding.pdf.text = extension
         holder.itemBinding.lecName.text= item.fileName
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(item , position)
@@ -30,6 +42,9 @@ class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=nu
             onIconMoreClickListener?.onIconMoreClick(item,position,holder)
 
         }
+        Glide.with(holder.itemView)
+            .load(item.filePath)
+            .into(holder.itemBinding.image)
     }
 
     fun bindFiles(body: MutableList<DrFilesResponseItem>?) {

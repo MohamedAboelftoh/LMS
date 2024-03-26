@@ -81,4 +81,6 @@
     <string name="doctor">Doctor</string>
     <string name="date">Date</string>
     <string name="hours">Hours:</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -48,11 +48,10 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@id/icon"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/more"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.58"
-                app:layout_constraintWidth_percent="0.85"
                 android:layout_marginStart="5dp"
                 app:autoSizeTextType="uniform"
                 android:gravity="start"
@@ -63,6 +62,16 @@
                 android:text="Lectures"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="10dp"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

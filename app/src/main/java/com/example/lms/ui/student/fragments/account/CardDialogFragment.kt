@@ -27,7 +27,7 @@ class CardDialogFragment : DialogFragment() {
         viewBinding=FragmentCardDialogBinding.inflate(inflater
             ,container,false)
         myPreferencesToken= MyPreferencesToken(requireContext())
-        getDialog()?.getWindow()?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment)
 
 
         return viewBinding.root

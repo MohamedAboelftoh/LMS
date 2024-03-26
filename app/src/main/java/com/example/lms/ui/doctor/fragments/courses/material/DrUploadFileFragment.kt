@@ -76,15 +76,21 @@ class DrUploadFileFragment : BottomSheetDialogFragment() {
         val token = myPreferencesToken.loadData("token")
         val lecId = Variables.lecId
         val filesDir = requireContext().filesDir
-        val file = File(filesDir,"file.pdf")
+
+        // Use the original file name instead of hardcoding "file.pdf"
+        val originalFileName = getFileName(fileUri)
+        val file = File(filesDir, originalFileName ?: "file.pdf") // Fall back to "file.pdf" if name can't be determined
 
         val inputStream = requireContext().contentResolver.openInputStream(fileUri)
         val outputStream = FileOutputStream(file)
         inputStream?.copyTo(outputStream)
-        val requestBody = file.asRequestBody("*/*".toMediaTypeOrNull())
-        val part = MultipartBody.Part.createFormData("file",file.name,requestBody)
+        inputStream?.close() // It's important to close the streams to avoid memory leaks
+        outputStream.close()
 
-        ApiManager.getApi().drUploadFile(lecId!! ,fileName!!,part,token!!).enqueue(object :
+        val requestBody = file.asRequestBody("*/*".toMediaTypeOrNull())
+        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
+
+        ApiManager.getApi().drUploadFile(lecId!!, originalFileName!!, part, token!!).enqueue(object :
             Callback<DrUploadFileResponse> {
             override fun onResponse(call: Call<DrUploadFileResponse>, response: Response<DrUploadFileResponse>) {
                 if (response.isSuccessful) {
@@ -95,11 +101,41 @@ class DrUploadFileFragment : BottomSheetDialogFragment() {
                     Toast.makeText(requireContext(), "Not uploaded", Toast.LENGTH_LONG).show()
                 }
             }
+
             override fun onFailure(call: Call<DrUploadFileResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "Failed: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
+
+    //    private fun uploadFile(fileUri: Uri) {
+//        val token = myPreferencesToken.loadData("token")
+//        val lecId = Variables.lecId
+//        val filesDir = requireContext().filesDir
+//        val file = File(filesDir,"file.pdf")
+//
+//        val inputStream = requireContext().contentResolver.openInputStream(fileUri)
+//        val outputStream = FileOutputStream(file)
+//        inputStream?.copyTo(outputStream)
+//        val requestBody = file.asRequestBody("*/*".toMediaTypeOrNull())
+//        val part = MultipartBody.Part.createFormData("file",file.name,requestBody)
+//
+//        ApiManager.getApi().drUploadFile(lecId!! ,fileName!!,part,token!!).enqueue(object :
+//            Callback<DrUploadFileResponse> {
+//            override fun onResponse(call: Call<DrUploadFileResponse>, response: Response<DrUploadFileResponse>) {
+//                if (response.isSuccessful) {
+//                    Toast.makeText(requireContext(), "Uploaded", Toast.LENGTH_LONG).show()
+//                    listener?.onFileUploaded()  // Notify the Activity
+//                    dismiss()  // Dismiss the fragment
+//                } else {
+//                    Toast.makeText(requireContext(), "Not uploaded", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//            override fun onFailure(call: Call<DrUploadFileResponse>, t: Throwable) {
+//                Toast.makeText(requireContext(), "Failed: ${t.message}", Toast.LENGTH_LONG).show()
+//            }
+//        })
+//    }
     private fun getFileName(uri: Uri): String? {
         return context?.contentResolver?.query(uri, null, null, null, null)?.use { cursor ->
             if (cursor.moveToFirst()) {

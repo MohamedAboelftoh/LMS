@@ -1,6 +1,8 @@
 package com.example.lms.ui.api.module
 
+import com.example.lms.ui.api.api_doctor.DrUpdateFolderNameResponse
 import com.example.lms.ui.api.api_doctor.DrUploadFileResponse
+import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
@@ -29,6 +31,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -94,6 +97,12 @@ interface UserServices {
         @Part file: MultipartBody.Part,
         @Header("Authorization") token: String
     ): Call<DrUploadFileResponse>
+    @POST("api/Instructor/UploadLectureFolder")
+    fun drUploadLecture(
+        @Query("title") title: String,
+        @Query("CycleId") cycleId: String,
+        @Header("Authorization") token: String
+    ): Call<DrUploadLectureResponse>
 
     @POST("api/Calendar")
     fun addNewEvent(@Header("Authorization")token:String
@@ -119,4 +128,13 @@ interface UserServices {
     fun drDeleteFile(@Header("Authorization")token:String
                      ,@Query("FileId") fileId: Int
     ):Call<Void>
+    @DELETE("api/Instructor/DeleteLectureFolder")
+    fun drDeleteFolder(@Header("Authorization")token:String
+                     ,@Query("lectureId") lectureId: String
+    ):Call<Void>
+    @PUT("api/Instructor/UpdateLectureFolderName")
+    fun drUpdateFolderName(@Header("Authorization")token:String
+                       ,@Query("name") name: String
+                       ,@Query("lectureId") lectureId: String
+    ):Call<DrUpdateFolderNameResponse>
 }

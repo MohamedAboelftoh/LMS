@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.LectureItemBinding
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 
 
@@ -34,6 +35,9 @@ class DrLecturesAdapter (var lecturesList:List<DrLecturesResponseItem?>?=null):R
         holder.itemBinding.lecItemCard.setOnClickListener {
            onItemClickListener?.onClick(position,lecture!!)
        }
+        holder.itemBinding.more.setOnClickListener {
+            onIconMoreClickListener?.onIconMoreClick(lecture,position,holder)
+        }
     }
     fun bindLectures(drLecturesResponse: List<DrLecturesResponseItem?>?) {
         val newLectureList : MutableList<DrLecturesResponseItem> = mutableListOf()
@@ -51,5 +55,9 @@ class DrLecturesAdapter (var lecturesList:List<DrLecturesResponseItem?>?=null):R
     var onItemClickListener:OnItemClickListener?=null
     fun interface OnItemClickListener{
         fun onClick(position:Int,item: DrLecturesResponseItem)
+    }
+    var onIconMoreClickListener:OnIconMoreClickListener?=null
+    interface OnIconMoreClickListener{
+        fun onIconMoreClick(item: DrLecturesResponseItem, position: Int, holder: DrLecturesAdapter.DrLecturesViewHolder)
     }
 }

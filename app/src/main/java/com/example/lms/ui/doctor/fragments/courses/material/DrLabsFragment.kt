@@ -1,15 +1,12 @@
 package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SimpleAdapter.ViewBinder
 import android.widget.Toast
-import com.example.lms.R
 import com.example.lms.databinding.FragmentDrLabsBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.module.ApiManager

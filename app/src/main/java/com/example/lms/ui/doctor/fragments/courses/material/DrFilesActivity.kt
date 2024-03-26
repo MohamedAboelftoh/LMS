@@ -3,6 +3,7 @@ package com.example.lms.ui.doctor.fragments.courses.material
 import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -55,6 +56,16 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
             drUploadFileFragment.show(supportFragmentManager, "")
         }
         onIconMoreClick()
+    }
+    fun openPDFViewer(url: String?) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(Uri.parse(url), "application/pdf")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            startActivity(intent)
+        } catch (e: Exception) {
+            // Error...
+        }
     }
     private fun initializeData(){
         val lectureId = Variables.lecId
