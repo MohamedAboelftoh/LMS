@@ -6,6 +6,7 @@ import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.DrAllAssignmentsResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.assignments.StudentsUploadedTheTaskResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse
@@ -143,4 +144,21 @@ interface UserServices {
         @Header("Authorization")token:String
         ,@Query("cycleId") cycleId:String
     ):Call<ArrayList<DrAllAssignmentsResponseItem>>
+
+    @GET("api/Instructor/GetStudentsWhoUploadThetask")
+    fun drGetStudentsWhoUploadTheTas(
+        @Header("Authorization")token:String
+        ,@Query("taskId") taskId:String
+    ):Call<ArrayList<StudentsUploadedTheTaskResponseItem>>
+    @Multipart
+    @POST("api/Instructor/UploadAssignment")
+    fun drUploadAssignment(
+        @Query("TaskName") taskName: String,
+        @Query("TaskGrade") taskGrade: String,
+        @Query("StartDate") startDate: String,
+        @Query("EndDate") endDate: String,
+        @Query("CourseCycleId") courseCycleId: String,
+        @Part file: MultipartBody.Part,
+        @Header("Authorization") token: String
+    ): Call<ResponseBody>
 }

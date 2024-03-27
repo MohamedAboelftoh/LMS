@@ -18,5 +18,6 @@ class DrAddAssignmentActivity : AppCompatActivity() {
         viewBinding.icBack.setOnClickListener{
             navigateFromActivity(this@DrAddAssignmentActivity,DrAssignActivity())
         }
+        //comment
     }
 }

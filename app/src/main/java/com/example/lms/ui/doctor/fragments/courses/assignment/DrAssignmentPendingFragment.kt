@@ -1,5 +1,6 @@
 package com.example.lms.ui.doctor.fragments.courses.assignment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,8 +42,15 @@ class DrAssignmentPendingFragment : Fragment() {
 
     private fun navigateToDetailsActivity() {
         adapter.onButtonMoreClickListener=object :DrAssignPendingAdapter.OnButtonMoreClickListener{
-            override fun buttonMoreClick(item: DrAllAssignmentsResponseItem, position: Int) {
-                navigateFromFragment(requireContext(),DrAssignPendingDetailsActivity())            }
+            override fun buttonMoreClick(item: DrAllAssignmentsResponseItem, position: Int)
+            {
+                Variables.taskId=item.taskId
+                val intent=Intent(requireContext(),DrAssignPendingDetailsActivity::class.java )
+                intent.putExtra("position",position)
+                startActivity(intent)
+                // navigateFromFragment(requireContext(),DrAssignPendingDetailsActivity())
+
+            }
         }
 
     }

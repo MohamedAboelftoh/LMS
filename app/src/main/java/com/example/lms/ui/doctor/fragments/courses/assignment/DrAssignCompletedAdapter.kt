@@ -9,7 +9,7 @@ import com.example.lms.databinding.AssignmentCompletedItemBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.DrAllAssignmentsResponseItem
 
 class DrAssignCompletedAdapter(private var drAssignmentsList:ArrayList<DrAllAssignmentsResponseItem>?=null):Adapter<DrAssignCompletedAdapter.DrAssignCompletedViewHolder>() {
-    class DrAssignCompletedViewHolder(val viewBinding :AssignmentCompletedItemBinding): RecyclerView.ViewHolder(viewBinding.root)
+    class DrAssignCompletedViewHolder(val viewBinding :AssignmentCompletedItemBinding): ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrAssignCompletedViewHolder {
         val viewBinding= AssignmentCompletedItemBinding.inflate(
