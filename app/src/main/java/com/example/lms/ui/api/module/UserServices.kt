@@ -7,6 +7,7 @@ import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.DrAllAssignmentsResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.StudentsUploadedTheTaskResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.assignments.UpdateAssignmentModel
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse
@@ -161,4 +162,16 @@ interface UserServices {
         @Part file: MultipartBody.Part,
         @Header("Authorization") token: String
     ): Call<ResponseBody>
+
+    @PUT("api/Instructor/UpdateAnAssignment")
+    fun updateAssignment(
+        @Header("Authorization")token:String
+        ,@Query("taskId") taskId:String
+        ,@Body updateAssignment:UpdateAssignmentModel
+    ):Call<ResponseBody>
+    @DELETE("api/Instructor/DeleteAnAssignment")
+    fun drDeleteAssignment(
+        @Header("Authorization")token:String
+        ,@Query("taskId") taskId:String
+    ):Call<ResponseBody>
 }

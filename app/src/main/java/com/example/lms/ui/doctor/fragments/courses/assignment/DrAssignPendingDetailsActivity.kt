@@ -2,6 +2,7 @@ package com.example.lms.ui.doctor.fragments.courses.assignment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrAssignPendingDetailsBinding
@@ -31,7 +32,15 @@ class DrAssignPendingDetailsActivity : AppCompatActivity() {
             studentsNameFragment.show(supportFragmentManager,"")
 
         }
+        viewBinding.courseNameTv.text=Variables.courseName
        getAssignments()
+
+        viewBinding.btnGo.setOnClickListener{
+            viewBinding.constraintTaskData.visibility= View.GONE
+        }
+        viewBinding.btnBack.setOnClickListener{
+            viewBinding.constraintTaskData.visibility= View.VISIBLE
+        }
     }
 
 

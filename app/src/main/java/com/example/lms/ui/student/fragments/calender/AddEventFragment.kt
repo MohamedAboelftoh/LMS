@@ -22,6 +22,7 @@ import java.util.Locale
 
 class AddEventFragment : BottomSheetDialogFragment() {
     lateinit var viewBinding : FragmentAddEventBinding
+
     val calendar = Calendar.getInstance()
     lateinit var myPreferencesToken: MyPreferencesToken
     lateinit var endDate:String
@@ -80,7 +81,7 @@ class AddEventFragment : BottomSheetDialogFragment() {
         val startTime = viewBinding.date.text.toString()
         val event = viewBinding.event.text.toString()
         val calenderRequest =
-            com.example.lms.ui.api.api_student.calender.CalenderRequest(endDate, event, startTime)
+            CalenderRequest(endDate, event, startTime)
         ApiManager.getApi().addNewEvent(token!! ,calenderRequest )
           .enqueue(object : Callback<ResponseBody>{
               override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -89,7 +90,6 @@ class AddEventFragment : BottomSheetDialogFragment() {
                       dismiss()
                   }
               }
-
               override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                   Toast.makeText(requireContext(),"Not Added",Toast.LENGTH_LONG).show()
               }
