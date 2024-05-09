@@ -36,7 +36,7 @@ class StudentNamesFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken= MyPreferencesToken(requireContext())
-        adapter= StudentsNameAdapter()
+        adapter= StudentsNameAdapter(btnVisibility = View.GONE)
         viewBinding.studentsRecycler.adapter=adapter
         getStudents()
     }

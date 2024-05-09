@@ -20,7 +20,7 @@
             android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_calendar"
+            android:drawableStart="@drawable/ic_name"
             android:drawablePadding="10dp"
             android:hint="Enter Task Name" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,7 +38,7 @@
             android:id="@+id/grade_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_calendar"
+            android:drawableStart="@drawable/ic_grades"
             android:drawablePadding="10dp"
             android:hint="Enter Grade" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -56,9 +56,12 @@
             android:id="@+id/deadline_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_calendar"
+            android:drawableStart="@drawable/ic_calender"
             android:drawablePadding="10dp"
-            android:hint="change deadline" />
+            android:hint=" deadline"
+            android:paddingVertical="10dp"
+            android:enabled="false"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -75,7 +78,7 @@
         android:textColor="@color/white"
         android:backgroundTint="#E96D65"
         android:layout_marginTop="20dp"
-        />
+    />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirm"
         android:layout_width="0dp"

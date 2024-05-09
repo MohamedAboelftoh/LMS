@@ -19,6 +19,12 @@
         tools:targetApi="31">
 
         <activity
+            android:name=".ui.doctor.fragments.courses.assignment.DrAssignPdfActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.fragments.courses.assignment.DrAssignResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.doctor.fragments.courses.assignment.DrAssignPendingDetailsActivity"
             android:exported="false" />
         <activity
