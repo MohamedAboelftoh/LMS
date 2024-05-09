@@ -25,6 +25,7 @@ class DrAssignmentPendingFragment : Fragment() {
     private lateinit var adapter: DrAssignPendingAdapter
     val studentsNameFragment=StudentNamesFragment()
     val editAssignmentFragment=EditAssignmentFragment()
+    val drAddAssignmentActivity = DrAddAssignmentActivity()
 
 
     override fun onCreateView(
@@ -40,6 +41,17 @@ class DrAssignmentPendingFragment : Fragment() {
         myPreferencesToken= MyPreferencesToken(requireContext())
         adapter = DrAssignPendingAdapter()
         viewBinding.drRecyclerAssignPending .adapter = adapter
+        drAddAssignmentActivity.onAssignmentAddedListener = object : DrAddAssignmentActivity.OnAssignmentAddedListener{
+            override fun onAssignmentAdded() {
+                getAssignments()
+            }
+
+        }
+        editAssignmentFragment.onAssignmentEditListener = object : EditAssignmentFragment.OnAssignmentEditListener{
+            override fun onAssignmentEdit() {
+                getAssignments()
+            }
+        }
         getAssignments()
         navigateToDetailsActivity()
         seeWhoUploadAssignment()
@@ -76,6 +88,7 @@ class DrAssignmentPendingFragment : Fragment() {
                 response: Response<ResponseBody>
             ) {
                 if(response.isSuccessful){
+                    getAssignments()
                     Toast.makeText(requireContext(),"Deleted successful", Toast.LENGTH_SHORT).show()
                 }
                 else{

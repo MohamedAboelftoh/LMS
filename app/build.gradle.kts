@@ -76,4 +76,8 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
     // pdfViewer
     implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
+    //steper
+    implementation ("com.github.TalebRafiepour:AndroidSteper:0.9")
+    implementation ("com.github.shuhart:stepview:1.5.1")
+
 }

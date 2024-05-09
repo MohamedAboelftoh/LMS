@@ -95,6 +95,7 @@ class EditAssignmentFragment : DialogFragment() {
         ApiManager.getApi().updateAssignment(token!!,taskId!!,updateAssignmentModel).enqueue(object :Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if(response.isSuccessful){
+                    onAssignmentEditListener?.onAssignmentEdit()
                   //  Toast.makeText(context,"Updated Successful", Toast.LENGTH_SHORT).show()
                 }
                 else{
@@ -108,5 +109,9 @@ class EditAssignmentFragment : DialogFragment() {
 
             }
         })
+    }
+    var onAssignmentEditListener : OnAssignmentEditListener ?= null
+    interface OnAssignmentEditListener{
+        fun onAssignmentEdit()
     }
 }

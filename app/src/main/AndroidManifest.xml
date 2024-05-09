@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -16,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LMS"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.doctor.fragments.courses.assignment.DrAssignPendingDetailsActivity"
             android:exported="false" />
@@ -36,19 +38,18 @@
             android:exported="false" />
         <activity
             android:name=".ui.doctor.fragments.courses.DrCourseContentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.doctor.fragments.news.NewsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.doctor.fragments.courses.CoursesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.doctor.fragments.calender.CalenderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.doctor.home.fragments.account.AccountActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".ui.doctor.fragments.news.NewsActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".ui.doctor.fragments.courses.CoursesActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".ui.doctor.fragments.calender.CalenderActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".ui.doctor.home.fragments.account.AccountActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".ui.doctor.DrMainActivity"
             android:exported="false" />
