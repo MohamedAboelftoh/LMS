@@ -8,6 +8,7 @@ import com.example.lms.databinding.ActivityDrCourseContentBinding
 import com.example.lms.ui.doctor.DrMainActivity
 import com.example.lms.ui.doctor.fragments.courses.assignment.DrAssignActivity
 import com.example.lms.ui.doctor.fragments.courses.material.DrMaterialActivity
+import com.example.lms.ui.doctor.fragments.courses.quizes.DrQuizzesActivity
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.fragments.courses_fragment.CourseContent
 import com.example.lms.ui.student.fragments.courses_fragment.material.LectureFragment
@@ -27,6 +28,9 @@ class DrCourseContentActivity : AppCompatActivity() {
         viewBinding.cardAssignments.setOnClickListener{
             navigateFromActivity(this,DrAssignActivity())
 
+        }
+        viewBinding.cardQuiezzes.setOnClickListener {
+            navigateFromActivity(this@DrCourseContentActivity,DrQuizzesActivity())
         }
         viewBinding.icBack.setOnClickListener{
             navigateFromActivity(this,DrMainActivity())

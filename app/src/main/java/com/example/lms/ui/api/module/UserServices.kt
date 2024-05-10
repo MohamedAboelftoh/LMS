@@ -24,6 +24,7 @@ import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -174,4 +175,9 @@ interface UserServices {
         @Header("Authorization")token:String
         ,@Query("taskId") taskId:String
     ):Call<ResponseBody>
+    @GET("api/Instructor/GetAllQuizesForOneCourse")
+    fun getAllQuizzesForOneCourse (
+        @Query("cycleId") cycleId: String,
+        @Header("Authorization") token: String
+    ):Call<ArrayList<DrQuizzesResponseItem>>
 }
