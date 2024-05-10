@@ -30,7 +30,7 @@ class QuestionsActivity : AppCompatActivity() {
     private lateinit var myCountDownTimer: CountDownTimer
     lateinit var finish:FinishActivity
     private val snapHelper : SnapHelper = LinearSnapHelper()
-    private val questionsAnswersList : ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem> = arrayListOf()
+    private val questionsAnswersList : ArrayList<AnswersItem> = arrayListOf()
     private var questionsNumber = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,7 +155,7 @@ class QuestionsActivity : AppCompatActivity() {
                 } else {
                     // Add a new answer to the list
                     questionsAnswersList.add(
-                        com.example.lms.ui.api.api_student.quizes.submit.AnswersItem(
+                        AnswersItem(
                             selectedAnswerId,
                             questionId
                         )

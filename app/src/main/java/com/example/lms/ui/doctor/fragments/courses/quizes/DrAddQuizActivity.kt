@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrAddQuizBinding
 import com.example.lms.ui.student.fragments.Variables
+import com.example.lms.ui.student.navigateFromActivity
 import java.util.Calendar
 
 class DrAddQuizActivity : AppCompatActivity() {
@@ -98,6 +99,7 @@ class DrAddQuizActivity : AppCompatActivity() {
                 else -> {
 
                     // Go to another Activity or Fragment
+                    navigateFromActivity(this@DrAddQuizActivity,DrQuestionsActivity())
                 }
             }
         }
