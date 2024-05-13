@@ -2,6 +2,7 @@ package com.example.lms.ui.doctor.fragments.courses.quizes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrQuizesBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
@@ -42,10 +43,13 @@ class DrQuizzesActivity : AppCompatActivity() {
                     if(response.isSuccessful){
                         adapter.bindData(response.body())
                     }
+                    else{
+                        Toast.makeText(this@DrQuizzesActivity,"error",Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onFailure(call: Call<ArrayList<DrQuizzesResponseItem>>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@DrQuizzesActivity,"error",Toast.LENGTH_SHORT).show()
                 }
             })
     }

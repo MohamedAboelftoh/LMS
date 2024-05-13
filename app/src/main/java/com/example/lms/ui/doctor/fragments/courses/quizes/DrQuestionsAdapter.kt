@@ -14,14 +14,14 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
     RecyclerView.Adapter<DrQuestionsAdapter.DrQuestionsViewHolder>() {
 
     // Initialize the questionsList with three items of initial data
-    init {
-        questionsList = mutableListOf(
-            DrQuestionsItem(),
-            DrQuestionsItem(),
-            DrQuestionsItem()
-        )
-
-    }
+//    init {
+//        questionsList = mutableListOf(
+//            DrQuestionsItem(),
+//            DrQuestionsItem(),
+//            DrQuestionsItem()
+//        )
+//
+//    }
 
     class DrQuestionsViewHolder(val itemBinding: ItemDrQuestionBinding) :
         ViewHolder(itemBinding.root)
@@ -62,7 +62,10 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
 
         }
 
-
+    }
+    fun bindData(listOfQuestions: MutableList<DrQuestionsItem>) {
+        this.questionsList = listOfQuestions
+        notifyItemInserted(this.questionsList!!.size - 1)
     }
     var onButtonAddAnsClickListener:OnButtonAddAnsClickListener?=null
      var onButtonRemoveAnsClickListener:OnButtonRemoveAnsClickListener?=null

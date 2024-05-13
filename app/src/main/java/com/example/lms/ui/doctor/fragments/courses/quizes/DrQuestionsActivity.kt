@@ -13,6 +13,7 @@ import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuestionsItem
 class DrQuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityDrQuestionsBinding
      lateinit var questionsAdapter:DrQuestionsAdapter
+     var listOfQuestions = mutableListOf<DrQuestionsItem>()
      private val snapHelper : SnapHelper = LinearSnapHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,16 @@ class DrQuestionsActivity : AppCompatActivity() {
          snapHelper.attachToRecyclerView(viewBinding.drQuestionsRecycler)
         addAnswer()
         removeAnswer()
+        viewBinding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.ic_add ->{
+                    listOfQuestions.add(DrQuestionsItem())
+                    questionsAdapter.bindData(listOfQuestions)
+                    viewBinding.drQuestionsRecycler.smoothScrollToPosition(listOfQuestions.size-1)
+                }
+            }
+            true
+        }
     }
 
     private fun addAnswer() {
