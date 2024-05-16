@@ -13,7 +13,7 @@ import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuestionsItem
 class DrQuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityDrQuestionsBinding
      lateinit var questionsAdapter:DrQuestionsAdapter
-     var listOfQuestions = mutableListOf<DrQuestionsItem>()
+     //var listOfQuestions = mutableListOf<DrQuestionsItem>()
      private val snapHelper : SnapHelper = LinearSnapHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +27,19 @@ class DrQuestionsActivity : AppCompatActivity() {
         viewBinding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.ic_add ->{
-                    listOfQuestions.add(DrQuestionsItem())
-                    questionsAdapter.bindData(listOfQuestions)
-                    viewBinding.drQuestionsRecycler.smoothScrollToPosition(listOfQuestions.size-1)
+//                    listOfQuestions.add(DrQuestionsItem())
+//                    questionsAdapter.bindData(listOfQuestions)
+
+
+                    questionsAdapter.addItem() // Add the new item to the adapter
+                    questionsAdapter.updateList(questionsAdapter.questionsList!!) // Update the adapter's data and notify the RecyclerView
+                    val itemCount = questionsAdapter.itemCount
+                    viewBinding.drQuestionsRecycler.smoothScrollToPosition(itemCount - 1)
+
+//                    val newItem = DrQuestionsItem()
+//                    listOfQuestions .add(newItem)
+//                    questionsAdapter.notifyItemInserted(listOfQuestions.size - 1)
+//                    viewBinding.drQuestionsRecycler.smoothScrollToPosition(listOfQuestions.size - 1)
                 }
             }
             true

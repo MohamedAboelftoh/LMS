@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.lms.databinding.ItemDrQuestionBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuestionsItem
 
-class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = null) :
+class DrQuestionsAdapter(var questionsList: ArrayList<DrQuestionsItem>? = null) :
     RecyclerView.Adapter<DrQuestionsAdapter.DrQuestionsViewHolder>() {
 
     // Initialize the questionsList with three items of initial data
-//    init {
-//        questionsList = mutableListOf(
-//            DrQuestionsItem(),
-//            DrQuestionsItem(),
-//            DrQuestionsItem()
-//        )
-//
-//    }
+    init {
+        questionsList = arrayListOf(
+            DrQuestionsItem(),
+            DrQuestionsItem()
+        )
+
+    }
 
     class DrQuestionsViewHolder(val itemBinding: ItemDrQuestionBinding) :
         ViewHolder(itemBinding.root)
@@ -35,10 +34,6 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
         return DrQuestionsViewHolder(viewBinding)
     }
 
-    override fun getItemCount(): Int {
-        return questionsList?.size ?: 0
-    }
-
     override fun onBindViewHolder(holder: DrQuestionsViewHolder, position: Int) {
         // Bind data to views here if needed
         val question= questionsList?.get(position)
@@ -46,24 +41,12 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
             onButtonAddAnsClickListener?.onClick(question!!,position,holder)
         }
         holder.itemBinding.btnRemoveAns.setOnClickListener{
-            onButtonRemoveAnsClickListener?.onClick(question!!,position,holder)
-
-//            if(holder.itemBinding.linear4.visibility== View.VISIBLE){
-//                holder.itemBinding.linear4.visibility== View.GONE
-//                notifyDataSetChanged()
-//            }
-//            else if(holder.itemBinding.linear3.visibility== View.VISIBLE){
-//                holder.itemBinding.linear4.visibility== View.GONE
-//                notifyDataSetChanged()
-//            }
-//            else{
-//                //not do any thing
-//            }
+            onButtonRemoveAnsClickListener?.onClick(question!!,position,holder  )
 
         }
-
+        holder.itemBinding.tvQuestionNumber.text = "${questionsList?.indexOf(question) ?: 0}"
     }
-    fun bindData(listOfQuestions: MutableList<DrQuestionsItem>) {
+    fun bindData(listOfQuestions: ArrayList<DrQuestionsItem>) {
         this.questionsList = listOfQuestions
         notifyItemInserted(this.questionsList!!.size - 1)
     }
@@ -76,4 +59,47 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
     interface OnButtonRemoveAnsClickListener{
         fun onClick(item:DrQuestionsItem,position: Int,holder: DrQuestionsViewHolder){}
     }
+
+//    fun addItem(){
+//        if (questionsList == null) {
+//            questionsList = mutableListOf()
+//        }
+////        questionsList?.add(DrQuestionsItem())
+////        notifyDataSetChanged()
+//
+//        val newItem = DrQuestionsItem()
+//        questionsList?.add(newItem)
+//        notifyItemInserted(questionsList?.size ?: 0)
+//    }
+
+    override fun getItemCount(): Int {
+        return questionsList?.size ?: 0
+    }
+
+    // Rest of the code...
+
+    fun addItem() {
+        if (questionsList == null) {
+            questionsList = arrayListOf()
+        }
+        val newItem = DrQuestionsItem()
+        questionsList?.add(newItem)
+        notifyDataSetChanged()
+    }
+
+//    fun updateList(newList: ArrayList<DrQuestionsItem>) {
+//        questionsList = newList
+//        notifyDataSetChanged()
+//    }
+    
+fun updateList(newList: ArrayList<DrQuestionsItem>) {
+    val previousSize = questionsList?.size ?: 0
+    questionsList = newList
+    val currentSize = questionsList?.size ?: 0
+    if (currentSize > previousSize) {
+        notifyItemRangeInserted(previousSize, currentSize - previousSize)
+    } else {
+        notifyDataSetChanged()
+    }
+}
 }
