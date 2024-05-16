@@ -79,5 +79,7 @@ dependencies {
     //steper
     implementation ("com.github.TalebRafiepour:AndroidSteper:0.9")
     implementation ("com.github.shuhart:stepview:1.5.1")
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    implementation ("com.intuit.ssp:ssp-android:1.1.1")
 
 }

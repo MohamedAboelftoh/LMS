@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrQuestionsBinding
@@ -12,14 +14,12 @@ import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuestionsItem
 
 class DrQuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityDrQuestionsBinding
-     lateinit var questionsAdapter:DrQuestionsAdapter
-     var listOfQuestions = mutableListOf<DrQuestionsItem>()
+     private var questionsAdapter = DrQuestionsAdapter()
      private val snapHelper : SnapHelper = LinearSnapHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding=ActivityDrQuestionsBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-         questionsAdapter= DrQuestionsAdapter()
         viewBinding.drQuestionsRecycler.adapter=questionsAdapter
          snapHelper.attachToRecyclerView(viewBinding.drQuestionsRecycler)
         addAnswer()
@@ -27,9 +27,12 @@ class DrQuestionsActivity : AppCompatActivity() {
         viewBinding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.ic_add ->{
-                    listOfQuestions.add(DrQuestionsItem())
-                    questionsAdapter.bindData(listOfQuestions)
-                    viewBinding.drQuestionsRecycler.smoothScrollToPosition(listOfQuestions.size-1)
+                    // Create a new DrQuestionsItem object with necessary details
+                    val newQuestion = DrQuestionsItem() // Add appropriate arguments if needed
+                    // Add the new item to the adapter
+                    questionsAdapter.addItem(DrQuestionsItem())
+                    // Scroll to the bottom to show the new item
+                    //viewBinding.drQuestionsRecycler.scrollToPosition(questionsAdapter.itemCount - 1)
                 }
             }
             true
@@ -50,7 +53,6 @@ class DrQuestionsActivity : AppCompatActivity() {
                 }
                 else  if(holder.itemBinding.linear4.visibility== View.GONE){
                     holder.itemBinding.linear4.visibility= View.VISIBLE
-
                 }
                 else{
                     //show a Toast

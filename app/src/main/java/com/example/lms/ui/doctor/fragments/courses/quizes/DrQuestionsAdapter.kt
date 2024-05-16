@@ -10,19 +10,11 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.lms.databinding.ItemDrQuestionBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuestionsItem
 
-class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = null) :
+class DrQuestionsAdapter(private var questionsList: MutableList<DrQuestionsItem>? = null) :
     RecyclerView.Adapter<DrQuestionsAdapter.DrQuestionsViewHolder>() {
-
-    // Initialize the questionsList with three items of initial data
-//    init {
-//        questionsList = mutableListOf(
-//            DrQuestionsItem(),
-//            DrQuestionsItem(),
-//            DrQuestionsItem()
-//        )
-//
-//    }
-
+        init {
+            questionsList = mutableListOf(DrQuestionsItem())
+        }
     class DrQuestionsViewHolder(val itemBinding: ItemDrQuestionBinding) :
         ViewHolder(itemBinding.root)
 
@@ -48,24 +40,7 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
         holder.itemBinding.btnRemoveAns.setOnClickListener{
             onButtonRemoveAnsClickListener?.onClick(question!!,position,holder)
 
-//            if(holder.itemBinding.linear4.visibility== View.VISIBLE){
-//                holder.itemBinding.linear4.visibility== View.GONE
-//                notifyDataSetChanged()
-//            }
-//            else if(holder.itemBinding.linear3.visibility== View.VISIBLE){
-//                holder.itemBinding.linear4.visibility== View.GONE
-//                notifyDataSetChanged()
-//            }
-//            else{
-//                //not do any thing
-//            }
-
         }
-
-    }
-    fun bindData(listOfQuestions: MutableList<DrQuestionsItem>) {
-        this.questionsList = listOfQuestions
-        notifyItemInserted(this.questionsList!!.size - 1)
     }
     var onButtonAddAnsClickListener:OnButtonAddAnsClickListener?=null
      var onButtonRemoveAnsClickListener:OnButtonRemoveAnsClickListener?=null
@@ -75,5 +50,12 @@ class DrQuestionsAdapter(private var questionsList: List<DrQuestionsItem>? = nul
     }
     interface OnButtonRemoveAnsClickListener{
         fun onClick(item:DrQuestionsItem,position: Int,holder: DrQuestionsViewHolder){}
+    }
+    fun addItem(item: DrQuestionsItem) {
+        if (questionsList == null) {
+            questionsList = mutableListOf()
+        }
+        questionsList?.add(item)
+        notifyItemInserted(questionsList!!.size - 1)
     }
 }
