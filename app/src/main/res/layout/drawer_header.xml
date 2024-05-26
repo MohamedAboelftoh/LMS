@@ -5,24 +5,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     >
-      <ImageView
+      <com.google.android.material.circularreveal.cardview.CircularRevealCardView
           android:id="@+id/profile_img"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          app:layout_constraintWidth_percent="0.4"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          android:src="@drawable/profile_img"
+          app:layout_constraintBottom_toTopOf="@id/name_drawer_tv"
+          app:cardCornerRadius="60dp"
           android:layout_marginTop="20dp"
-          android:adjustViewBounds="true"
+          app:strokeWidth="2dp"
+          app:strokeColor="@color/white"
+          >
+            <ImageView
+                android:id="@+id/profile_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/avatar_1"
+                />
+      </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-          />
+<!--      <ImageView-->
+<!--          android:id="@+id/profile_img"-->
+<!--          android:layout_width="0dp"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          app:layout_constraintWidth_percent="0.4"-->
+<!--          app:layout_constraintTop_toTopOf="parent"-->
+<!--          app:layout_constraintStart_toStartOf="parent"-->
+<!--          app:layout_constraintEnd_toEndOf="parent"-->
+<!--          android:src="@drawable/profile_img"-->
+<!--          android:layout_marginTop="20dp"-->
+<!--          android:adjustViewBounds="true"-->
+<!--          />-->
       <ImageView
           android:id="@+id/ic_camera"
           android:layout_width="35dp"
           android:layout_height="30dp"
-          android:layout_marginBottom="40dp"
+          android:layout_marginBottom="10dp"
           app:layout_constraintStart_toStartOf="@id/profile_img"
           app:layout_constraintEnd_toEndOf="@id/profile_img"
           android:src="@drawable/ic_camera"
@@ -33,14 +53,16 @@
 
       <TextView
           android:id="@+id/name_drawer_tv"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:autoSizeTextType="uniform"
+          app:layout_constraintHeight_percent=".16"
+          android:gravity="center"
           app:layout_constraintTop_toBottomOf="@id/profile_img"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          android:textSize="22sp"
-          android:layout_marginBottom="10dp"
+          android:layout_marginBottom="20dp"
           android:layout_marginTop="10dp"
           android:text="Hi, Mohamed"
           android:textColor="@color/black"

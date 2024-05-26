@@ -6,12 +6,12 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity"
+    tools:context=".ui.student.HomeActivity"
     >
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity"
+    tools:context=".ui.student.HomeActivity"
 >
 
     <include android:id="@+id/content"

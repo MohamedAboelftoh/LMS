@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.lms.R
 import com.example.lms.databinding.FragmentResetPassword5Binding
-import com.example.lms.ui.home.HomeActivity
+import com.example.lms.ui.student.HomeActivity
 
 class ResetPasswordFragment5 : Fragment() {
     lateinit var viewBinding:FragmentResetPassword5Binding

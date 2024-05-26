@@ -1,24 +1,26 @@
 package com.example.lms.ui.splashes
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lms.R
 import com.example.lms.databinding.ActivitySplashBinding
-import com.example.lms.ui.home.HomeActivity
+import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.doctor.DrMainActivity
+import com.example.lms.ui.student.HomeActivity
+import com.example.lms.ui.student.navigateFromActivity
 import com.example.lms.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     private var index : Int = 0
     private lateinit var viewBinding : ActivitySplashBinding
+    lateinit var myPreferencesToken : MyPreferencesToken
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        myPreferencesToken = MyPreferencesToken(this)
         pushFragment(SplashFragment1())
         viewBinding.btnNext.setOnClickListener {
             if(index ==  0) {
@@ -34,14 +36,23 @@ class SplashActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             if(index == 2) {
-                if (isLoggedIn()) {
-                    navigateToHome()
-                } else {
-                    navigateToLogin()
+               val role= myPreferencesToken.loadData("role")
+                if (isLoggedIn()&& role=="Student") {
+
+                    navigateFromActivity(this@SplashActivity,HomeActivity())
+                }
+
+                else if(isLoggedIn()&& role=="Doctor"){
+                    navigateFromActivity(this@SplashActivity, DrMainActivity())
+
+                }
+                else {
+                    navigateFromActivity(this@SplashActivity,LoginActivity())
                 }
             }
         }
     }
+
 
     private fun changeColors(index: Int) {
         if(index == 0){
@@ -54,13 +65,6 @@ class SplashActivity : AppCompatActivity() {
             viewBinding.iv2.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.gray))
         }
     }
-
-
-    private fun navigateToLogin() {
-        val intent = Intent(this , LoginActivity::class.java)
-        startActivity(intent)
-    }
-
     private fun pushFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
@@ -69,15 +73,14 @@ class SplashActivity : AppCompatActivity() {
             .commit()
     }
     private fun isLoggedIn(): Boolean {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val email = sharedPreferences.getString("email", null)
-        val password = sharedPreferences.getString("password", null)
-
-        // Check if both email and password are present
+        val email = myPreferencesToken.loadData("email")
+        val password = myPreferencesToken.loadData("password")
         return !email.isNullOrEmpty() && !password.isNullOrEmpty()
     }
-    private fun navigateToHome() {
-        val intent = Intent(this , HomeActivity::class.java)
-        startActivity(intent)
+    override fun onBackPressed() {
+        super.onBackPressed()
+       finishAffinity()
     }
+
+
 }

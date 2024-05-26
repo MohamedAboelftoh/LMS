@@ -7,37 +7,32 @@
     android:id="@+id/course_content_container"
     android:background="@color/white"
     >
-
-
     <ImageView
         android:id="@+id/ic_back"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
+        app:layout_constraintHeight_percent=".04"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/ic_back"
-        android:layout_marginHorizontal="15dp"
         android:layout_marginTop="30dp"
-
         />
     <TextView
         android:id="@+id/course_name_tv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/ic_back"
         app:layout_constraintStart_toEndOf="@id/ic_back"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Parallel Programing"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_back"
+        app:layout_constraintHeight_percent=".05"
+        app:autoSizeTextType="uniform"
+        tools:text="Parallel Programing"
+        android:layout_marginStart="5dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         />
-
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_material"
         android:layout_width="0dp"
@@ -69,14 +64,16 @@
                 android:src="@drawable/matireal_img"
                 />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/image_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
                 android:text="Material"
-                android:textSize="24sp"
+                app:layout_constraintHeight_percent=".17"
+                app:autoSizeTextType="uniform"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -118,14 +115,16 @@
                 android:src="@drawable/quiz_img"
                 />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/image_view_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="Quizzes"
-                android:textSize="24sp"
+                android:text="@string/quizzes"
+                app:layout_constraintHeight_percent=".17"
+                app:autoSizeTextType="uniform"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -166,14 +165,16 @@
                 android:src="@drawable/assignment_img"
                 />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/image_view_3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="Assignments"
-                android:textSize="24sp"
+                app:layout_constraintHeight_percent=".17"
+                app:autoSizeTextType="uniform"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -215,14 +216,16 @@
                 android:src="@drawable/grad_img"
                 />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/image_view_4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="Grades"
-                android:textSize="24sp"
+                android:text="@string/grades"
+                app:layout_constraintHeight_percent=".17"
+                app:autoSizeTextType="uniform"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />

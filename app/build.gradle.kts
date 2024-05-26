@@ -1,8 +1,10 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+
 }
 
 android {
@@ -42,6 +44,8 @@ android {
     viewBinding {
        enable=true
     }
+
+
 }
 
 dependencies {
@@ -57,6 +61,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
+
     //calender View
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.0")
 
@@ -65,8 +70,18 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //glide library to load images from api
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-    // OkHttp client
-    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    // OkHttp client if api not security
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     // OkHttp logging interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    // pdfViewer
+    implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
+    //steper
+    implementation ("com.github.TalebRafiepour:AndroidSteper:0.9")
+    implementation ("com.github.shuhart:stepview:1.5.1")
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    implementation ("com.intuit.ssp:ssp-android:1.1.1")
+    //viewmodels
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }

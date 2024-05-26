@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.doctor.fragments.courses.assignment.DrAddAssignmentActivity">
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintHeight_percent=".04"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_back"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/course_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ic_back"
+        app:layout_constraintStart_toEndOf="@id/ic_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/ic_back"
+        android:text="Parallel Programing"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:textSize="@dimen/_19ssp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:padding="@dimen/_8sdp"
+        app:sv_animationDuration="1"
+        app:sv_animationType="Line"
+        app:sv_doneCircleColor="@color/colorPrimary"
+        app:sv_doneCircleRadius="@dimen/_20sdp"
+        app:sv_doneStepLineColor="@color/colorPrimary"
+        app:sv_doneTextColor="@color/black"
+        app:sv_nextStepLineColor="@color/secondaryTextColor"
+        app:sv_nextTextColor="@color/secondaryTextColor"
+        app:sv_selectedCircleColor="@color/colorPrimary"
+        app:sv_selectedCircleRadius="@dimen/_12sdp"
+        app:sv_selectedStepNumberColor="@color/white"
+        app:sv_selectedTextColor="@color/colorPrimary"
+        app:sv_stepLineWidth="@dimen/_2sdp"
+        app:sv_stepNumberTextSize="@dimen/_12ssp"
+        app:sv_stepPadding="4dp"
+        app:sv_stepViewStyle="@style/StepView"
+        app:sv_steps="@array/titles"
+        app:sv_stepsNumber="3"
+        app:sv_textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_name_tv"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintTop_toBottomOf="@id/step_view"
+        >
+
+        <!-- ui define name of quiz -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrain_name_of_quiz"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/guideline1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible"
+
+            >
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHeight_percent=".3"
+                android:orientation="vertical"
+                android:background="@drawable/bg_date"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_of_quiz_which_students_can_see_it"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/quiz_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/background_et"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:hint="Quiz Name"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/linear1"
+                app:layout_constraintHeight_percent=".4"
+                android:orientation="vertical"
+                android:background="@drawable/bg_date"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You can add notices?"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/quiz_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/background_et"
+                    android:gravity="start"
+                    android:hint="Description"
+                    android:lines="4"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        <!-- ui define start and end date and points of quiz -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrain_points"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/guideline1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            android:padding="@dimen/_10sdp"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/task_grade"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_quiz_grade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:hint="Enter the grade of quiz"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_email"
+                    android:padding="@dimen/_15sdp"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/task_point"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".15"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_grade"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_quiz_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:hint="Enter the number of questions"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_email"
+                    android:padding="@dimen/_15sdp"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_date"
+                    app:layout_constraintTop_toBottomOf="@id/task_point"
+                    app:layout_constraintHeight_percent=".55"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_determine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="Determine Time"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_16ssp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_start_date"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintHeight_percent=".25"
+                        android:text="@string/start_date"
+                        app:layout_constraintTop_toBottomOf="@id/tv_determine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/btn_end_date"
+                        app:cornerRadius="@dimen/_10sdp"
+                        android:backgroundTint="#4CB4AB"
+                        android:gravity="center_vertical"
+                        app:icon="@drawable/ic_time_2"
+                        app:iconSize="@dimen/_20sdp"
+                        android:padding="@dimen/_8sdp"
+                        android:textSize="@dimen/_16ssp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_end_date"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintHeight_percent=".25"
+                        android:text="@string/end_date"
+                        app:layout_constraintTop_toBottomOf="@id/btn_start_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:cornerRadius="@dimen/_10sdp"
+                        android:gravity="center_vertical"
+                        android:backgroundTint="#F57A72"
+                        app:icon="@drawable/ic_time_2"
+                        app:iconSize="@dimen/_20sdp"
+                        android:textSize="@dimen/_16ssp"
+                        android:padding="@dimen/_8sdp"
+                        />
+                    <EditText
+                        android:id="@+id/tv_start_date"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintHeight_percent=".24"
+                        app:layout_constraintWidth_percent=".4"
+                        app:layout_constraintEnd_toEndOf="@id/btn_start_date"
+                        app:layout_constraintTop_toTopOf="@id/btn_start_date"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_start_date"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:background="#80FFFFFF"
+                        android:gravity="center"
+                        android:enabled="false"
+                        android:textSize="@dimen/_15ssp"
+                        />
+                    <EditText
+                        android:id="@+id/tv_end_date"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintHeight_percent=".24"
+                        app:layout_constraintWidth_percent=".4"
+                        app:layout_constraintEnd_toEndOf="@id/btn_end_date"
+                        app:layout_constraintTop_toTopOf="@id/btn_end_date"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_end_date"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:background="#80FFFFFF"
+                        android:gravity="center"
+                        android:enabled="false"
+                        android:textSize="@dimen/_15ssp"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        <!-- ui go to questions -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/question"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".4"
+            app:layout_constraintTop_toBottomOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/bg_date"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/quiz_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".17"
+                app:layout_constraintBottom_toBottomOf="@id/ic_edit"
+                app:layout_constraintEnd_toStartOf="@id/ic_edit"
+                app:layout_constraintTop_toTopOf="@id/ic_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="quiz1"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ic_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/ic_delete"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/quiz_name"
+                android:adjustViewBounds="true"
+                app:layout_constraintHeight_percent=".16"
+                android:src="@drawable/ic_name"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="@dimen/_1sdp"
+                app:shapeAppearanceOverlay="@style/circular"
+                />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ic_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/ic_see"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_edit"
+                android:adjustViewBounds="true"
+                app:layout_constraintHeight_percent=".16"
+                android:src="@drawable/ic_delete"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="@dimen/_1sdp"
+                app:shapeAppearanceOverlay="@style/circular"
+                />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ic_see"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_delete"
+                android:adjustViewBounds="true"
+                app:layout_constraintHeight_percent=".16"
+                android:src="@drawable/ic_email"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="@dimen/_1sdp"
+                app:shapeAppearanceOverlay="@style/circular"
+                />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/ic_see"
+                android:layout_marginHorizontal="10dp"
+                android:background="@color/white2"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:id="@+id/course_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="computer Security"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/ic_graph"
+                app:layout_constraintTop_toBottomOf="@id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHeight_percent=".2"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/_12ssp"
+                android:drawablePadding="@dimen/_8sdp"
+                />
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".2"
+                app:layout_constraintEnd_toEndOf="@id/course_name"
+                android:text="5 Points"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_graph"
+                app:layout_constraintTop_toBottomOf="@id/course_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textSize="@dimen/_12ssp"
+                />
+            <TextView
+                android:id="@+id/start_time"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".2"
+                android:text="8:00  To  8:30"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_time_2"
+                app:layout_constraintTop_toBottomOf="@id/points"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/course_name"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center_vertical"
+                />
+            <TextView
+                android:id="@+id/end_time"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".2"
+                android:text="8:00  To  8:30"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_time_2"
+                app:layout_constraintTop_toBottomOf="@id/start_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/course_name"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center_vertical"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".15" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/next"
+        android:layout_margin="@dimen/_10sdp"
+        app:cornerRadius="@dimen/_9sdp"
+        android:textSize="@dimen/_15ssp"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/next"
+        app:layout_constraintBottom_toBottomOf="@id/next"
+        app:layout_constraintStart_toEndOf="@id/next"
+        android:text="@string/back"
+        android:layout_margin="@dimen/_10sdp"
+        android:backgroundTint="@color/white2"
+        app:cornerRadius="@dimen/_9sdp"
+        android:textSize="@dimen/_15ssp"
+        android:visibility="invisible"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
