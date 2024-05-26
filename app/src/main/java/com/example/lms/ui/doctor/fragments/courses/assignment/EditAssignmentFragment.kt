@@ -96,11 +96,10 @@ class EditAssignmentFragment : DialogFragment() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if(response.isSuccessful){
                     onAssignmentEditListener?.onAssignmentEdit()
-                  //  Toast.makeText(context,"Updated Successful", Toast.LENGTH_SHORT).show()
+                   Toast.makeText(context,"Updated Successful", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                //  Toast.makeText(context,"Failed to update The Task", Toast.LENGTH_SHORT).show()
-
+                  Toast.makeText(context,"Failed to update The Task", Toast.LENGTH_SHORT).show()
                 }
             }
 

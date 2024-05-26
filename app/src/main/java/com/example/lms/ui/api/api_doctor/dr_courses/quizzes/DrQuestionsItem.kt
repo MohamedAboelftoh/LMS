@@ -8,17 +8,17 @@ import com.google.gson.annotations.SerializedName
 data class DrQuestionsItem(
 
 	@field:SerializedName("grade")
-	val grade: Int? = null,
+	var grade: Int? = null,
 
 	@field:SerializedName("answers")
-	val answers: List<DrAnswersItem?>? = null,
+	var answers: List<DrAnswersItem?>? = null,
 
 	@field:SerializedName("text")
-	val text: String? = null,
+	var text: String? = null,
 
 	@field:SerializedName("type")
-	val type: String? = null,
+	var type: String? = null,
 
 	@field:SerializedName("questionNumber")
-	val questionNumber: Int? = null
+	var questionNumber: Int? = null
 ) : Parcelable

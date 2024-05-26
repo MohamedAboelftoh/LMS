@@ -81,5 +81,7 @@ dependencies {
     implementation ("com.github.shuhart:stepview:1.5.1")
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
     implementation ("com.intuit.ssp:ssp-android:1.1.1")
-
+    //viewmodels
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }

@@ -8,11 +8,11 @@ import com.google.gson.annotations.SerializedName
 data class DrAnswersItem(
 
 	@field:SerializedName("text")
-	val text: String? = null,
+	var text: String? = null,
 
 	@field:SerializedName("answerNumber")
-	val answerNumber: Int? = null,
+	var answerNumber: Int? = null,
 
 	@field:SerializedName("isCorrect")
-	val isCorrect: Boolean? = null
+	var isCorrect: Boolean? = false
 ) : Parcelable

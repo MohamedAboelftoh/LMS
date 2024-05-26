@@ -24,6 +24,7 @@ import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
 import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -180,4 +181,6 @@ interface UserServices {
         @Query("cycleId") cycleId: String,
         @Header("Authorization") token: String
     ):Call<ArrayList<DrQuizzesResponseItem>>
+    @POST("api/Instructor/createQuiz")
+    fun createQuiz(@Header("Authorization") token: String,@Body quizItem : DrQuizItem) : Call<DrQuizItem>
 }

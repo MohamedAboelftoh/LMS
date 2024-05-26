@@ -2,6 +2,7 @@ package com.example.lms.ui.doctor.fragments.courses.quizes
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -91,7 +92,7 @@ class DrAddQuizActivity : AppCompatActivity() {
 //                    viewBinding.next.text = "Submit"
                     viewBinding.quizName.text = viewBinding.quizNameEt.text
                     viewBinding.courseName.text = Variables.courseName
-                    viewBinding.points.text = viewBinding.etQuizPoints.text
+                    viewBinding.points.text = viewBinding.etQuizGrade.text
                     position = 2
                     viewBinding.stepView.done(false)
                     viewBinding.stepView.go(position, true)
@@ -99,7 +100,19 @@ class DrAddQuizActivity : AppCompatActivity() {
                 else -> {
 
                     // Go to another Activity or Fragment
-                    navigateFromActivity(this@DrAddQuizActivity,DrQuestionsActivity())
+                    //navigateFromActivity(this@DrAddQuizActivity,DrQuestionsActivity())
+                    val intent = Intent(this , DrQuestionsActivity::class.java)
+                    intent.putExtra("title" , viewBinding.quizNameEt.text.toString())
+                    intent.putExtra("notes" , viewBinding.quizDescription.text.toString())
+                    intent.putExtra("startDate" , viewBinding.tvStartDate.text.toString())
+                    intent.putExtra("endDate" , viewBinding.tvEndDate.text.toString())
+                    intent.putExtra("grade" , viewBinding.etQuizGrade.text.toString())
+                    intent.putExtra("points" , viewBinding.etQuizPoint.text.toString())
+                    if(!validation()){
+                        return@setOnClickListener
+                    }
+                    else
+                        startActivity(intent)
                 }
             }
         }
@@ -128,5 +141,46 @@ class DrAddQuizActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun validation () : Boolean{
+        var isValid = true
+        if(viewBinding.quizNameEt.text.isNullOrBlank()){
+            viewBinding.quizNameEt.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.quizNameEt.error = null
+        if(viewBinding.quizDescription.text.isNullOrBlank()){
+            viewBinding.quizDescription.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.quizDescription.error = null
+        if(viewBinding.etQuizPoint.text.isNullOrBlank()){
+            viewBinding.etQuizPoint.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.etQuizPoint.error = null
+        if(viewBinding.etQuizGrade.text.isNullOrBlank()){
+            viewBinding.etQuizGrade.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.etQuizGrade.error = null
+        if(viewBinding.tvStartDate.text.isNullOrBlank()){
+            viewBinding.tvStartDate.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.tvStartDate.error = null
+        if(viewBinding.tvEndDate.text.isNullOrBlank()){
+            viewBinding.tvEndDate.error = "required"
+            isValid = false
+        }
+        else
+            viewBinding.tvEndDate.error = null
+
+        return isValid
     }
 }

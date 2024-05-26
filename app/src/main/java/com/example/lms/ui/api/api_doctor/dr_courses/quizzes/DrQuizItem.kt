@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
-data class DrQueizItem(
+data class DrQuizItem(
 
     @field:SerializedName("notes")
 	val notes: String? = null,
