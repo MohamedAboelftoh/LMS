@@ -56,6 +56,7 @@ class DrAddAssignmentActivity : AppCompatActivity() {
         myPreferencesToken = MyPreferencesToken(this)
         viewBinding=ActivityDrAddAssignmentBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        viewBinding.courseNameTv.text=Variables.courseName
         clicksListener()
         changeStep()
     }
@@ -102,6 +103,12 @@ class DrAddAssignmentActivity : AppCompatActivity() {
                     viewBinding.constrainPoints.visibility = View.GONE
                     viewBinding.file.visibility = View.VISIBLE
                     viewBinding.next.text = "Submit"
+
+                    viewBinding.assignNameTv.text = viewBinding.taskName.text
+                    viewBinding.courseName.text = Variables.courseName
+                    viewBinding.points.text = viewBinding.etTaskGrade.text
+                    viewBinding.startTime.text=viewBinding.tvStartDate.text
+                    viewBinding.endTime.text=viewBinding.tvEndDate.text
                     position = 2
                     viewBinding.stepView.done(false)
                     viewBinding.stepView.go(position, true)
@@ -171,7 +178,9 @@ class DrAddAssignmentActivity : AppCompatActivity() {
 
         val requestBody = file.asRequestBody("*/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-        ApiManager.getApi().drUploadAssignment(taskName ,taskGrade,startDate,endDate ,cycleId!!,part,token!!)
+        val sDate =viewBinding.startTime.text.toString()
+        val eDate=viewBinding.endTime.text.toString()
+        ApiManager.getApi().drUploadAssignment(taskName ,taskGrade,startDate=sDate,endDate=eDate ,cycleId!!,part,token!!)
             .enqueue(object : Callback<ResponseBody>{
                 override fun onResponse(
                     call: Call<ResponseBody>,
@@ -262,14 +271,14 @@ class DrAddAssignmentActivity : AppCompatActivity() {
         else{
             viewBinding.taskPoint.error = null
         }
-        if (viewBinding.tvStartDate.text.isNullOrBlank()){
+        if (viewBinding.startTime.text.isNullOrBlank()){
             viewBinding.tvStartDate.error = "Required"
             isValid = false
         }
         else{
             viewBinding.tvStartDate.error = null
         }
-        if (viewBinding.tvEndDate.text.isNullOrBlank()){
+        if (viewBinding.endTime.text.isNullOrBlank()){
             viewBinding.tvEndDate.error = "Required"
             isValid = false
         }

@@ -183,4 +183,10 @@ interface UserServices {
     ):Call<ArrayList<DrQuizzesResponseItem>>
     @POST("api/Instructor/createQuiz")
     fun createQuiz(@Header("Authorization") token: String,@Body quizItem : DrQuizItem) : Call<DrQuizItem>
+
+    @DELETE("api/Instructor/DeleteQuiz")
+    fun DrDeleteQuiz(
+        @Query("quizId") quizId: String,
+        @Header("Authorization") token: String
+    ):Call<ResponseBody>
 }

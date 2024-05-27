@@ -19,6 +19,9 @@ data class DrQuizzesResponseItem(
 	@field:SerializedName("quizId")
 	val quizId: String? = null,
 
+	@field:SerializedName("id")
+	val id: String? = null,
+
 	@field:SerializedName("endDate")
 	val endDate: String? = null,
 

@@ -63,7 +63,6 @@ class DrAssignmentPendingFragment : Fragment() {
         adapter.onIconDeleteClickListener=object :DrAssignPendingAdapter.OnIconDeleteClickListener{
             override fun iconDeleteClick(item: DrAllAssignmentsResponseItem, position: Int) {
                 Variables.taskId=item.taskId
-
                      showMessage("Do you Sure To Delete "
                 ,posActionName = "OK",
                 posAction = { dialogInterface,i->

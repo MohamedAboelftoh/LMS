@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.databinding.ItemDrAssignPendingBinding
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
 import com.example.lms.ui.student.fragments.Variables
 import java.util.ArrayList
@@ -27,10 +28,19 @@ class DrQuizzesAdapter (private var quizzesList : List<DrQuizzesResponseItem?>?=
         holder.viewBinding.courseName.text = Variables.courseName
         holder.viewBinding.points.text = quizItem?.grade.toString()
         holder.viewBinding.time.text = quizItem?.startDate + " To " + quizItem?.endDate
+        holder.viewBinding.icDelete.setOnClickListener{
+            Variables.quizId=quizItem?.quizId
+            onIconDeleteClickListener?.onClick(position,quizItem?.id)
+        }
     }
 
     fun bindData(body: ArrayList<DrQuizzesResponseItem>?) {
         quizzesList = body
         notifyDataSetChanged()
+    }
+
+    var onIconDeleteClickListener:OnIconDeleteClickListener?=null
+    fun interface OnIconDeleteClickListener{
+        fun onClick(position:Int,quizId:String?)
     }
 }
