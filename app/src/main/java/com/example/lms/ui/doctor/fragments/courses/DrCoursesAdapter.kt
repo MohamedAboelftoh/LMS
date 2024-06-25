@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.DrCourseItemBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
+import okhttp3.internal.notifyAll
 
 class DrCoursesAdapter(private var coursesList:List<DrCoursesResponseItem?>?=null):RecyclerView.Adapter<DrCoursesAdapter.CoursesViewHolder>() {
 
@@ -25,17 +26,14 @@ class DrCoursesAdapter(private var coursesList:List<DrCoursesResponseItem?>?=nul
     override fun onBindViewHolder(holder: CoursesViewHolder, position: Int) {
         val courses=coursesList!![position]
         val courseName: String? =courses?.name
+        holder.itemBinding.courses = courses
+        holder.itemBinding.executePendingBindings()
         if(courseName!!.length >=25){
             holder.itemBinding.courseNameTv.text=courseName.substring(0,22)+"..."
         }
         else{
             holder.itemBinding.courseNameTv.text=courseName
         }
-        Glide.with(holder.itemView)
-            .load(courses.imagePath)
-            .placeholder(R.drawable.avatar_1)
-            .into(holder.itemBinding.courseImage)
-        holder.itemBinding.hours.text = courses.hours.toString()
         holder.itemBinding.courseItem.setOnClickListener { onItemClickListener?.onItemClick(position,courses) }
     }
 

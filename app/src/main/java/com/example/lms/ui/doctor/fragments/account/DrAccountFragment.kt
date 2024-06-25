@@ -69,7 +69,7 @@ lateinit var myPreferencesToken: MyPreferencesToken
             }
 
             override fun onFailure(call: Call<InstructorInfoResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(requireContext(),"Info not downloaded", Toast.LENGTH_SHORT).show()
             }
 
         })

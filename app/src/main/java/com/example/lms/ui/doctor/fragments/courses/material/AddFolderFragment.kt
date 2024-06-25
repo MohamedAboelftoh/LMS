@@ -12,6 +12,7 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +54,7 @@ class AddFolderFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onFailure(call: Call<DrUploadLectureResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Snackbar.make(viewBinding.root , "Network fail" , Snackbar.LENGTH_LONG).show()
                 }
 
             })

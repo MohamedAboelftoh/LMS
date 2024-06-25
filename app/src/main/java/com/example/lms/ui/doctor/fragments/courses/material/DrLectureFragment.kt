@@ -18,6 +18,8 @@ import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromFragment
 import retrofit2.Call
@@ -30,7 +32,6 @@ class DrLectureFragment : Fragment() {
     lateinit var myPreferencesToken: MyPreferencesToken
     private lateinit var fragmentContext: Context // Store the context here
     val addFolderFragment = AddFolderFragment()
-    val drUpdateFolderFragment = DrUpdateFolderFragment()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,7 +40,7 @@ class DrLectureFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewBinding = FragmentDrLectureBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
@@ -48,6 +49,13 @@ class DrLectureFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken = MyPreferencesToken(requireContext())
         adapter = DrLecturesAdapter()
+        viewBinding.lecRecycler.adapter = adapter
+        if(checkForInternet(fragmentContext)){
+            getLectures()
+        }
+        else{
+            adapter.bindLectures(DataBase.getInstance(fragmentContext).foldersDao().getFoldersFromLocal())
+        }
         viewBinding.floatingActionBtn.setOnClickListener {
             addFolderFragment.show(parentFragmentManager,"")
         }
@@ -56,8 +64,6 @@ class DrLectureFragment : Fragment() {
                 getLectures()
             }
         }
-        viewBinding.lecRecycler.adapter = adapter
-        getLectures()
         onLectureClick()
         onIconMoreClick()
     }
@@ -102,7 +108,7 @@ class DrLectureFragment : Fragment() {
              }
 
              override fun onFailure(call: Call<Void>, t: Throwable) {
-                 Toast.makeText(requireContext(), "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
+                 Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
              }
 
          })
@@ -129,6 +135,7 @@ class DrLectureFragment : Fragment() {
                 response: Response<ArrayList<DrLecturesResponseItem>>
             ) {
                 if (response.isSuccessful) {
+                    cacheFoldersInLocal(response.body())
                     adapter.bindLectures(response.body())
                 } else {
                     Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
@@ -141,6 +148,12 @@ class DrLectureFragment : Fragment() {
             }
         })
     }
+
+    private fun cacheFoldersInLocal(body: java.util.ArrayList<DrLecturesResponseItem>?) {
+        DataBase.getInstance(fragmentContext).foldersDao().deleteAllFolders()
+        DataBase.getInstance(fragmentContext).foldersDao().insertFolders(body!!)
+    }
+
     private fun onLectureClick(){
         adapter.onItemClickListener=
             DrLecturesAdapter.OnItemClickListener { position, item ->

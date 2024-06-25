@@ -15,7 +15,4 @@ object Variables {
     var lectureName:String ?=null
     var studentName:String?=null
     var stuTimeUploaded:String?=null
-
-
-
 }

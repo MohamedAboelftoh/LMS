@@ -1,11 +1,15 @@
 package com.example.lms.ui.api.api_student.news
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
-import kotlinx.parcelize.RawValue
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
+@Entity(tableName = "news")
 data class NewsResponseItem(
+	@PrimaryKey(autoGenerate = true)
+	val id : Int ?= null ,
 	@field:SerializedName("facultyId")
 	val facultyId: String? = null,
 
@@ -18,7 +22,6 @@ data class NewsResponseItem(
 	@field:SerializedName("filePath")
 	val filePath: String? = null,
 
-	// Use @RawValue for the facultyName property to allow any type
 	@field:SerializedName("facultyName")
 	val facultyName:String? = null,
 

@@ -11,6 +11,8 @@ import com.example.lms.databinding.FragmentDrLabsBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromFragment
 import retrofit2.Call
@@ -41,7 +43,11 @@ class DrLabsFragment : Fragment() {
         myPreferencesToken = MyPreferencesToken(requireContext())
         adapter = DrLabsAdapter()
         viewBinding.labRecycler.adapter = adapter
-        getLabs()
+        if(checkForInternet(fragmentContext)){
+            getLabs()
+        }else{
+            adapter.bindLabs(DataBase.getInstance(fragmentContext).foldersDao().getFoldersFromLocal())
+        }
         onLabClick()
     }
     private fun getLabs() {
@@ -54,6 +60,7 @@ class DrLabsFragment : Fragment() {
                 response: Response<ArrayList<DrLecturesResponseItem>>
             ) {
                 if (response.isSuccessful) {
+                    cacheLabsInLocal(response.body())
                     adapter.bindLabs(response.body())
                 } else {
                     Toast.makeText(fragmentContext, "failed to get the lectures", Toast.LENGTH_LONG).show()
@@ -62,11 +69,15 @@ class DrLabsFragment : Fragment() {
 
             override fun onFailure(call: Call<ArrayList<DrLecturesResponseItem>>, t: Throwable) {
                 Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()
-
             }
         })
-
     }
+
+    private fun cacheLabsInLocal(body: java.util.ArrayList<DrLecturesResponseItem>?) {
+        DataBase.getInstance(fragmentContext).foldersDao().deleteAllFolders()
+        DataBase.getInstance(fragmentContext).foldersDao().insertFolders(body!!)
+    }
+
     private fun onLabClick(){
         adapter.onItemClickListener=
             DrLabsAdapter.OnItemClickListener { position, item ->

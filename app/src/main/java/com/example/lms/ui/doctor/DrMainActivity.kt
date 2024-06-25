@@ -13,11 +13,13 @@ import com.example.lms.databinding.ActivityDoctorMainBinding
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
 import com.example.lms.ui.doctor.fragments.account.DrAccountFragment
 import com.example.lms.ui.doctor.fragments.courses.DrCoursesFragment
 import com.example.lms.ui.doctor.fragments.news.DrNewsFragment
 import com.example.lms.ui.login.LoginActivity
 import com.example.lms.ui.splashes.SplashActivity
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.calender.CalenderFragment
 import com.example.lms.ui.student.fragments.home_fragment.HomeFragment
 import com.example.lms.ui.student.navigateFromActivity
@@ -36,7 +38,12 @@ class DrMainActivity : AppCompatActivity() {
         pushFragment(DrNewsFragment())
         bottomNavigationSelected()
         openDrawer()
-        getCurrentUser()
+        if(checkForInternet(applicationContext)){
+            getCurrentUser()
+        }
+        else{
+            getCurrentUserFromLocal()
+        }
         drawerItemsSelected()
     }
     override fun onBackPressed() {
@@ -75,6 +82,12 @@ class DrMainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+    private fun getCurrentUserFromLocal() {
+        val header = viewBinding.navView.getHeaderView(0)
+        val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
+        //  val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
+        dateTextView.text= DataBase.getInstance(this).instructorDao().getInstructorFromLocal().fullName?:"User"
+    }
     private fun getCurrentUser() {
         val token=myPreferencesToken.loadData("token")
         ApiManager.getApi().getInstructorInfo(token!!).enqueue(object : Callback<InstructorInfoResponse> {
@@ -97,7 +110,7 @@ class DrMainActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<InstructorInfoResponse>, t: Throwable) {
-                val toast = Toast.makeText(this@DrMainActivity, t.localizedMessage, Toast.LENGTH_LONG)
+                val toast = Toast.makeText(this@DrMainActivity, "header", Toast.LENGTH_LONG)
                 toast.show()
             }
 

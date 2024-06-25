@@ -20,9 +20,14 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileListener {
     lateinit var viewBinding: ActivityDrFilesBinding
@@ -46,7 +51,8 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
             override fun onItemClick(item: DrFilesResponseItem, position: Int) {
                 Variables.filePath = item.filePath
                 Variables.fileName=item.fileName
-                navigateFromActivity(this@DrFilesActivity, DrPdfActivity())
+                //navigateFromActivity(this@DrFilesActivity, DrPdfActivity())
+                openPDFViewer(item.filePath)
             }
         }
 
@@ -61,10 +67,11 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
         try {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setDataAndType(Uri.parse(url), "application/pdf")
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-            startActivity(intent)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            val intentChooser = Intent.createChooser(intent, "Open PDF")
+            startActivity(intentChooser)
         } catch (e: Exception) {
-            // Error...
+            // Error...1-basics_if cond task
         }
     }
     private fun initializeData(){
@@ -156,16 +163,23 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
 
     }
     fun downloadData(url: String, fileName: String) {
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(Uri.parse(url)).apply {
-            setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-            setTitle("Download")
-            setDescription("Downloading ...")
-            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            // Set MIME type for images
-            setMimeType("pdf/*")
-            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-        }
-        downloadManager.enqueue(request)
+        val request = DownloadManager.Request(Uri.parse(url))
+        request.setTitle("PDF Download")
+            .setDescription("Downloading the PDF File")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName)
+        val manager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        manager.enqueue(request)
+//        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+//        val request = DownloadManager.Request(Uri.parse(url)).apply {
+//            setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+//            setTitle("Download")
+//            setDescription("Downloading ...")
+//            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//            // Set MIME type for images
+//            setMimeType("pdf/*")
+//            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+//        }
+//        downloadManager.enqueue(request)
     }
 }

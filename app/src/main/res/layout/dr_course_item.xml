@@ -1,89 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/course_item"
-    android:layout_width="match_parent"
-    android:layout_height="90dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:strokeWidth="2dp"
-    app:strokeColor="#009688"
-    android:backgroundTint="@color/transparent"
-    android:layout_margin="15dp"
-    app:cardCornerRadius="8dp"
-    android:elevation="5dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+     <variable
+         name="courses"
+         type="com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/course_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="15dp"
-        android:background="@color/transparent"
-        >
-        <ImageView
-            android:id="@+id/course_image"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/course_image"
-            />
-        <TextView
-            android:id="@+id/course_name_tv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintHeight_percent=".45"
-            app:layout_constraintTop_toTopOf="@id/course_image"
-            app:layout_constraintStart_toEndOf="@id/course_image"
-            app:layout_constraintEnd_toStartOf="@id/item_btn"
-            android:text="Parallel Programing"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/black"
+        android:layout_height="90dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="2dp"
+        app:strokeColor="#009688"
+        android:backgroundTint="@color/transparent"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="5dp">
 
-            />
-        <TextView
-            android:id="@+id/course_doctor"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintHeight_percent=".37"
-            app:layout_constraintWidth_percent=".15"
-            app:layout_constraintTop_toBottomOf="@id/course_name_tv"
-            app:layout_constraintStart_toStartOf="@id/course_name_tv"
-            app:layout_constraintEnd_toStartOf="@id/hours"
-            app:layout_constraintBottom_toBottomOf="@id/course_image"
-            android:text="@string/hours"
-            android:layout_marginTop="5dp"
-            />
-        <TextView
-            android:id="@+id/hours"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintHeight_percent=".37"
-            app:layout_constraintTop_toBottomOf="@id/course_name_tv"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/course_doctor"
-            tools:text="3"
-            android:layout_marginTop="5dp"
-            />
-        <ImageView
-            android:id="@+id/item_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintHeight_percent=".8"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_arrow"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:background="@color/transparent">
 
+            <ImageView
+                android:id="@+id/course_image"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:url="@{courses.imagePath}"
+                />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/course_name_tv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintHeight_percent=".45"
+                app:layout_constraintTop_toTopOf="@id/course_image"
+                app:layout_constraintStart_toEndOf="@id/course_image"
+                app:layout_constraintEnd_toStartOf="@id/item_btn"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/course_doctor"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintHeight_percent=".37"
+                app:layout_constraintWidth_percent=".15"
+                app:layout_constraintTop_toBottomOf="@id/course_name_tv"
+                app:layout_constraintStart_toStartOf="@id/course_name_tv"
+                app:layout_constraintEnd_toStartOf="@id/hours"
+                app:layout_constraintBottom_toBottomOf="@id/course_image"
+                android:text="@string/hours"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/hours"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintHeight_percent=".37"
+                app:layout_constraintTop_toBottomOf="@id/course_name_tv"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/course_doctor"
+                android:layout_marginTop="5dp"
+                android:text="@{String.valueOf(courses.hours)}"
+                />
+
+            <ImageView
+                android:id="@+id/item_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintHeight_percent=".8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_arrow" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
