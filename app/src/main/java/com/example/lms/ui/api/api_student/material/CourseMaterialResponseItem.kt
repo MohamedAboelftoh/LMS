@@ -2,10 +2,15 @@ package com.example.lms.ui.api.api_student.material
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
+@Entity(tableName = "stuFolders")
 data class CourseMaterialResponseItem(
+	@PrimaryKey(autoGenerate = true)
+	val id : Int ?= null ,
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,

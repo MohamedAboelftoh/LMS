@@ -3,7 +3,9 @@ package com.example.lms.ui.student.fragments.courses_fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lms.databinding.ActivityCourseContentBinding
+import com.example.lms.ui.NotConnectedActivity
 import com.example.lms.ui.student.HomeActivity
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.courses_fragment.assignments.AssignmentsActivity
 import com.example.lms.ui.student.fragments.courses_fragment.grades.GradesActivity
 import com.example.lms.ui.student.fragments.courses_fragment.material.MaterialActivity
@@ -27,6 +29,7 @@ class CourseContent : AppCompatActivity() {
         }
         vieBinding.quizzes.setOnClickListener {
             navigateFromActivity(this@CourseContent, QuizzesActivity())
+
         }
         vieBinding.cardAssignments.setOnClickListener {
             navigateFromActivity(this@CourseContent, AssignmentsActivity())

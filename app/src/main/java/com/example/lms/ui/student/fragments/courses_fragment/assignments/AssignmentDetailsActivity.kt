@@ -98,10 +98,10 @@ class AssignmentDetailsActivity : AppCompatActivity() {
     private fun getData() {
         val token = myPreferencesToken.loadData("token")
         val taskId = Variables.taskId
-        ApiManager.getApi().getAssignment(token!!,taskId!!).enqueue(object :Callback<com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse>{
+        ApiManager.getApi().getAssignment(token!!,taskId!!).enqueue(object :Callback<AssignmentByIdResponse>{
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse>,
-                response: Response<com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse>
+                call: Call<AssignmentByIdResponse>,
+                response: Response<AssignmentByIdResponse>
             ) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 if(response.isSuccessful){
@@ -116,7 +116,7 @@ class AssignmentDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.assignments.AssignmentByIdResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AssignmentByIdResponse>, t: Throwable) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this@AssignmentDetailsActivity,t.localizedMessage,Toast.LENGTH_SHORT).show()
             }

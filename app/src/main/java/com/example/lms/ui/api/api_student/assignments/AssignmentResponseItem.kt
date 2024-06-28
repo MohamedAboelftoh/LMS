@@ -2,28 +2,18 @@ package com.example.lms.ui.api.api_student.assignments
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
+@Entity(tableName = "studentAssignments")
 data class AssignmentResponseItem(
-
-//	@field:SerializedName("createdAt")
-//	val createdAt: String? = null,
-
-//	@field:SerializedName("courseName")
-//	val courseName: String? = null,
-
-//	@field:SerializedName("instructorName")
-//	val instructorName: String? = null,
+	@PrimaryKey(autoGenerate = true)
+	val id : Int ?= null ,
 
 	@field:SerializedName("endDate")
 	val endDate: String? = null,
-//
-//	@field:SerializedName("taskGrade")
-//	val taskGrade: Int? = null,
-
-//	@field:SerializedName("filePath")
-//	val filePath: String? = null,
 
 	@field:SerializedName("taskName")
 	val taskName: String? = null,
@@ -34,6 +24,4 @@ data class AssignmentResponseItem(
 	@field:SerializedName("startDate")
 	val startDate: String? = null,
 
-	@field:SerializedName("status")
-	val status: String? = null
 ) : Parcelable

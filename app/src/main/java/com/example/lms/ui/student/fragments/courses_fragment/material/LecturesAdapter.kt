@@ -1,6 +1,7 @@
 package com.example.lms.ui.student.fragments.courses_fragment.material
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.LectureItemBinding
@@ -32,6 +33,7 @@ class LecturesAdapter (var lecturesList:List<CourseMaterialResponseItem?>?=null)
         holder.itemBinding.lecItemCard.setOnClickListener {
             onItemClickListener?.onClick(position,lecture!!)
         }
+        holder.itemBinding.more.visibility= View.GONE
 
     }
 

@@ -13,30 +13,40 @@
 
         android:id="@+id/quiz"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.95"
-        app:layout_constraintHeight_percent="0.28"
         app:autoSizeTextType="uniform"
         android:text="Second Quiz"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:textSize="15sp"
+        />
+    <ImageView
+        android:id="@+id/ic_start_time"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quiz"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_time_2"
+        android:layout_marginTop="7dp"
+
         />
     <TextView
         android:id="@+id/start_tv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/quiz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintStart_toEndOf="@id/ic_start_time"        app:layout_constraintHeight_percent="0.22"
         app:layout_constraintWidth_percent="0.26"
-        app:autoSizeTextType="uniform"
+        android:textSize="12sp"
         android:text="Start Time : "
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         />
     <TextView
@@ -47,13 +57,24 @@
         app:layout_constraintStart_toEndOf="@id/start_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.22"
-        app:layout_constraintWidth_percent="0.64"
+        app:layout_constraintWidth_percent="0.60"
         android:layout_marginTop="5dp"
 
-        app:autoSizeTextType="uniform"
+        android:textSize="15sp"
         android:text="9:00 AM - 10:00 AM"
         android:textColor="@color/white2"
         android:layout_marginHorizontal="5dp"
+
+        />
+    <ImageView
+        android:id="@+id/ic_end_time"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_tv"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_time_2"
+        android:layout_marginTop="7dp"
 
         />
     <TextView
@@ -61,12 +82,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/start_tv"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ic_end_time"
         app:layout_constraintHeight_percent="0.22"
         app:layout_constraintWidth_percent="0.25"
-        app:autoSizeTextType="uniform"
+        android:textSize="12sp"
         android:text="End Time : "
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
 
         />
@@ -78,8 +99,8 @@
         app:layout_constraintStart_toStartOf="@id/start_Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.2"
-        app:layout_constraintWidth_percent="0.63"
-        app:autoSizeTextType="uniform"
+        app:layout_constraintWidth_percent="0.60"
+        android:textSize="15sp"
         android:text="9:00 AM - 10:00 AM"
         android:textColor="@color/white2"
         android:layout_marginBottom="10dp"

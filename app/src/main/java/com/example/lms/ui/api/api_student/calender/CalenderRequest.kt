@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class CalenderRequest(
 
-	@field:SerializedName("endDate")
+	@field:SerializedName("end")
 	val endDate: String? = null,
 
 	@field:SerializedName("body")
 	val body: String? = null,
 
-	@field:SerializedName("startDate")
+	@field:SerializedName("start")
 	val startDate: String? = null
 ) : Parcelable

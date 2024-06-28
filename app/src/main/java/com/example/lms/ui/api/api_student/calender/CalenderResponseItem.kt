@@ -10,7 +10,7 @@ data class CalenderResponseItem(
 //	@field:SerializedName("calendarId")
 //	val calendarId: String? = null,
 
-	@field:SerializedName("endDate")
+	@field:SerializedName("end")
 	val endDate: String? = null,
 
 	@field:SerializedName("body")
@@ -19,6 +19,6 @@ data class CalenderResponseItem(
 //	@field:SerializedName("userId")
 //	val userId: String? = null,
 
-	@field:SerializedName("startDate")
+	@field:SerializedName("start")
 	val startDate: String? = null
 ) : Parcelable

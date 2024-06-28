@@ -34,18 +34,16 @@ class AssignmentCompletedAdapter (private var assignmentsList:MutableList<Assign
 //        notifyDataSetChanged()
 //    }
 
-    fun bindAssignments(newAssignmentList: MutableList<AssignmentResponseItem>?) {
+    fun bindAssignments(newAssignmentList: List<AssignmentResponseItem>) {
         val assignCompletedList: MutableList<AssignmentResponseItem> = mutableListOf()
         val currentDate = Calendar.getInstance().time
 
-        if (newAssignmentList != null) {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-            for (assignment in newAssignmentList) {
-                val endDateString = assignment.endDate
-                val endDate = dateFormat.parse(endDateString)
-                if (endDate != null && currentDate.after(endDate)) {
-                    assignCompletedList.add(assignment)
-                }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        for (assignment in newAssignmentList) {
+            val endDateString = assignment.endDate
+            val endDate = dateFormat.parse(endDateString)
+            if (endDate != null && currentDate.after(endDate)) {
+                assignCompletedList.add(assignment)
             }
         }
         assignmentsList = assignCompletedList

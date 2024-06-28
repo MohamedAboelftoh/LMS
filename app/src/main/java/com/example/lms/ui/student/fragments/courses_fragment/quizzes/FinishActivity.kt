@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.lms.R
 import com.example.lms.databinding.ActivityFinishBinding
+import com.example.lms.ui.api.api_student.quizes.Result
+import com.example.lms.ui.api.api_student.quizes.SubmitQuizResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.api_student.quizes.submit.AnswersItem
@@ -20,16 +22,15 @@ import retrofit2.Response
 class FinishActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityFinishBinding
     lateinit var myPreferencesToken: MyPreferencesToken
-    private var grade = 0
-     private var questionNumber : Int ?= 0
-    private var listAnswers: ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem>? = null
+    private var studentQuizGrade = 0
+    private var fullGrade=0
+    private var listAnswers: ArrayList<AnswersItem>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityFinishBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         myPreferencesToken= MyPreferencesToken(this)
-        listAnswers = intent.getSerializableExtra("questionsAnswersList") as? ArrayList<com.example.lms.ui.api.api_student.quizes.submit.AnswersItem>
-        questionNumber = intent.getIntExtra("questionNumbers",0)
+        listAnswers = intent.getSerializableExtra("questionsAnswersList") as? ArrayList<AnswersItem>
         viewBinding.back.setOnClickListener {
             finish()
         }
@@ -43,10 +44,45 @@ class FinishActivity : AppCompatActivity() {
             }
             }
     }
-
     private fun submitQuiz() {
         MyCountDownTimer.cancelTimer()
-        val submitQuiz = com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest(
+        val submitQuiz = SubmitQuizRequest(
+            Variables.quizId,
+            listAnswers
+        )
+        val token = myPreferencesToken.loadData("token")
+        val submitQuizResponse: MutableList<Result> = mutableListOf()
+        ApiManager.getApi().submitQuiz(submitQuiz, Variables.quizId!!, token!!).enqueue(object : Callback<SubmitQuizResponse> {
+            override fun onResponse(
+                call: Call<SubmitQuizResponse>,
+                response: Response<SubmitQuizResponse>
+            ) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    responseBody?.let {
+                        submitQuizResponse.addAll(it.results)
+                         studentQuizGrade = it.totalStudentGrade
+                         fullGrade=it.totalGrade
+                        changeUi()
+                        // Now you can use the grade variable as needed
+                    }
+                } else {
+                    Toast.makeText(this@FinishActivity, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<SubmitQuizResponse>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this@FinishActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+    /*private fun submitQuiz() {
+        MyCountDownTimer.cancelTimer()
+        val submitQuiz = SubmitQuizRequest(
             Variables.quizId,
             listAnswers
         )
@@ -65,7 +101,7 @@ class FinishActivity : AppCompatActivity() {
                         submitQuizResponse.add(item)
                       //  message.append("${item.keys}: ${item.values}\n")
                     }
-                    calculateGrade(submitQuizResponse)
+                    //calculateGrade(submitQuizResponse)
                     changeUi()
                 } else {
                     Toast.makeText(this@FinishActivity, "Error", Toast.LENGTH_SHORT).show()
@@ -77,25 +113,15 @@ class FinishActivity : AppCompatActivity() {
                 Toast.makeText(this@FinishActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })
-    }
+    }*/
 
     private fun changeUi() {
         viewBinding.back.visibility = View.GONE
         viewBinding.btnFinished.text = getString(R.string.done)
         viewBinding.tvFinished.text = getString(R.string.finished)
-        viewBinding.grade.text = "$grade/$questionNumber"
+        viewBinding.grade.text = "$studentQuizGrade/$fullGrade"
         viewBinding.answerSuccessfully.text = getString(R.string.answers_have_been_sent_successfully)
         viewBinding.tvFinished.setTextColor(ContextCompat.getColor(this, R.color.greenColor))
-    }
-
-    private fun calculateGrade(submitQuizResponse: MutableList<Map<String?, Boolean?>>) {
-        submitQuizResponse.forEach { map ->
-            map.values.forEach { value ->
-                if (value == true) {
-                    grade++
-                }
-            }
-        }
     }
 
     override fun onBackPressed() {
@@ -107,20 +133,5 @@ class FinishActivity : AppCompatActivity() {
             navigateFromActivity(this@FinishActivity,QuizzesActivity())
         }
     }
-//    fun showMessage(message:String
-//                    ,posActionName:String?=null
-//                    ,posAction: DialogInterface.OnClickListener?=null
-//
-//
-//    ): AlertDialog {
-//        val dialogBuilder= AlertDialog.Builder(this)
-//        dialogBuilder.setMessage(message)
-//        if (posActionName!=null)
-//        {
-//            dialogBuilder.setPositiveButton(posActionName,posAction)
-//        }
-//        dialogBuilder.setCancelable(false)
-//        return dialogBuilder.show()
-//    }
 
 }

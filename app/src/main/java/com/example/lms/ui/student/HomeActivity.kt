@@ -63,9 +63,7 @@ class HomeActivity : AppCompatActivity() {
                         }
                     )
                 }
-                R.id.ic_grades->{
-                    navigateFromActivity(this@HomeActivity, AllCoursesGrades())
-                }
+
             }
             true
         }

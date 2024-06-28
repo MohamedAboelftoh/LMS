@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.lms.R
 import com.example.lms.databinding.QuizItemBinding
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
+class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=null):Adapter<QuizzesAdapter.QuizzesViewHolder> (){
     class QuizzesViewHolder(val viewBinding: QuizItemBinding): RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizzesViewHolder {
@@ -32,12 +35,12 @@ class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_stu
         buttonStartAvailability(quizItem, holder, position)
     }
 
-    private fun buttonStartAvailability(
-        quizItem: com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem?,
+    /*private fun buttonStartAvailability(
+        quizItem: CourseQuizzesResponseItem?,
         holder: QuizzesViewHolder,
         position: Int
     ) {
-        if (quizItem?.status == "Not Available") {
+//        if (quizItem?.status == "Available") {
             holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
                 ContextCompat
                     .getColor(holder.itemView.context, R.color.greenColor)
@@ -45,14 +48,16 @@ class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_stu
             holder.viewBinding.btnStart.setOnClickListener {
                 onBtnStartClickListener?.onClick(position, quizItem)
             }
-        } else {
-            holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat
-                    .getColor(holder.itemView.context, R.color.colorPrimary)
-            )
-        }
-    }
- /*   private fun buttonStartAvailability(
+//        }
+//        else {
+//            holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+//                ContextCompat
+//                    .getColor(holder.itemView.context, R.color.colorPrimary)
+//            )
+//        }
+    }*/
+
+   private fun buttonStartAvailability(
         quizItem: CourseQuizzesResponseItem?,
         holder: QuizzesViewHolder,
         position: Int
@@ -72,14 +77,26 @@ class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_stu
                 holder.viewBinding.btnStart.setOnClickListener {
                     onBtnStartClickListener?.onClick(position, quizItem)
                 }
-            } else {
+            } else if(startDate.before(currentDate) && endDate.before(currentDate)) {
                 holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat
                         .getColor(holder.itemView.context, R.color.colorPrimary)
                 )
+                holder.viewBinding.btnStart.isEnabled=false
+                holder.viewBinding.btnStart.text="Ended"
+
+            }
+            else{
+                holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat
+                        .getColor(holder.itemView.context, R.color.colorPrimary)
+                )
+                holder.viewBinding.btnStart.isEnabled=false
+                holder.viewBinding.btnStart.text="Not Start Yet"
+
             }
         }
-    }*/
+    }
 
     private fun formatTStartTime(startDate: String?) :String{
         //Formatted Start Time                                      2024-02-01T00:00:00
@@ -94,14 +111,14 @@ class QuizzesAdapter(private var quizzesList:List<com.example.lms.ui.api.api_stu
         return formattedEndTime!!
     }
 
-    fun bindQuizzes(body: List<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>?) {
+    fun bindQuizzes(body: List<CourseQuizzesResponseItem>?) {
         quizzesList=body
         notifyDataSetChanged()
     }
 
     var onBtnStartClickListener: OnBtnStartClickListener?=null
     interface OnBtnStartClickListener{
-        fun onClick(position: Int, item: com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem)
+        fun onClick(position: Int, item: CourseQuizzesResponseItem?)
     }
 
 }

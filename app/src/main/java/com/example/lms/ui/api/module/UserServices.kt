@@ -27,6 +27,8 @@ import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
+import com.example.lms.ui.api.api_student.course_tasks__grades.CourseTasksGradesResponseItem
+import com.example.lms.ui.api.api_student.quizes.SubmitQuizResponse
 import com.example.lms.ui.api.password.ChangePasswordResponse
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -36,11 +38,9 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserServices {
@@ -63,7 +63,7 @@ interface UserServices {
 
     @GET("api/Students/CurrentCourseTasks")
     fun getAllAssignmentOfCourse(@Header("Authorization")token:String
-                                 , @Query("cycleId")cycleId:String) : Call<MutableList<AssignmentResponseItem>>
+                                 , @Query("cycleId")cycleId:String) : Call<ArrayList<AssignmentResponseItem>>
     @GET("api/Students/CurrentCourseQuizzes")
     fun getCourseQuizzes(@Header("Authorization")token:String
                          , @Query("cycleId")cycleId:String
@@ -74,15 +74,21 @@ interface UserServices {
                          ,@Query("quizId")quizId: String
     ):Call<QuizQuestionsResponse>
 
-    @POST("api/Students/quiz/submit")
-    fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizId: String,
-                   @Header("Authorization")token:String) : Call< List<Map<String?,Boolean?>>>
-
+//    @POST("api/Students/quiz/submit")
+//    fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizId: String,
+//                   @Header("Authorization")token:String) : Call< List<Map<String?,Boolean?>>>
+//SubmitQuizResponse
+@POST("api/Students/quiz/submit")
+fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizId: String,
+               @Header("Authorization")token:String) : Call<SubmitQuizResponse>
     @GET("api/Students/GetStudentInfo")
     fun getAccountInfo(@Header("Authorization")token:String):Call<AccountInfoResponse>
     @GET("api/Students/Getfilesoflecture")
     fun getFiles(@Header("Authorization")token:String?,
                  @Query("lectureId")lectureId:String?):Call<MutableList<FielslResponseItem>>
+    @GET("api/Students/GetAllGradesForCurrentCourse")
+    fun getAllGradesForCurrentCourse(@Header("Authorization")token:String?,
+                 @Query("courseId")courseId:String?):Call<ArrayList<CourseTasksGradesResponseItem>>
     @GET("api/Instructor/Getfilesoflecture")
     fun getDrFiles(@Header("Authorization")token:String?,
                  @Query("lectureId")lectureId:String?):Call<MutableList<DrFilesResponseItem>>
@@ -190,6 +196,7 @@ interface UserServices {
         @Query("quizId") quizId: String,
         @Header("Authorization") token: String
     ):Call<ResponseBody>
+
     @POST("api/Account/UpdatePassword")
-    fun changePassword(@Body changePasswordResponse: ChangePasswordResponse , @Header("Authorization") token: String):Call<ResponseBody>
+    fun changePassword(@Body changePasswordResponse: ChangePasswordResponse, @Header("Authorization") token: String):Call<ResponseBody>
 }

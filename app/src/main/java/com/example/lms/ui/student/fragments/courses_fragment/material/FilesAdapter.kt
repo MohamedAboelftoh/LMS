@@ -26,6 +26,10 @@ class FilesAdapter(private var filesList:MutableList<FielslResponseItem>?=null) 
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(item , position)
         }
+        holder.itemBinding.icMore.setOnClickListener{
+            onIconDownloadClickListener?.onIconDownloadClick(item,position,holder)
+
+        }
     }
 
     fun bindFiles(body: MutableList<FielslResponseItem>?) {
@@ -36,4 +40,8 @@ class FilesAdapter(private var filesList:MutableList<FielslResponseItem>?=null) 
 interface OnItemClickListener{
     fun onItemClick(item : FielslResponseItem, position : Int)
 }
+    var onIconDownloadClickListener:OnIconDownloadClickListener?=null
+    interface OnIconDownloadClickListener{
+        fun onIconDownloadClick(item: FielslResponseItem, position: Int, holder: FilesViewHolder)
+    }
 }

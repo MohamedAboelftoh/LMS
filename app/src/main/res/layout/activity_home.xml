@@ -27,6 +27,7 @@
         app:menu="@menu/drawer_nav_menu"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/black"
+        android:background="#A6FFFFFF"
         app:itemIconSize="30dp"
 
         />

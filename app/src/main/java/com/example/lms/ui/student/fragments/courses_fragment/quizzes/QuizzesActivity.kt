@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.lms.databinding.ActivityQuizzesBinding
+import com.example.lms.ui.NotConnectedActivity
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.courses_fragment.CourseContent
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
@@ -24,32 +27,57 @@ class QuizzesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityQuizzesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        initViews()
+        onIconBackClick()
+        if(checkForInternet(this)) {
+            getCourseQuizzes()
+        }
+        else{
+            quizAdapter.bindQuizzes(  DataBase.getInstance(this).stuQuizzesDao().getQuizzesFromLocal())
+        }
+        onButtonStartClick()
+//        getCourseQuizzes()
+    }
+    private fun cashQuizzesInLocal(body: ArrayList<CourseQuizzesResponseItem>?) {
+        DataBase.getInstance(this).stuQuizzesDao().deleteAllQuizzes()
+        DataBase.getInstance(this).stuQuizzesDao().insertQuizzes(body!!)
+    }
+
+    private fun initViews() {
         viewBinding.courseNameTv.text = Variables.courseName
         myPreferencesToken= MyPreferencesToken(this)
+        quizAdapter = QuizzesAdapter()
+        viewBinding.quizzesRv.adapter =quizAdapter
+    }
+    private fun onIconBackClick() {
         viewBinding.icBack.setOnClickListener {
             navigateFromActivity(this@QuizzesActivity,CourseContent())
         }
-        quizAdapter = QuizzesAdapter()
+    }
+    private fun onButtonStartClick() {
         quizAdapter.onBtnStartClickListener = object : QuizzesAdapter.OnBtnStartClickListener{
-            override fun onClick(position: Int, item: com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem) {
-                 Variables.quizId=item.id
-                navigateFromActivity(this@QuizzesActivity,QuestionsActivity())
+            override fun onClick(position: Int, item: CourseQuizzesResponseItem?) {
+                Variables.quizId=item?.id
+                if (checkForInternet(this@QuizzesActivity)) {
+                    navigateFromActivity(this@QuizzesActivity, QuestionsActivity())
+                }
+                else{
+                    navigateFromActivity(this@QuizzesActivity, NotConnectedActivity())
+                }
             }
         }
-        viewBinding.quizzesRv.adapter =quizAdapter
-        getCourseQuizzes()
     }
 
     private fun getCourseQuizzes(){
         val token=myPreferencesToken.loadData("token")
         val cycleId= Variables.cycleId
-        ApiManager.getApi().getCourseQuizzes(token!!,cycleId!!).enqueue(object :Callback<ArrayList<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>>{
+        ApiManager.getApi().getCourseQuizzes(token!!,cycleId!!).enqueue(object :Callback<ArrayList<CourseQuizzesResponseItem>>{
             override fun onResponse(
-                call: Call<ArrayList<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>>,
-                response: Response<ArrayList<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>>
+                call: Call<ArrayList<CourseQuizzesResponseItem>>,
+                response: Response<ArrayList<CourseQuizzesResponseItem>>
             ) {
                 if (response.isSuccessful) {
-
+                    cashQuizzesInLocal(response.body())
                     quizAdapter.bindQuizzes(response.body())
                 }
                 else
@@ -58,10 +86,9 @@ class QuizzesActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<CourseQuizzesResponseItem>>, t: Throwable) {
                 Toast.makeText(this@QuizzesActivity, "onFailure " + t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
@@ -69,5 +96,4 @@ class QuizzesActivity : AppCompatActivity() {
         super.onBackPressed()
         navigateFromActivity(this@QuizzesActivity,CourseContent())
     }
-
 }

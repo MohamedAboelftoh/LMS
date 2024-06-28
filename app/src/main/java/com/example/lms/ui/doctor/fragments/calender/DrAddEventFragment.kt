@@ -31,7 +31,7 @@ class DrAddEventFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken = MyPreferencesToken(requireContext())
-        viewBinding.tvSelectDate.setOnClickListener {
+        viewBinding.selectStartDateContainer.setOnClickListener {
             val dateBicker = DatePickerDialog(requireContext())
             dateBicker.show()
         }

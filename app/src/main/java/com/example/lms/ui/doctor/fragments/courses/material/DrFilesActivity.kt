@@ -66,7 +66,7 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
     fun openPDFViewer(url: String?) {
         try {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.setDataAndType(Uri.parse(url), "application/pdf")
+            intent.setDataAndType(Uri.parse(url), "application/*")
             intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
             val intentChooser = Intent.createChooser(intent, "Open PDF")
             startActivity(intentChooser)

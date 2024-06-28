@@ -1,8 +1,17 @@
 package com.example.lms.ui.student.fragments.courses_fragment.material
 
+import android.Manifest
+import android.app.DownloadManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.widget.PopupMenu
 import android.widget.Toast
+import com.example.lms.R
 
 import com.example.lms.databinding.ActivityMaterialFilesBinding
 import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
@@ -18,6 +27,10 @@ class MaterialFiles : AppCompatActivity() {
     lateinit var viewBinding:ActivityMaterialFilesBinding
     lateinit var myPreferencesToken: MyPreferencesToken
     lateinit var adapter:FilesAdapter
+    var url : String ?= null
+    private val STORGE_PERMISSION_CODE : Int = 1000
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         myPreferencesToken= MyPreferencesToken(this )
@@ -35,8 +48,43 @@ class MaterialFiles : AppCompatActivity() {
                 Variables.filePath = item.filePath
                 navigateFromActivity(this@MaterialFiles,FilePdfActivity())
             }
-
         }
+        onIconDownloadClick()
+    }
+    private fun onIconDownloadClick(){
+        adapter.onIconDownloadClickListener=object : FilesAdapter.OnIconDownloadClickListener{
+            override fun onIconDownloadClick(
+                item:  FielslResponseItem,
+                position: Int,
+                holder: FilesAdapter.FilesViewHolder
+            ) {
+                url=item.filePath
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED){
+                        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),STORGE_PERMISSION_CODE)
+                    }
+                    else{
+                        startDownloading()
+                    }
+                }
+                else{
+                    startDownloading()
+                }
+            }
+        }
+    }
+    private fun startDownloading() {
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(Uri.parse(url)).apply {
+            setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            setTitle("Download")
+            setDescription("Downloading file...")
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            // Saves the downloaded file to this location. Adjust if necessary.
+            setDestinationInExternalFilesDir(this@MaterialFiles, Environment.DIRECTORY_DOWNLOADS, "downloaded_file.pdf")
+        }
+        downloadManager.enqueue(request)
     }
 
     private fun initializeData(){

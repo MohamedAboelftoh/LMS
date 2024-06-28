@@ -2,10 +2,15 @@ package com.example.lms.ui.api.api_student.account
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
+@Entity(tableName = "students")
 data class AccountInfoResponse(
+	@PrimaryKey(autoGenerate = true)
+	val id : Int ?= null ,
 
 	@field:SerializedName("departmentName")
 	val departmentName: String? = null,

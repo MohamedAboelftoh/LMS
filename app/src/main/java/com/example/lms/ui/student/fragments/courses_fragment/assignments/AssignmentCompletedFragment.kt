@@ -9,7 +9,10 @@ import com.example.lms.databinding.FragmentAssignmentCompletedBinding
 import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,28 +34,43 @@ class AssignmentCompletedFragment : Fragment() {
         myPreferencesToken= MyPreferencesToken(requireContext())
         adapter = AssignmentCompletedAdapter()
         viewBinding.recyclerAssignmentsCompleted.adapter = adapter
-        initAssignmentsList()
+        if(checkForInternet(requireContext())){
+            initAssignmentsList()
+        }
+        else{
+            Snackbar.make(viewBinding.root , "Not Connected" , Snackbar.LENGTH_SHORT).show()
+            adapter.bindAssignments(DataBase.getInstance(requireContext()).stuAssignmentsDao().getAssignmentsFromLocal())
+        }
+       // initAssignmentsList()
     }
     private fun initAssignmentsList() {
         myPreferencesToken = MyPreferencesToken(requireContext())
         val token = myPreferencesToken.loadData("token")
         val cycleId = Variables.cycleId
         ApiManager.getApi().getAllAssignmentOfCourse(token!!,cycleId!!).enqueue(object :
-            Callback<MutableList<AssignmentResponseItem>> {
+            Callback<ArrayList<AssignmentResponseItem>> {
             override fun onResponse(
-                call: Call<MutableList<AssignmentResponseItem>>,
-                response: Response<MutableList<AssignmentResponseItem>>
+                call: Call<ArrayList<AssignmentResponseItem>>,
+                response: Response<ArrayList<AssignmentResponseItem>>
             ) {
                 if(response.isSuccessful){
-                    adapter.bindAssignments(response.body())
+                    cashAssignmentsInLocal(response.body())
+
+                    response.body()?.let { adapter.bindAssignments(it) }
 
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<AssignmentResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<AssignmentResponseItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
+
+    }
+
+    private fun cashAssignmentsInLocal(body: MutableList<AssignmentResponseItem>?) {
+        DataBase.getInstance(requireContext()).stuAssignmentsDao().deleteAllAssignments()
+        DataBase.getInstance(requireContext()).stuAssignmentsDao().insertAssignments(body!!)
 
     }
 

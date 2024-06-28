@@ -1,12 +1,13 @@
 package com.example.lms.ui.student.fragments.courses_fragment.material
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lms.databinding.LectureItemBinding
 import com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem
 
-class LabsAdapter (var labsList:List<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem?>?=null):RecyclerView.Adapter<LabsAdapter.LabsViewHolder>(){
+class LabsAdapter (var labsList:List<CourseMaterialResponseItem?>?=null):RecyclerView.Adapter<LabsAdapter.LabsViewHolder>(){
     class LabsViewHolder(val itemBinding:LectureItemBinding):RecyclerView.ViewHolder(itemBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabsViewHolder {
@@ -32,10 +33,11 @@ class LabsAdapter (var labsList:List<com.example.lms.ui.api.api_student.material
         holder.itemBinding.lecItemCard.setOnClickListener {
             onItemClickListener?.onClick(position,lab!!)
         }
+        holder.itemBinding.more.visibility=View.GONE
     }
 
-    fun bindLabs(courseMaterialResponse: List<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem?>?) {
-        val newLabList : MutableList<com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem> = mutableListOf()
+    fun bindLabs(courseMaterialResponse: List<CourseMaterialResponseItem?>?) {
+        val newLabList : MutableList<CourseMaterialResponseItem> = mutableListOf()
         if (courseMaterialResponse != null) {
             for(i in courseMaterialResponse){
                 if(i?.type == "Lab"){
@@ -50,6 +52,6 @@ class LabsAdapter (var labsList:List<com.example.lms.ui.api.api_student.material
 
     var onItemClickListener:OnItemClickListener?=null
     fun interface OnItemClickListener{
-        fun onClick(position:Int,item: com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem)
+        fun onClick(position:Int,item: CourseMaterialResponseItem)
     }
 }

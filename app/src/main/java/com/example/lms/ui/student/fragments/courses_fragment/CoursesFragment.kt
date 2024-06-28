@@ -17,7 +17,10 @@ import com.example.lms.databinding.FragmentCoursesBinding
 import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,31 +41,50 @@ class CoursesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken= MyPreferencesToken(requireContext())
-        uploadCourses()
         adapter= CoursesAdapter()
         viewBinding.coursesRecView.adapter=adapter
-        onCourseClick()
+        if(checkForInternet(requireContext())){
+            uploadCourses()
+            onCourseClick()
+        }
+        else{
+            uploadCoursesFromLocal()
+            onCourseClick()
+        }
+       // uploadCourses()
+//        onCourseClick()
        callTextChanges()
 
     }
+    private fun uploadCoursesFromLocal(){
+        adapter.bindCourses(DataBase.getInstance(requireContext()).studentCourses().getCoursesFromLocal())
+    }
+
     private fun uploadCourses() {
         val token=myPreferencesToken.loadData("token")
-       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>{
+       ApiManager.getApi().getAllCourses(token!!).enqueue(object :Callback<ArrayList<CoursesResponseItem>>{
            override fun onResponse(
-               call: Call<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>,
-               response: Response<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>
+               call: Call<ArrayList<CoursesResponseItem>>,
+               response: Response<ArrayList<CoursesResponseItem>>
            ) {
                if (response.isSuccessful) {
+                   cacheCoursesInLocal(response.body())
+
                    adapter.bindCourses(response.body())
                }
                else{
                    Toast.makeText(requireContext(),"Courses not downLoaded",Toast.LENGTH_LONG).show()
                }
            }
-           override fun onFailure(call: Call<ArrayList<com.example.lms.ui.api.api_student.courses.CoursesResponseItem>>, t: Throwable) {
+           override fun onFailure(call: Call<ArrayList<CoursesResponseItem>>, t: Throwable) {
                Toast.makeText(requireContext(),"onFailure "+t.localizedMessage,Toast.LENGTH_LONG).show()
            }
        })
+    }
+
+    private fun cacheCoursesInLocal(body: ArrayList<CoursesResponseItem>?) {
+        DataBase.getInstance(requireContext()).studentCourses().deleteAllCourses()
+        DataBase.getInstance(requireContext()).studentCourses().insertCourses(body!!)
     }
 
 

@@ -13,6 +13,9 @@ import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.api.api_student.news.NewsResponseItem
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,10 +36,25 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken = MyPreferencesToken(requireContext())
-        uploadNews()
-        getCurrentUser()
+
         homeAdapter = HomeRecyclerViewAdapter()
         viewBinding.homeRecyclerView.adapter = homeAdapter
+        if(checkForInternet(requireContext())){
+            uploadNews()
+            getCurrentUser()
+        }
+        else{
+            viewBinding.progressBar.visibility = View.GONE
+            Snackbar.make(viewBinding.root , "Not Connected" , Snackbar.LENGTH_SHORT).show()
+            uploadNewsFromLocal()
+            getCurrentUserFromLocal()
+
+        }
+       // uploadNews()
+        //getCurrentUser()
+    }
+    private fun getCurrentUserFromLocal() {
+        viewBinding.tvName.text = DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal().fullName
     }
 
     private fun uploadNews() {
@@ -48,6 +66,7 @@ class HomeFragment : Fragment() {
             ) {
                 viewBinding.progressBar.visibility = View.INVISIBLE
                 if(response.isSuccessful) {
+                    cacheNewsInLocal(response.body())
                     homeAdapter.bindNews(response.body())
                 }
                 else{
@@ -63,6 +82,9 @@ class HomeFragment : Fragment() {
             }
         })
     }
+    private fun uploadNewsFromLocal() {
+        homeAdapter.bindNews(DataBase.getInstance(requireContext()).newsDao().getNewsFromLocal())
+    }
 
     private fun getCurrentUser() {
         viewBinding.progressBar.visibility = View.VISIBLE
@@ -73,6 +95,7 @@ class HomeFragment : Fragment() {
                 response: Response<AccountInfoResponse>
             ) {
                 if(response.isSuccessful){
+                    insertStudentInLocal(response.body())
                     viewBinding.progressBar.visibility = View.INVISIBLE
                    viewBinding.tvName.text = response.body()?.fullName
                     Glide.with(viewBinding.profile)
@@ -93,4 +116,11 @@ class HomeFragment : Fragment() {
 
         })
     }
-}
+    private fun cacheNewsInLocal(body: java.util.ArrayList<NewsResponseItem>?) {
+        DataBase.getInstance(requireContext()).newsDao().deleteAllNews()
+        DataBase.getInstance(requireContext()).newsDao().insertNews(body!!)
+    }
+    private fun insertStudentInLocal(body: AccountInfoResponse?) {
+        DataBase.getInstance(requireContext()).studentInfoDao().deleteStuFromLocal()
+        DataBase.getInstance(requireContext()).studentInfoDao().insertStudentInfo(body!!)
+    }}

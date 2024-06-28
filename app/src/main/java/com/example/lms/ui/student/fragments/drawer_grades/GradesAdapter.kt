@@ -21,7 +21,7 @@ class GradesAdapter(val gradesList:MutableList<GradesItem>?):RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: GradesViewHolder, position: Int) {
         val item=gradesList!![position]
-        holder.itemBinding.courseNameItemGrad.text=item?.courseName
+        holder.itemBinding.examName.text=item?.courseName
         holder.itemBinding.markTv.text=item?.mark
 
     }

@@ -97,13 +97,13 @@ class QuestionsActivity : AppCompatActivity() {
     private fun getQuestions(){
         val token =myPreferencesToken.loadData("token")
         val quizId= Variables.quizId
-        ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>{
+        ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<QuizQuestionsResponse>{
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>,
-                response: Response<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>
+                call: Call<QuizQuestionsResponse>,
+                response: Response<QuizQuestionsResponse>
             ) {
                 duration = convertTimeToMilliseconds(response.body()?.duration!!)
-                startTimer()
+               startTimer()
                 if(response.isSuccessful){
                     questionsAdapter.bindQuestions(response.body()?.questions)
                     viewBinding.tvQuiz.text=response.body()?.title
@@ -113,7 +113,7 @@ class QuestionsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<QuizQuestionsResponse>, t: Throwable) {
                 Toast.makeText(this@QuestionsActivity, "onFailure " + t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })

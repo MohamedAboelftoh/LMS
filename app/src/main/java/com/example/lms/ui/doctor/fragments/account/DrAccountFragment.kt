@@ -56,13 +56,19 @@ lateinit var myPreferencesToken: MyPreferencesToken
             navigateFromFragment(requireContext(),ChangePasswordActivity())
         }
         viewBinding.changeImage.setOnClickListener {
-            ImagePicker.with(this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(1080, 1080)
-                .start()
+            changeImage()
+        }
+        viewBinding.icCamera.setOnClickListener{
+            changeImage()
         }
         bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
+    }
+    private fun changeImage(){
+        ImagePicker.with(this)
+            .crop()
+            .compress(1024)
+            .maxResultSize(1080, 1080)
+            .start()
     }
 
     private fun bindData(instructorFromLocal: InstructorInfoResponse) {
