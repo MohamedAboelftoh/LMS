@@ -36,7 +36,7 @@
     <string name="update">Update</string>
     <string name="new_phone_number">New Phone Number</string>
     <string name="edit_account">Edit Account</string>
-    <string name="show_your_card">Show Your Card</string>
+    <string name="show_your_card">Show Card</string>
     <string name="fcai_sadat_city_university">FCAI-Sadat City University</string>
     <string name="your_name">Your Name :</string>
     <string name="your_level">Your Level :</string>
@@ -96,4 +96,6 @@
     <string name="name_of_task_which_students_can_see_it">name of task which students can see it</string>
     <string name="name_of_quiz_which_students_can_see_it">name of quiz which students can see it</string>
     <string name="back">Back</string>
+    <string name="lecture">Lecture</string>
+    <string name="lab">Lab</string>
 </resources>

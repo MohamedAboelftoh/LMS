@@ -1,5 +1,6 @@
 package com.example.lms.ui.api.module
 
+import com.example.lms.ui.api.api_doctor.DrFolderModel
 import com.example.lms.ui.api.api_doctor.DrUpdateFolderNameResponse
 import com.example.lms.ui.api.api_doctor.DrUploadFileResponse
 import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
@@ -26,6 +27,7 @@ import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
+import com.example.lms.ui.api.password.ChangePasswordResponse
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -104,8 +106,7 @@ interface UserServices {
     ): Call<DrUploadFileResponse>
     @POST("api/Instructor/UploadLectureFolder")
     fun drUploadLecture(
-        @Query("title") title: String,
-        @Query("CycleId") cycleId: String,
+        @Body drFolderModel: DrFolderModel,
         @Header("Authorization") token: String
     ): Call<DrUploadLectureResponse>
 
@@ -189,4 +190,6 @@ interface UserServices {
         @Query("quizId") quizId: String,
         @Header("Authorization") token: String
     ):Call<ResponseBody>
+    @POST("api/Account/UpdatePassword")
+    fun changePassword(@Body changePasswordResponse: ChangePasswordResponse , @Header("Authorization") token: String):Call<ResponseBody>
 }

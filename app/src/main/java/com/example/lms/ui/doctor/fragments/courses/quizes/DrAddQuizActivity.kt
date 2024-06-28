@@ -38,6 +38,9 @@ class DrAddQuizActivity : AppCompatActivity() {
             showDateBicker(viewBinding.tvEndDate)
             endDate = viewBinding.tvEndDate.text.toString()
         }
+        viewBinding.icBack.setOnClickListener {
+            finish()
+        }
         changeStep()
     }
     @RequiresApi(Build.VERSION_CODES.N)

@@ -69,6 +69,7 @@ class DrCoursesFragment : Fragment() {
     private fun initObservers() {
         viewModel.coursesList.observe(viewLifecycleOwner){
             cacheCoursesInLocal(it)
+            adapter.bindCourses(it)
             numOfCourses = it.size
        }
         viewModel.toastMessage.observe(viewLifecycleOwner){ message ->

@@ -24,6 +24,7 @@ class DrLabsFragment : Fragment() {
     lateinit var adapter: DrLabsAdapter
     lateinit var myPreferencesToken: MyPreferencesToken
     private lateinit var fragmentContext: Context // Store the context here
+    val addFolderFragment = AddFolderFragment()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,6 +48,14 @@ class DrLabsFragment : Fragment() {
             getLabs()
         }else{
             adapter.bindLabs(DataBase.getInstance(fragmentContext).foldersDao().getFoldersFromLocal())
+        }
+        viewBinding.floatingActionBtn.setOnClickListener {
+            addFolderFragment.show(parentFragmentManager,"")
+        }
+        addFolderFragment.onFolderAddedListener = object :AddFolderFragment.OnFolderAddedListener{
+            override fun onFolderAdded() {
+                getLabs()
+            }
         }
         onLabClick()
     }

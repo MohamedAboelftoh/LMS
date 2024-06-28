@@ -36,10 +36,10 @@ lateinit var myPreferencesToken: MyPreferencesToken
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken= MyPreferencesToken(requireContext())
         viewBinding.changePassword.setOnClickListener {
-           navigateToChangePassword()
+           //navigateToChangePassword()
         }
         viewBinding.changePhone.setOnClickListener {
-            navigateToChangePhone()
+           // navigateToChangePhone()
         }
         viewBinding.btnShowCard.setOnClickListener {
             showCardFragment()
@@ -53,15 +53,15 @@ lateinit var myPreferencesToken: MyPreferencesToken
         cardFragment.show(childFragmentManager,null)
     }
 
-    private fun navigateToChangePhone() {
-        val intent = Intent(requireContext(),ChangePhoneActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun navigateToChangePassword() {
-        val intent = Intent(requireContext(),ChangePasswordActivity::class.java)
-        startActivity(intent)
-    }
+//    private fun navigateToChangePhone() {
+//        val intent = Intent(requireContext(),ChangePhoneActivity::class.java)
+//        startActivity(intent)
+//    }
+//
+//    private fun navigateToChangePassword() {
+//        val intent = Intent(requireContext(),ChangePasswordActivity::class.java)
+//        startActivity(intent)
+//    }
     private fun logout() {
         saveCredentials("","")
         navigateToLoginActivity()

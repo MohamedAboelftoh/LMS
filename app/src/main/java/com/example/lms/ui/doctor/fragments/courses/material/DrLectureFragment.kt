@@ -31,7 +31,7 @@ class DrLectureFragment : Fragment() {
     lateinit var adapter: DrLecturesAdapter
     lateinit var myPreferencesToken: MyPreferencesToken
     private lateinit var fragmentContext: Context // Store the context here
-    val addFolderFragment = AddFolderFragment()
+    private val addFolderFragment = AddFolderFragment()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

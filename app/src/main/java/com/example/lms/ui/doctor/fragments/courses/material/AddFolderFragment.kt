@@ -1,12 +1,12 @@
 package com.example.lms.ui.doctor.fragments.courses.material
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lms.R
 import com.example.lms.databinding.FragmentAddFolderBinding
+import com.example.lms.ui.api.api_doctor.DrFolderModel
 import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
@@ -32,16 +32,26 @@ class AddFolderFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken = MyPreferencesToken(requireContext())
         viewBinding.addFolder.setOnClickListener {
-            addFolder()
+
+            when (viewBinding.radioGroup.checkedRadioButtonId) {
+                R.id.lecture -> {
+                    addFolder("Lecture")
+                }
+
+                R.id.lab -> {
+                    addFolder("Lab")
+                }
+            }
         }
     }
 
-    private fun addFolder() {
+    private fun addFolder(folderType : String) {
         val title = viewBinding.textFolderName.text.toString()
         val cycleId = Variables.cycleId
+        val drFolderModel = DrFolderModel(cycleId!!, title, folderType)
         val token = myPreferencesToken.loadData("token")
         ApiManager.getApi()
-            .drUploadLecture(title,cycleId!!,token!!)
+            .drUploadLecture(drFolderModel,token!!)
             .enqueue(object :Callback<DrUploadLectureResponse>{
                 override fun onResponse(
                     call: Call<DrUploadLectureResponse>,
