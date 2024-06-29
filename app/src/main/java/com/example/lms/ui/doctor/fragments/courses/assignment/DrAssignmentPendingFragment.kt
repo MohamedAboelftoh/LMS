@@ -53,7 +53,6 @@ class DrAssignmentPendingFragment : Fragment() {
             }
         }
         getAssignments()
-        navigateToDetailsActivity()
         seeWhoUploadAssignment()
         editAssignment()
         deleteAssignment()
@@ -138,21 +137,6 @@ class DrAssignmentPendingFragment : Fragment() {
                 studentsNameFragment.show(parentFragmentManager,"")
             }
         }
-    }
-
-    private fun navigateToDetailsActivity() {
-        adapter.onButtonMoreClickListener=object :DrAssignPendingAdapter.OnButtonMoreClickListener{
-            override fun buttonMoreClick(item: DrAllAssignmentsResponseItem, position: Int)
-            {
-                Variables.taskId=item.taskId
-                val intent=Intent(requireContext(),DrAssignPendingDetailsActivity::class.java )
-                intent.putExtra("position",position)
-                startActivity(intent)
-                // navigateFromFragment(requireContext(),DrAssignPendingDetailsActivity())
-
-            }
-        }
-
     }
 
     fun getAssignments(){

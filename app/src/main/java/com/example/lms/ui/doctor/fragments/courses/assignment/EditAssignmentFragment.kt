@@ -44,14 +44,36 @@ class EditAssignmentFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken= MyPreferencesToken(requireContext())
         viewBinding.confirm.setOnClickListener{
-            updateAssignment()
-            dismiss()
+            if(validation()) {
+                updateAssignment()
+            }
         }
-        viewBinding.changeDeadline.setOnClickListener{
+
+        viewBinding.deadlineTv.setOnClickListener{
             showDateBicker()
         }
 
     }
+
+    private fun validation():Boolean {
+        var isValid=true
+        if (viewBinding.taskName.text.isNullOrBlank()){
+            isValid=false
+            viewBinding.name.error="Enter Task Name"
+        }
+
+        if (viewBinding.gradeTv.text.isNullOrBlank()){
+            isValid=false
+            viewBinding.gradeLayout.error="Enter New Grade"
+        }
+        if (viewBinding.deadlineTv.text.isNullOrBlank()){
+            isValid=false
+            viewBinding.deadlineLayout.error="Enter New DeadLine"
+        }
+        return isValid
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun showDateBicker() {
         val dateBicker =  DatePickerDialog(requireContext())
@@ -97,6 +119,7 @@ class EditAssignmentFragment : DialogFragment() {
                 if(response.isSuccessful){
                     onAssignmentEditListener?.onAssignmentEdit()
                    Toast.makeText(context,"Updated Successful", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
                 else{
                   Toast.makeText(context,"Failed to update The Task", Toast.LENGTH_SHORT).show()
@@ -108,6 +131,7 @@ class EditAssignmentFragment : DialogFragment() {
 
             }
         })
+
     }
     var onAssignmentEditListener : OnAssignmentEditListener ?= null
     interface OnAssignmentEditListener{

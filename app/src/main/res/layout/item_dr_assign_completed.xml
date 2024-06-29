@@ -95,7 +95,7 @@
 
         />
     <TextView
-        android:id="@+id/points"
+        android:id="@+id/grades"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@id/ic_points"
@@ -185,15 +185,14 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_available"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@id/view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintWidth_percent="0.25"
         android:layout_marginBottom="20dp"
-        app:autoSizeTextType="uniform"
+        android:textSize="14sp"
         android:layout_marginEnd="8dp"
         app:cornerRadius="10dp"
         android:text="Result"

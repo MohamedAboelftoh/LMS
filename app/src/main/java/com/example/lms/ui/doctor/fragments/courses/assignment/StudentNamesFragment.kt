@@ -23,6 +23,10 @@ class StudentNamesFragment : DialogFragment() {
     lateinit var myPreferencesToken: MyPreferencesToken
 
     lateinit var adapter: StudentsNameAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog_Custom)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +56,6 @@ class StudentNamesFragment : DialogFragment() {
             ) {
                 if(response.isSuccessful){
                     adapter.bindStudentsList(response.body())
-                    Toast.makeText(requireContext(),"successful", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(requireContext(),"failed to get Students Name", Toast.LENGTH_SHORT).show()

@@ -20,5 +20,14 @@ data class DrAllAssignmentsResponseItem(
 	val taskId: String? = null,
 
 	@field:SerializedName("startDate")
-	val startDate: String? = null
+	val startDate: String? = null,
+
+	@field:SerializedName("grade")
+	val grade: Int? = null,
+
+	@field:SerializedName("numberOfAllStudents")
+	val numberOfAllStudents: Int? = null,
+
+	@field:SerializedName("numberOfStudentsUploads")
+val numberOfStudentsUploads: Int? = null
 ) : Parcelable

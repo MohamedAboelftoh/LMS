@@ -1,6 +1,5 @@
 package com.example.lms.ui.student.fragments
 
-import com.example.lms.ui.api.api_doctor.dr_courses.assignments.StudentsUploadedTheTaskResponseItem
 
 object Variables {
     var studentsNumber: Int?=0
@@ -15,4 +14,5 @@ object Variables {
     var lectureName:String ?=null
     var studentName:String?=null
     var stuTimeUploaded:String?=null
+    var studentId:String?=null
 }

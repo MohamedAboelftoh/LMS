@@ -18,6 +18,8 @@ import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.login.LoginActivity
+import com.example.lms.ui.resetPassword.ChangePasswordActivity
+import com.example.lms.ui.student.navigateFromFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,9 +38,9 @@ lateinit var myPreferencesToken: MyPreferencesToken
         super.onViewCreated(view, savedInstanceState)
         myPreferencesToken= MyPreferencesToken(requireContext())
         viewBinding.changePassword.setOnClickListener {
-           //navigateToChangePassword()
+            navigateFromFragment(requireContext(), ChangePasswordActivity())
         }
-        viewBinding.changePhone.setOnClickListener {
+        viewBinding.changeImage.setOnClickListener {
            // navigateToChangePhone()
         }
         viewBinding.btnShowCard.setOnClickListener {

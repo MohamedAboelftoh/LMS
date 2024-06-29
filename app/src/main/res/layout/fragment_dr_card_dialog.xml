@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/fcai_sadat_city_university"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"

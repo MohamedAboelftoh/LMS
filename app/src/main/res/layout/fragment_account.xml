@@ -66,7 +66,7 @@
             android:textStyle="bold"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@id/tv_department"
-            app:layout_constraintEnd_toStartOf="@id/tv_semester"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_department"
             app:layout_constraintTop_toTopOf="@id/tv_department" />
 
@@ -110,23 +110,9 @@
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@id/department"
-        app:layout_constraintEnd_toStartOf="@id/semester"
-        app:layout_constraintStart_toEndOf="@id/department"
+app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toEndOf="@id/department"
         app:layout_constraintTop_toTopOf="@id/department" />
 
-    <TextView
-        android:id="@+id/semester"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        tools:text="2"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="@id/level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/level"
-        app:layout_constraintTop_toTopOf="@id/level" />
 
     <TextView
         android:id="@+id/user_name"
@@ -205,36 +191,42 @@
         app:layout_constraintWidth_percent="0.45" />
 
     <TextView
-        android:id="@+id/change_password"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
+        android:id="@+id/change_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/bg_date"
         android:drawablePadding="15dp"
-        android:text="@string/change_password"
+        android:padding="15dp"
+        android:text="Change Image"
+        android:textSize="16sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:autoSizeTextType="uniform"
-        app:backgroundTint="@color/transparent"
-        app:drawableEndCompat="@drawable/ic_path_arrow"
-        app:drawableStartCompat="@drawable/ic_password"
-        app:layout_constraintBottom_toTopOf="@id/change_phone"
-        app:layout_constraintHeight_percent=".04"
-        app:layout_constraintTop_toBottomOf="@id/btn_show_card" />
+        app:drawableEndCompat="@drawable/go_ic"
+        app:drawableStartCompat="@drawable/ic_camera"
+        app:layout_constraintBottom_toTopOf="@id/change_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logout_btn"
+        android:layout_marginTop="100dp"
+        />
 
     <TextView
-        android:id="@+id/change_phone"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
+        android:id="@+id/change_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:drawablePadding="15dp"
-        android:text="@string/change_phone"
+        android:text="Change Password"
+        android:padding="15dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:autoSizeTextType="uniform"
-        app:backgroundTint="@color/transparent"
-        app:drawableEndCompat="@drawable/ic_path_arrow"
-        app:drawableStartCompat="@drawable/ic_phone"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
-        app:layout_constraintHeight_percent=".04"
-        app:layout_constraintTop_toBottomOf="@id/change_password" />
+        android:textSize="16sp"
+        android:background="@drawable/bg_date"
+        app:drawableEndCompat="@drawable/go_ic"
+        app:drawableStartCompat="@drawable/ic_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

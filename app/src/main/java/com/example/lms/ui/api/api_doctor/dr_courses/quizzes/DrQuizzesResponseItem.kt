@@ -47,5 +47,12 @@ data class DrQuizzesResponseItem(
 	val startDate: String? = null,
 
 	@field:SerializedName("instructorId")
-	val instructorId: String? = null
+	val instructorId: String? = null,
+
+	@field:SerializedName("numberOfAllStudents")
+	val numberOfAllStudents: Int? = null,
+
+	@field:SerializedName("numberOfStudentsSolve")
+	val numberOfStudentsSolve: Int? = null
+
 ) : Parcelable

@@ -45,6 +45,8 @@ class DrAssignResultActivity : AppCompatActivity() {
                 Variables.studentName=item.studentName
                 Variables.stuTimeUploaded=item.timeUploaded
                 Variables.filePath=item.filePath
+                Variables.studentId=item.studentId
+
                 studentAssignDetailsFragment.show(supportFragmentManager,"")            }
         }
     }
@@ -59,7 +61,6 @@ class DrAssignResultActivity : AppCompatActivity() {
             ) {
                 if(response.isSuccessful){
                     adapter.bindStudentsList(response.body())
-                    Toast.makeText(this@DrAssignResultActivity,"successful", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(this@DrAssignResultActivity,"failed to get Students Name", Toast.LENGTH_SHORT).show()

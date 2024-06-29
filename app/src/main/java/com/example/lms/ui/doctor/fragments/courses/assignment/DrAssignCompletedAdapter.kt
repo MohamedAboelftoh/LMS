@@ -27,6 +27,13 @@ class DrAssignCompletedAdapter(private var drAssignmentsList:ArrayList<DrAllAssi
         holder.viewBinding.assignName.text = assignmentItem.taskName
         holder.viewBinding.time.text = assignmentItem?.endDate
         holder.viewBinding.courseName.text = Variables.courseName
+
+        holder.viewBinding.progressStartTv.text=assignmentItem.numberOfStudentsUploads.toString()
+        holder.viewBinding.progressEndTv.text=assignmentItem.numberOfAllStudents.toString()
+        holder.viewBinding.grades.text="${assignmentItem.grade} Grades"
+        holder.viewBinding.progressBar.max=assignmentItem.numberOfAllStudents ?:0
+        holder.viewBinding.progressBar.progress=assignmentItem.numberOfStudentsUploads ?:0
+
         holder.viewBinding.btnAvailable.setOnClickListener{
             onBtnResultClickListener?.btnResultClickListener(assignmentItem,position)
         }

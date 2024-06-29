@@ -14,6 +14,7 @@ import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +42,11 @@ class DrCardDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(checkForInternet(requireContext()))
+            getInstructorInfo()
+
+        else
         bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
     }
     private fun getInstructorInfo(){

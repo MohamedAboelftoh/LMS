@@ -1,6 +1,7 @@
 package com.example.lms.ui.student.fragments.courses_fragment.material
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -26,7 +27,9 @@ class FilesAdapter(private var filesList:MutableList<FielslResponseItem>?=null) 
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(item , position)
         }
-        holder.itemBinding.icMore.setOnClickListener{
+        holder.itemBinding.icMore.visibility=View.GONE
+        holder.itemBinding.icDownload.visibility=View.VISIBLE
+        holder.itemBinding.icDownload.setOnClickListener{
             onIconDownloadClickListener?.onIconDownloadClick(item,position,holder)
 
         }

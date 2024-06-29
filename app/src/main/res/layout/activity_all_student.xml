@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.doctor.fragments.courses.assignment.DrAssignResultActivity">
+    tools:context=".ui.doctor.fragments.courses.grades.DrAllStudentActivity">
     <ImageView
         android:id="@+id/ic_back"
         android:layout_width="wrap_content"
@@ -24,29 +24,30 @@
         app:layout_constraintStart_toEndOf="@id/ic_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/ic_back"
-        app:layout_constraintHeight_percent=".05"
-        app:autoSizeTextType="uniform"
+        android:textSize="18sp"
         tools:text="Parallel Programing"
         android:layout_marginStart="5dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         />
+
     <TextView
         android:id="@+id/tv_student_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:autoSizeTextType="uniform"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/course_name_tv"
         android:text="Students Names"
-        android:layout_marginStart="10dp"
         android:textColor="@color/green"
+        android:layout_marginStart="5dp"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_user"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/green"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="start|center"
+        android:drawableTint="#009788"
         />
     <View
         android:id="@+id/view"
@@ -54,18 +55,17 @@
         android:layout_height="2dp"
         app:layout_constraintTop_toBottomOf="@id/tv_student_name"
         android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/green"
+        android:background="#009788"
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stu_completed_recycler"
+        android:id="@+id/students_names_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/view"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_student_name"
-        android:layout_marginTop="10dp"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

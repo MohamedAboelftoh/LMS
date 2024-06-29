@@ -19,6 +19,11 @@ import retrofit2.Response
 class CardDialogFragment : DialogFragment() {
     lateinit var viewBinding:FragmentCardDialogBinding
     lateinit var myPreferencesToken: MyPreferencesToken
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog_Custom)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +33,6 @@ class CardDialogFragment : DialogFragment() {
             ,container,false)
         myPreferencesToken= MyPreferencesToken(requireContext())
         dialog?.window?.setBackgroundDrawableResource(R.drawable.backgound_dialog_fragment)
-
-
         return viewBinding.root
     }
 
@@ -39,10 +42,10 @@ class CardDialogFragment : DialogFragment() {
     }
     fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse> {
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse> {
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
-                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
             ) {
                 if (response.isSuccessful){
                     viewBinding.name.text=response.body()?.fullName
@@ -60,7 +63,7 @@ class CardDialogFragment : DialogFragment() {
                 }
             }
 
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -17,7 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LMS"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.doctor.fragments.courses.grades.StuSelectedGradesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.fragments.courses.grades.DrAllStudentActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.NotConnectedActivity"
             android:exported="false" />
@@ -27,8 +35,7 @@
         <activity
             android:name=".ui.doctor.fragments.courses.quizes.DrQuestionsActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.doctor.fragments.courses.quizes.DrAddQuizActivity"
             android:exported="false" />
@@ -40,9 +47,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.doctor.fragments.courses.assignment.DrAssignResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.doctor.fragments.courses.assignment.DrAssignPendingDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.doctor.fragments.courses.assignment.DrAddAssignmentActivity"
@@ -61,7 +65,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.doctor.fragments.courses.DrCourseContentActivity"
-            android:exported="false" /> 
+            android:exported="false" />
         <activity
             android:name=".ui.doctor.DrMainActivity"
             android:exported="false" />
@@ -109,7 +113,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.splashes.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

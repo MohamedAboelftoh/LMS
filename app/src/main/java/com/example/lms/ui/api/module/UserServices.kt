@@ -7,6 +7,7 @@ import com.example.lms.ui.api.api_doctor.DrUploadLectureResponse
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.DrAllAssignmentsResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.assignments.EditAssignmentGradeRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.StudentsUploadedTheTaskResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.assignments.UpdateAssignmentModel
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
@@ -27,6 +28,8 @@ import com.example.lms.ui.api.api_student.quizes.submit.SubmitQuizRequest
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizItem
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
+import com.example.lms.ui.api.api_doctor.grades.AllStuEnrolledInCourseItem
+import com.example.lms.ui.api.api_doctor.grades.GradesSelectedStuResponseItem
 import com.example.lms.ui.api.api_student.course_tasks__grades.CourseTasksGradesResponseItem
 import com.example.lms.ui.api.api_student.quizes.SubmitQuizResponse
 import com.example.lms.ui.api.password.ChangePasswordResponse
@@ -199,4 +202,30 @@ fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizI
 
     @POST("api/Account/UpdatePassword")
     fun changePassword(@Body changePasswordResponse: ChangePasswordResponse, @Header("Authorization") token: String):Call<ResponseBody>
+    @PUT("api/Instructor/Add Grade For Astudent Task")
+    fun drUpdateAssignmentGrade(
+        @Header("Authorization")token:String
+        ,@Body editAssignmentGradeRequest: EditAssignmentGradeRequest
+    ):Call<ResponseBody>
+
+    @Multipart
+    @PUT("api/Account/update Photo")
+    fun changeProfileImage(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseBody>
+
+    @GET("api/Instructor/GetAllStudentsEnrolledInAcourse")
+    fun drGetStudentsEnrolledInACourse(
+        @Header("Authorization")token:String
+        ,@Query("CycleId") cycleId:String
+    ):Call<ArrayList<AllStuEnrolledInCourseItem>>
+
+    @GET("api/Instructor/GetGradesForCurrentCourseForAstudent")
+    fun drGetStuSelectedGradesInACourse(
+        @Header("Authorization")token:String
+        ,@Query("CycleId") cycleId:String
+        ,@Query("studentId") studentId:String
+    ):Call<ArrayList<GradesSelectedStuResponseItem>>
+
 }
