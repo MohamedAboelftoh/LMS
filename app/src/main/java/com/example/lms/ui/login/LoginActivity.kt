@@ -35,9 +35,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun viewsClicks() {
-        viewBinding.forgetPass.setOnClickListener {
-            navigateFromActivity(this, ResetPasswordActivity())
-        }
+//        viewBinding.forgetPass.setOnClickListener {
+//            navigateFromActivity(this, ResetPasswordActivity())
+//        }
         viewBinding.iconBack.setOnClickListener {
             navigateFromActivity(this, SplashActivity())
         }

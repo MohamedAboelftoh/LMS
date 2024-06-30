@@ -99,7 +99,6 @@ class CoursesFragment : Fragment() {
         DataBase.getInstance(requireContext()).studentCourses().insertCourses(body!!)
     }
 
-
     private fun onCourseClick() {
         adapter.onItemClickListener= CoursesAdapter.OnItemClickListener{ position, course ->
             Variables.cycleId = course?.cycleId

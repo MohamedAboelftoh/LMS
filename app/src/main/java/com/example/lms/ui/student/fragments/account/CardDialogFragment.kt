@@ -12,6 +12,8 @@ import com.example.lms.databinding.FragmentCardDialogBinding
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +40,14 @@ class CardDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadAccountInfo()
+
+        if(checkForInternet(requireContext())) {
+            loadAccountInfo()
+        }
+        else {
+            bindData(
+                DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal())
+        }
     }
     fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")
@@ -48,15 +57,7 @@ class CardDialogFragment : DialogFragment() {
                 response: Response<AccountInfoResponse>
             ) {
                 if (response.isSuccessful){
-                    viewBinding.name.text=response.body()?.fullName
-                    viewBinding.department.text=response.body()?.departmentName
-                    viewBinding.level.text=response.body()?.level.toString()
-                    viewBinding.academicId.text=response.body()?.academicId
-                    viewBinding.universityName.text=response.body()?.universityName
-                    Glide.with(viewBinding.profile)
-                        .load(response.body()?.imagePath)
-                        .placeholder(R.drawable.avatar_1)
-                        .into(viewBinding.profile)
+                    cashInfoInLocal(response.body())
                 }
                 else{
                     Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()
@@ -67,5 +68,24 @@ class CardDialogFragment : DialogFragment() {
                 Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cashInfoInLocal(body: AccountInfoResponse?) {
+        DataBase.getInstance(requireContext()).studentInfoDao().deleteStuFromLocal()
+        DataBase.getInstance(requireContext()).studentInfoDao().insertStudentInfo(body!!)
+
+    }
+
+    private fun bindData(body: AccountInfoResponse?) {
+        viewBinding.name.text=body?.fullName
+        viewBinding.department.text=body?.departmentName
+        viewBinding.level.text=body?.level.toString()
+        viewBinding.academicId.text=body?.academicId
+        viewBinding.universityName.text=body?.universityName
+        Glide.with(viewBinding.profile)
+            .load(body?.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
+
     }
 }

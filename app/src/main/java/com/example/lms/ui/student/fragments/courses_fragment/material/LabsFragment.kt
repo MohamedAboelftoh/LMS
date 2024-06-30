@@ -81,17 +81,12 @@ class LabsFragment : Fragment() {
                     Toast.makeText(fragmentContext, "onFailure " + t.localizedMessage, Toast.LENGTH_LONG).show()                }
             })
     }
-    fun onLabClick(){
+    private fun onLabClick(){
         adapter.onItemClickListener=
             LabsAdapter.OnItemClickListener { position, item ->
-                if (checkForInternet(fragmentContext)) {
-                    val intent = Intent(fragmentContext, MaterialFiles::class.java)
-                    intent.putExtra("lectureId", item.lectureId)
-                    startActivity(intent)
-                }
-                else{
-                    navigateFromFragment(fragmentContext,NotConnectedActivity())
-                }
+                val intent = Intent(fragmentContext, MaterialFiles::class.java)
+                intent.putExtra("lectureId", item.lectureId)
+                startActivity(intent)
             }
     }
     private fun cashFoldersInLocal(body: ArrayList<CourseMaterialResponseItem>?) {

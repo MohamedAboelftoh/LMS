@@ -55,6 +55,12 @@ class HomeFragment : Fragment() {
     }
     private fun getCurrentUserFromLocal() {
         viewBinding.tvName.text = DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal().fullName
+        Glide.with(viewBinding.profile)
+            .load(DataBase.getInstance(requireContext())
+                .studentInfoDao().getStuInfoFromLocal().imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
+
     }
 
     private fun uploadNews() {
@@ -96,12 +102,8 @@ class HomeFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     insertStudentInLocal(response.body())
-                    viewBinding.progressBar.visibility = View.INVISIBLE
-                   viewBinding.tvName.text = response.body()?.fullName
-                    Glide.with(viewBinding.profile)
-                        .load(response.body()?.imagePath)
-                        .placeholder(R.drawable.avatar_1)
-                        .into(viewBinding.profile)
+                    bindData(response.body())
+
                 }else{
                     val toast = Toast.makeText(requireContext(), "current user fail", Toast.LENGTH_LONG)
                     toast.show()
@@ -116,6 +118,16 @@ class HomeFragment : Fragment() {
 
         })
     }
+
+    private fun bindData(body: AccountInfoResponse?) {
+        viewBinding.progressBar.visibility = View.INVISIBLE
+        viewBinding.tvName.text = body?.fullName
+        Glide.with(viewBinding.profile)
+            .load(body?.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
+    }
+
     private fun cacheNewsInLocal(body: java.util.ArrayList<NewsResponseItem>?) {
         DataBase.getInstance(requireContext()).newsDao().deleteAllNews()
         DataBase.getInstance(requireContext()).newsDao().insertNews(body!!)

@@ -93,17 +93,12 @@ class LectureFragment : Fragment() {
     }
 
 
-    fun onLectureClick(){
+    private fun onLectureClick(){
         adapter.onItemClickListener=
-            LecturesAdapter.OnItemClickListener { position, item ->
-                if (checkForInternet(fragmentContext)) {
-                    val intent = Intent(fragmentContext, MaterialFiles::class.java)
-                    intent.putExtra("lectureId", item.lectureId)
-                    startActivity(intent)
-                }
-                else{
-                    navigateFromFragment(fragmentContext,NotConnectedActivity())
-                }
+          LecturesAdapter.OnItemClickListener { position, item ->
+        val intent = Intent(fragmentContext, MaterialFiles::class.java)
+        intent.putExtra("lectureId", item.lectureId)
+        startActivity(intent)
             }
     }
 }

@@ -72,10 +72,10 @@ lateinit var myPreferencesToken: MyPreferencesToken
         viewBinding.icCamera.setOnClickListener{
             changeImage()
         }
-        if (checkForInternet(requireContext()))
-        getInstructorInfo()
-        else
-        bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
+        if (checkForInternet(requireContext())){
+        getInstructorInfo()}
+        else{
+        bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())}
     }
     private fun changeImage(){
         ImagePicker.with(this)
@@ -151,7 +151,6 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             ) {
                 if (response.isSuccessful){
                     viewBinding.userName.text=response.body()?.fullName
-
                     Glide.with(viewBinding.profile)
                         .load(response.body()?.imagePath)
                         .placeholder(R.drawable.avatar_1)

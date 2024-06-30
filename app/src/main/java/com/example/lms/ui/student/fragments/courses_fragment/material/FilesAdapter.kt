@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.lms.databinding.FileItemBinding
-import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 
-class FilesAdapter(private var filesList:MutableList<FielslResponseItem>?=null) :RecyclerView.Adapter<FilesAdapter.FilesViewHolder>(){
+class FilesAdapter(private var filesList:MutableList<FilesResponseItem>?=null) :RecyclerView.Adapter<FilesAdapter.FilesViewHolder>(){
     class FilesViewHolder(val itemBinding:FileItemBinding):ViewHolder(itemBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesViewHolder {
@@ -35,16 +35,16 @@ class FilesAdapter(private var filesList:MutableList<FielslResponseItem>?=null) 
         }
     }
 
-    fun bindFiles(body: MutableList<FielslResponseItem>?) {
+    fun bindFiles(body: MutableList<FilesResponseItem>?) {
         filesList=body
         notifyDataSetChanged()
     }
  var onItemClickListener : OnItemClickListener ?= null
 interface OnItemClickListener{
-    fun onItemClick(item : FielslResponseItem, position : Int)
+    fun onItemClick(item : FilesResponseItem, position : Int)
 }
     var onIconDownloadClickListener:OnIconDownloadClickListener?=null
     interface OnIconDownloadClickListener{
-        fun onIconDownloadClick(item: FielslResponseItem, position: Int, holder: FilesViewHolder)
+        fun onIconDownloadClick(item: FilesResponseItem, position: Int, holder: FilesViewHolder)
     }
 }

@@ -3,25 +3,27 @@ package com.example.lms.ui.student.fragments.courses_fragment.material
 import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.widget.PopupMenu
 import android.widget.Toast
-import com.example.lms.R
 
 import com.example.lms.databinding.ActivityMaterialFilesBinding
-import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class MaterialFiles : AppCompatActivity() {
     lateinit var viewBinding:ActivityMaterialFilesBinding
@@ -39,14 +41,21 @@ class MaterialFiles : AppCompatActivity() {
         viewBinding.courseNameTv.text = Variables.courseName
         adapter= FilesAdapter()
         viewBinding.filesRecycler.adapter=adapter
-        initializeData()
+        if (checkForInternet(this@MaterialFiles)){
+            initializeData()
+        }
+        else{
+            adapter.bindFiles(DataBase.getInstance(this).filesDao()
+                .getFilesFromLocal().toMutableList())
+        }
         viewBinding.icBack.setOnClickListener{
             finish()
         }
         adapter.onItemClickListener = object : FilesAdapter.OnItemClickListener{
-            override fun onItemClick(item: FielslResponseItem, position: Int) {
+            override fun onItemClick(item: FilesResponseItem, position: Int) {
                 Variables.filePath = item.filePath
-                navigateFromActivity(this@MaterialFiles,FilePdfActivity())
+               openPDFViewer(item.filePath)
+//                navigateFromActivity(this@MaterialFiles,FilePdfActivity())  //this line if you want to open the files in the same app
             }
         }
         onIconDownloadClick()
@@ -54,7 +63,7 @@ class MaterialFiles : AppCompatActivity() {
     private fun onIconDownloadClick(){
         adapter.onIconDownloadClickListener=object : FilesAdapter.OnIconDownloadClickListener{
             override fun onIconDownloadClick(
-                item:  FielslResponseItem,
+                item:  FilesResponseItem,
                 position: Int,
                 holder: FilesAdapter.FilesViewHolder
             ) {
@@ -91,12 +100,13 @@ class MaterialFiles : AppCompatActivity() {
         val lectureId=intent.getStringExtra("lectureId")
         val token=myPreferencesToken.loadData("token")
      ApiManager.getApi().getFiles(token
-         ,lectureId).enqueue(object :Callback<MutableList<FielslResponseItem>>{
+         ,lectureId).enqueue(object :Callback<MutableList<FilesResponseItem>>{
          override fun onResponse(
-             call: Call<MutableList<FielslResponseItem>>,
-             response: Response<MutableList<FielslResponseItem>>
+             call: Call<MutableList<FilesResponseItem>>,
+             response: Response<MutableList<FilesResponseItem>>
          ) {
              if (response.isSuccessful) {
+                 cashFilesInLocal(response.body())
                  adapter.bindFiles(response.body())
                  Toast.makeText(this@MaterialFiles," files loaded successful", Toast.LENGTH_LONG).show()
              }
@@ -107,10 +117,28 @@ class MaterialFiles : AppCompatActivity() {
              }
          }
 
-         override fun onFailure(call: Call<MutableList<FielslResponseItem>>, t: Throwable) {
+         override fun onFailure(call: Call<MutableList<FilesResponseItem>>, t: Throwable) {
              Toast.makeText(this@MaterialFiles,"OnFailure"+t.localizedMessage, Toast.LENGTH_LONG).show()
          }
 
      })
     }
+    fun openPDFViewer(url: String?) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(Uri.parse(url), "application/*")
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            val intentChooser = Intent.createChooser(intent, "Open PDF")
+            startActivity(intentChooser)
+        } catch (e: Exception) {
+            // Error...1-basics_if cond task
+        }
+    }
+    private fun cashFilesInLocal(body: MutableList<FilesResponseItem>?) {
+        DataBase.getInstance(this).filesDao().deleteAllFiles()
+        DataBase.getInstance(this).filesDao().insertFiles(body!!)
+
+    }
+
+
 }

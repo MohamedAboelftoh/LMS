@@ -43,11 +43,14 @@ class DrCardDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(checkForInternet(requireContext()))
+        if(checkForInternet(requireContext())) {
             getInstructorInfo()
+        }
 
-        else
-        bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
+        else {
+            bindData(
+                DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
+        }
     }
     private fun getInstructorInfo(){
         val token=myPreferencesToken.loadData("token")

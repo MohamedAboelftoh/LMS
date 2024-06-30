@@ -14,11 +14,14 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.FragmentAccountBinding
+import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
 import com.example.lms.ui.login.LoginActivity
 import com.example.lms.ui.resetPassword.ChangePasswordActivity
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.navigateFromFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,7 +50,13 @@ lateinit var myPreferencesToken: MyPreferencesToken
             showCardFragment()
         }
         btnLogoutClickListener()
+    if (checkForInternet(requireContext())){
         loadAccountInfo()
+    }
+        else{
+        bindData(DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal())
+    }
+
     }
 
     private fun showCardFragment() {
@@ -122,6 +131,17 @@ lateinit var myPreferencesToken: MyPreferencesToken
 
         }
     }
+    private fun bindData(studentFromLocal: AccountInfoResponse) {
+        viewBinding.userName.text = studentFromLocal.fullName
+        viewBinding.department.text = studentFromLocal.departmentName
+        viewBinding.level.text = studentFromLocal.level.toString()
+        viewBinding.userIdNumber.text=studentFromLocal.academicId.toString()
+
+        Glide.with(viewBinding.profile)
+            .load(studentFromLocal.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
+    }
 
     private fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")
@@ -131,14 +151,8 @@ lateinit var myPreferencesToken: MyPreferencesToken
                 response: Response<AccountInfoResponse>
             ) {
                 if (response.isSuccessful){
-                    viewBinding.userName.text=response.body()?.fullName
-                    viewBinding.department.text=response.body()?.departmentName
-                    viewBinding.level.text=response.body()?.level.toString()
-                    viewBinding.userIdNumber.text=response.body()?.academicId
-                    Glide.with(viewBinding.imgPro)
-                        .load(response.body()?.imagePath)
-                        .placeholder(R.drawable.avatar_1)
-                        .into(viewBinding.profile)
+                    cashInfoToLocal(response.body())
+                    bindDataFromApi(response.body())
                 }
                 else{
                     Toast.makeText(requireContext(),"Info not downloaded correctly", Toast.LENGTH_SHORT).show()
@@ -149,5 +163,22 @@ lateinit var myPreferencesToken: MyPreferencesToken
                 Toast.makeText(requireContext(),"OnFailure"+t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cashInfoToLocal(body: AccountInfoResponse?) {
+        DataBase.getInstance(requireContext()).studentInfoDao().deleteStuFromLocal()
+
+        DataBase.getInstance(requireContext()).studentInfoDao().insertStudentInfo(body!!)
+    }
+
+    private fun bindDataFromApi(body: AccountInfoResponse?) {
+        viewBinding.userName.text=body?.fullName
+        viewBinding.department.text=body?.departmentName
+        viewBinding.level.text=body?.level.toString()
+        viewBinding.userIdNumber.text=body?.academicId
+        Glide.with(viewBinding.imgPro)
+            .load(body?.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
     }
 }

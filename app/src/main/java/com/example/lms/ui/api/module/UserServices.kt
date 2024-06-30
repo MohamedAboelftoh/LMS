@@ -20,7 +20,7 @@ import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
 import com.example.lms.ui.api.login.LoginRequest
 import com.example.lms.ui.api.login.LoginResponse
 import com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem
-import com.example.lms.ui.api.api_student.material.fiels.FielslResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 import com.example.lms.ui.api.api_student.news.NewsResponseItem
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 import com.example.lms.ui.api.api_student.quizes.QuizQuestionsResponse
@@ -88,7 +88,7 @@ fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizI
     fun getAccountInfo(@Header("Authorization")token:String):Call<AccountInfoResponse>
     @GET("api/Students/Getfilesoflecture")
     fun getFiles(@Header("Authorization")token:String?,
-                 @Query("lectureId")lectureId:String?):Call<MutableList<FielslResponseItem>>
+                 @Query("lectureId")lectureId:String?):Call<MutableList<FilesResponseItem>>
     @GET("api/Students/GetAllGradesForCurrentCourse")
     fun getAllGradesForCurrentCourse(@Header("Authorization")token:String?,
                  @Query("courseId")courseId:String?):Call<ArrayList<CourseTasksGradesResponseItem>>

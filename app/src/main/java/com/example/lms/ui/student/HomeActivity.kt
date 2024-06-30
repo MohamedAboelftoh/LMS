@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ActivityHomeBinding
+import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
 import com.example.lms.ui.student.fragments.account.AccountFragment
 import com.example.lms.ui.student.fragments.calender.CalenderFragment
 import com.example.lms.ui.student.fragments.courses_fragment.CoursesFragment
@@ -39,8 +41,13 @@ class HomeActivity : AppCompatActivity() {
         pushFragment(HomeFragment())
         bottomNavigationSelected()
         openDrawer()
-        getCurrentUser()
         drawerItemsSelected()
+        if (checkForInternet(this)){
+            getCurrentUser()
+        }
+        else{
+            bindData(DataBase.getInstance(this).studentInfoDao().getStuInfoFromLocal())
+        }
     }
     private fun drawerItemsSelected(){
         viewBinding.navView.setNavigationItemSelectedListener{menuItem->
@@ -152,31 +159,40 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun getCurrentUser() {
         val token=myPreferencesToken.loadData("token")
-        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<com.example.lms.ui.api.api_student.account.AccountInfoResponse>{
+        ApiManager.getApi().getAccountInfo(token!!).enqueue(object : Callback<AccountInfoResponse>{
             override fun onResponse(
-                call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>,
-                response: Response<com.example.lms.ui.api.api_student.account.AccountInfoResponse>
+                call: Call<AccountInfoResponse>,
+                response: Response<AccountInfoResponse>
             ) {
                 if(response.isSuccessful){
-                    val header = viewBinding.navView.getHeaderView(0)
-                    val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
-                    val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
-                    dateTextView.text= "Hi,"+response.body()?.fullName
-                    Glide.with(viewBinding.navView)
-                        .load(response.body()?.imagePath)
-                        .placeholder(R.drawable.avatar_1)
-                        .into(imgProfile)
+                    insertStudentInLocal(response.body())
+                    bindData(response.body())
+
                 }else{
                     val toast = Toast.makeText(this@HomeActivity, "current user fail", Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
-            override fun onFailure(call: Call<com.example.lms.ui.api.api_student.account.AccountInfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AccountInfoResponse>, t: Throwable) {
                 val toast = Toast.makeText(this@HomeActivity, t.localizedMessage, Toast.LENGTH_LONG)
                 toast.show()
             }
 
         })
+    }
+    private  fun bindData(body: AccountInfoResponse?){
+        val header = viewBinding.navView.getHeaderView(0)
+        val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
+        val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
+        dateTextView.text= "Hi,"+body?.fullName
+        Glide.with(viewBinding.navView)
+            .load(body?.imagePath)
+            .placeholder(R.drawable.avatar_1)
+            .into(imgProfile)
+    }
+    private fun insertStudentInLocal(body: AccountInfoResponse?) {
+        DataBase.getInstance(this).studentInfoDao().deleteStuFromLocal()
+        DataBase.getInstance(this).studentInfoDao().insertStudentInfo(body!!)
     }
 
 }

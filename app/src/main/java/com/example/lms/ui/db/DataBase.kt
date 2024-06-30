@@ -6,18 +6,21 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
 import com.example.lms.ui.api.api_doctor.dr_courses.DrCoursesResponseItem
+import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrLecturesResponseItem
 import com.example.lms.ui.api.api_student.account.AccountInfoResponse
 import com.example.lms.ui.api.api_student.assignments.AssignmentResponseItem
 import com.example.lms.ui.api.api_student.course_tasks__grades.CourseTasksGradesResponseItem
 import com.example.lms.ui.api.api_student.courses.CoursesResponseItem
 import com.example.lms.ui.api.api_student.material.CourseMaterialResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 import com.example.lms.ui.api.api_student.news.NewsResponseItem
 import com.example.lms.ui.api.api_student.quizes.CourseQuizzesResponseItem
 
 @Database(entities = [NewsResponseItem::class , DrCoursesResponseItem::class , InstructorInfoResponse::class
     , DrLecturesResponseItem::class,AccountInfoResponse::class, CoursesResponseItem::class
-    ,CourseMaterialResponseItem::class, CourseQuizzesResponseItem::class, AssignmentResponseItem::class,CourseTasksGradesResponseItem::class] , version = 1, exportSchema = true)
+    ,CourseMaterialResponseItem::class, CourseQuizzesResponseItem::class, AssignmentResponseItem::class,
+    CourseTasksGradesResponseItem::class, FilesResponseItem::class, DrFilesResponseItem::class] , version = 1, exportSchema = true)
 abstract class DataBase : RoomDatabase() {
     abstract fun newsDao():Dao
     abstract fun coursesDao():CoursesDao
@@ -30,6 +33,10 @@ abstract class DataBase : RoomDatabase() {
     abstract fun stuFoldersDao():StuFoldersDao
     abstract fun stuQuizzesDao():StuQuizzesDao
     abstract fun stuCourseGradesDao():StuCourseGradesDao
+    abstract fun filesDao():FilesDao
+    abstract fun drFilesDao():DrFileDao
+
+
 
     companion object{
         private var instance : DataBase ?= null

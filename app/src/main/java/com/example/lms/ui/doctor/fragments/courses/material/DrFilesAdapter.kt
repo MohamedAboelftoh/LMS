@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.FileItemBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 
 class DrFilesAdapter (private var filesList:MutableList<DrFilesResponseItem>?=null) :RecyclerView.Adapter<DrFilesAdapter.FilesViewHolder>(){
     class FilesViewHolder(val itemBinding: FileItemBinding): RecyclerView.ViewHolder(itemBinding.root)

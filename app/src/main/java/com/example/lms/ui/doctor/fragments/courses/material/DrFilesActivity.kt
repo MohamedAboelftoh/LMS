@@ -16,8 +16,11 @@ import android.widget.Toast
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDrFilesBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.material.DrFilesResponseItem
+import com.example.lms.ui.api.api_student.material.fiels.FilesResponseItem
 import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
+import com.example.lms.ui.db.DataBase
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromActivity
 import okhttp3.OkHttpClient
@@ -43,7 +46,13 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
         viewBinding.lectureName.text = Variables.lectureName
         adapter= DrFilesAdapter()
         viewBinding.filesRecycler.adapter=adapter
-        initializeData()
+        if (checkForInternet(this@DrFilesActivity)){
+            initializeData()
+        }
+        else{
+            adapter.bindFiles(DataBase.getInstance(this).drFilesDao()
+                .getFilesFromLocal().toMutableList())
+        }
         viewBinding.icBack.setOnClickListener{
             finish()
         }
@@ -84,6 +93,7 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
                 response: Response<MutableList<DrFilesResponseItem>>
             ) {
                 if (response.isSuccessful) {
+                   cashFilesInLocal(response.body())
                     adapter.bindFiles(response.body())
                 }
                 else{
@@ -181,5 +191,10 @@ class DrFilesActivity : AppCompatActivity(), DrUploadFileFragment.DrUploadFileLi
 //            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
 //        }
 //        downloadManager.enqueue(request)
+    }
+    private fun cashFilesInLocal(body: MutableList<DrFilesResponseItem>?) {
+        DataBase.getInstance(this).drFilesDao().deleteAllFiles()
+        DataBase.getInstance(this).drFilesDao().insertFiles(body!!)
+
     }
 }
