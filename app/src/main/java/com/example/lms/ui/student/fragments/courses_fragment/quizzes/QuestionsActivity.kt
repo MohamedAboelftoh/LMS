@@ -1,10 +1,12 @@
 package com.example.lms.ui.student.fragments.courses_fragment.quizzes
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,10 @@ import com.example.lms.ui.student.navigateFromActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 class QuestionsActivity : AppCompatActivity() {
     lateinit var viewBinding : ActivityQuestionsBinding
     lateinit var myPreferencesToken: MyPreferencesToken
@@ -98,6 +104,7 @@ class QuestionsActivity : AppCompatActivity() {
         val token =myPreferencesToken.loadData("token")
         val quizId= Variables.quizId
         ApiManager.getApi().getQuizQuestions(token!!,quizId!!).enqueue(object :Callback<QuizQuestionsResponse>{
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(
                 call: Call<QuizQuestionsResponse>,
                 response: Response<QuizQuestionsResponse>
@@ -192,6 +199,19 @@ class QuestionsActivity : AppCompatActivity() {
         }
     }
     */
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun getDuration(startDateStr : String, endDateStr: String): Long {
+//        // Define the formatter
+//        val formatter = DateTimeFormatter.ISO_DATE_TIME
+//
+//        // Parse the date-time strings
+//        val startDate = LocalDateTime.parse(startDateStr, formatter)
+//        val endDate = LocalDateTime.parse(endDateStr, formatter)
+//
+//        // Calculate the duration in minutes
+//        val duration = Duration.between(startDate, endDate)
+//        return duration.toMinutes()
+//    }
 
 
     override fun onBackPressed() {

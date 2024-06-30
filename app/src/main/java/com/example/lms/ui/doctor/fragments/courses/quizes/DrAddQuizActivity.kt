@@ -72,7 +72,7 @@ class DrAddQuizActivity : AppCompatActivity() {
             )
             timePickerDialog.show()
         }
-        dateBicker?.show()
+        dateBicker.show()
     }
     private fun changeStep() {
         viewBinding.stepView.done(false)
@@ -95,7 +95,7 @@ class DrAddQuizActivity : AppCompatActivity() {
 //                    viewBinding.next.text = "Submit"
                     viewBinding.quizName.text = viewBinding.quizNameEt.text
                     viewBinding.courseName.text = Variables.courseName
-                    viewBinding.points.text = viewBinding.etQuizGrade.text
+                    //viewBinding.points.text = viewBinding.etQuizGrade.text
                     position = 2
                     viewBinding.stepView.done(false)
                     viewBinding.stepView.go(position, true)
@@ -109,7 +109,7 @@ class DrAddQuizActivity : AppCompatActivity() {
                     intent.putExtra("notes" , viewBinding.quizDescription.text.toString())
                     intent.putExtra("startDate" , viewBinding.tvStartDate.text.toString())
                     intent.putExtra("endDate" , viewBinding.tvEndDate.text.toString())
-                    intent.putExtra("grade" , viewBinding.etQuizGrade.text.toString())
+                    //intent.putExtra("grade" , viewBinding.etQuizGrade.text.toString())
                     intent.putExtra("points" , viewBinding.etQuizPoint.text.toString())
                     if(!validation()){
                         return@setOnClickListener
@@ -165,12 +165,6 @@ class DrAddQuizActivity : AppCompatActivity() {
         }
         else
             viewBinding.etQuizPoint.error = null
-        if(viewBinding.etQuizGrade.text.isNullOrBlank()){
-            viewBinding.etQuizGrade.error = "required"
-            isValid = false
-        }
-        else
-            viewBinding.etQuizGrade.error = null
         if(viewBinding.tvStartDate.text.isNullOrBlank()){
             viewBinding.tvStartDate.error = "required"
             isValid = false

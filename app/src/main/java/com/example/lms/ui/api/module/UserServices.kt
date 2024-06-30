@@ -192,7 +192,7 @@ fun submitQuiz(@Body submitQuizRequest: SubmitQuizRequest, @Query("quizId")quizI
         @Header("Authorization") token: String
     ):Call<ArrayList<DrQuizzesResponseItem>>
     @POST("api/Instructor/createQuiz")
-    fun createQuiz(@Header("Authorization") token: String,@Body quizItem : DrQuizItem) : Call<DrQuizItem>
+    fun createQuiz(@Header("Authorization") token: String,@Body quizItem : DrQuizItem) : Call<ResponseBody>
 
     @DELETE("api/Instructor/DeleteQuiz")
     fun DrDeleteQuiz(

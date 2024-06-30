@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.lms.R
 import com.example.lms.databinding.ActivityDrQuizesBinding
 import com.example.lms.ui.api.api_doctor.dr_courses.quizzes.DrQuizzesResponseItem
 import com.example.lms.ui.api.module.ApiManager
@@ -33,6 +32,9 @@ class DrQuizzesActivity : AppCompatActivity() {
         viewBinding.rvQuizzes.adapter = adapter
         getAllQuizzesOfCourse()
         deleteQuizAfterPressOk()
+        adapter.onBtnAvailableClickListener =
+            DrQuizzesAdapter.OnIconDeleteClickListener { position, quizId ->
+                navigateFromActivity(this@DrQuizzesActivity , DrQuestionsOfQuizActivity()) }
     }
 
     fun deleteQuizAfterPressOk(){

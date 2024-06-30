@@ -71,6 +71,9 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
             val endDate: Date = dateFormat.parse(quizItem.endDate)
 
             val currentDate = Date()
+            holder.viewBinding.btnStart.setOnClickListener {
+                    onBtnStartClickListener?.onClick(position, quizItem)
+                }
             if (startDate.before(currentDate) && endDate.after(currentDate)) {
                 holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat

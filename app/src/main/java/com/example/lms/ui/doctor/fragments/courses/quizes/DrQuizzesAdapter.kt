@@ -74,6 +74,7 @@ class DrQuizzesAdapter (private var quizzesList : List<DrQuizzesResponseItem?>?=
     }
 
     var onIconDeleteClickListener:OnIconDeleteClickListener?=null
+    var onBtnAvailableClickListener:OnIconDeleteClickListener?=null
     fun interface OnIconDeleteClickListener{
         fun onClick(position:Int,quizId:String?)
     }

@@ -16,8 +16,8 @@ data class DrQuizItem(
     @field:SerializedName("endDate")
 	val endDate: String? = null,
 
-    @field:SerializedName("grade")
-	val grade: Int? = null,
+//    @field:SerializedName("grade")
+//	val grade: Int? = null,
 
     @field:SerializedName("questions")
 	val questions: List<DrQuestionsItem?>? = null,

@@ -177,33 +177,13 @@
             android:layout_marginTop="20dp"
             >
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/task_grade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_quiz_grade"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:hint="Enter the grade of quiz"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/ic_email"
-                    android:inputType="number"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/task_point"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/task_grade"
+                app:layout_constraintTop_toTopOf="parent"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_quiz_point"

@@ -32,7 +32,7 @@ class DrQuestionsAdapter(private var questionsList: MutableList<DrQuestionsItem>
 
     override fun onBindViewHolder(holder: DrQuestionsViewHolder, position: Int) {
         val question = questionsList?.get(position)
-        val answers = mutableListOf(DrAnswersItem(), DrAnswersItem())
+        val answers = mutableListOf(DrAnswersItem(), DrAnswersItem(),DrAnswersItem(), DrAnswersItem())
 
         for (i in answers.indices) {
             val answer = answers[i]
@@ -71,12 +71,13 @@ class DrQuestionsAdapter(private var questionsList: MutableList<DrQuestionsItem>
                 }
             }
         }
+        holder.itemBinding.tvQuestionNumber.text = (position+1).toString()
 
         question?.answers = answers
         question?.text = holder.itemBinding.questionEt.text.toString()
         question?.questionNumber = position + 1
         question?.type = "choice"
-        question?.grade = 1
+        question?.grade = holder.itemBinding.questionGrade.text.toString().toIntOrNull()?:1
 
         holder.itemBinding.questionEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

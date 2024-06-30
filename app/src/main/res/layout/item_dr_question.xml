@@ -26,13 +26,24 @@
         app:layout_constraintHeight_percent="0.07"
         tools:text="1 "
         android:layout_marginStart="5dp"
-
         android:textColor="@color/colorPrimary"
         app:autoSizeTextType="uniform"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/tv_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_question" />
+    <EditText
+        android:id="@+id/question_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_question"
+        android:hint="Question Grade"
+        android:inputType="number"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_et"
+        android:layout_marginHorizontal="10dp"
+        />
 
     <!--    <androidx.core.widget.NestedScrollView-->
 <!--        android:id="@+id/radio_scroll_view"-->
@@ -48,7 +59,7 @@
         android:id="@+id/question_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/dr_question_et_bg"
         android:drawableStart="@drawable/ic_name"
         android:drawablePadding="8dp"
@@ -65,9 +76,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_question"
+        app:layout_constraintTop_toBottomOf="@id/question_grade"
         app:layout_constraintWidth_percent="0.95"
-
         />
 
     <View
@@ -110,7 +120,6 @@
                     android:paddingStart="15dp"
                     android:layout_weight="4"
                     android:background="@color/transparent"
-
                     />
                 <CheckBox
                     android:id="@+id/radio_1"
@@ -280,8 +289,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_remove_ans"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_remove"
         app:tint="@color/white"
         app:backgroundTint="@color/red_2"
@@ -295,8 +304,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_answer"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         app:tint="@color/white"
         app:backgroundTint="@color/green"
