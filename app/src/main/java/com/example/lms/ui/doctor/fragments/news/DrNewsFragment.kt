@@ -63,6 +63,12 @@ class DrNewsFragment : Fragment() {
 
     private fun uploadNewsFromLocal() {
         homeAdapter.bindNews(DataBase.getInstance(requireContext()).newsDao().getNewsFromLocal())
+        val imgPath= DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal().imagePath
+
+        Glide.with(requireContext())
+            .load(imgPath ?: R.drawable.avatar_1)  // Use placeholder if imagePath is null
+            .placeholder(R.drawable.avatar_1)
+            .into(viewBinding.profile)
     }
 
     private fun uploadNews() {
@@ -106,6 +112,10 @@ class DrNewsFragment : Fragment() {
                 if(response.isSuccessful){
                     insertInstructorInLocal(response.body())
                     viewBinding.tvName.text = response.body()?.fullName
+                    Glide.with(requireContext())
+                        .load(response?.body()?.imagePath ?: R.drawable.avatar_1)  // Use placeholder if imagePath is null
+                        .placeholder(R.drawable.avatar_1)
+                        .into(viewBinding.profile)
 
                 }else{
                     val toast = Toast.makeText(requireContext(), "current user fail", Toast.LENGTH_LONG)

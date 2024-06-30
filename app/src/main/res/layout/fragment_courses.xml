@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="@id/image_learning"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_learning"
-        android:text="Enrolled 5 Courses"
+        android:text="Enrolled 0 Courses"
         android:textStyle="bold"
         android:layout_marginStart="15sp"
         android:textColor="@color/black"

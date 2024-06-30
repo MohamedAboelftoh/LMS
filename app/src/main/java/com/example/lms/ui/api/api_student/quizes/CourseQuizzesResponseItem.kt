@@ -43,5 +43,9 @@ data class CourseQuizzesResponseItem(
 	val instructorId: String? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:SerializedName("numberOfQuestion")
+	val numberOfQuestion: Int? = null
+
 ) : Parcelable

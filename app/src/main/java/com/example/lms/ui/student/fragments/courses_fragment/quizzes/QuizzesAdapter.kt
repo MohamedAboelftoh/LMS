@@ -32,7 +32,7 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
         holder.viewBinding.courseName.text = quizItem?.title
         holder.viewBinding.startTime.text = formatTStartTime(quizItem?.startDate)
         holder.viewBinding.endTime.text = formatEndTime(quizItem?.endDate)
-       // holder.viewBinding.questionsNumber.text = quizItem?.grade+" grades"
+        holder.viewBinding.questionsNumber.text = quizItem?.numberOfQuestion.toString()+" questions"
 
         buttonStartAvailability(quizItem, holder, position)
     }

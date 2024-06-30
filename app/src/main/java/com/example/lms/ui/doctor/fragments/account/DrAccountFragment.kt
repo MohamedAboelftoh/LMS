@@ -21,6 +21,7 @@ import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.db.DataBase
 import com.example.lms.ui.login.LoginActivity
 import com.example.lms.ui.resetPassword.ChangePasswordActivity
+import com.example.lms.ui.student.checkForInternet
 import com.example.lms.ui.student.fragments.Variables
 import com.example.lms.ui.student.navigateFromFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -71,8 +72,10 @@ lateinit var myPreferencesToken: MyPreferencesToken
         viewBinding.icCamera.setOnClickListener{
             changeImage()
         }
+        if (checkForInternet(requireContext()))
         getInstructorInfo()
-       // bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
+        else
+        bindData(DataBase.getInstance(requireContext()).instructorDao().getInstructorFromLocal())
     }
     private fun changeImage(){
         ImagePicker.with(this)

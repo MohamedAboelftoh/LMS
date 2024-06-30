@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.lms.R
 import com.example.lms.databinding.ActivityDoctorMainBinding
 import com.example.lms.ui.api.api_doctor.InstructorInfoResponse
@@ -85,10 +87,20 @@ class DrMainActivity : AppCompatActivity() {
     private fun getCurrentUserFromLocal() {
         val header = viewBinding.navView.getHeaderView(0)
         val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
-        //  val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
+         val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
         dateTextView.text= DataBase.getInstance(this).instructorDao().getInstructorFromLocal().fullName?:"User"
+
+        val imgPath= DataBase.getInstance(this).instructorDao().getInstructorFromLocal().imagePath
+        Glide.with(this)
+            .load(imgPath ?: R.drawable.avatar_1)  // Use placeholder if imagePath is null
+            .placeholder(R.drawable.avatar_1)
+            .into(imgProfile)
     }
     private fun getCurrentUser() {
+        val header = viewBinding.navView.getHeaderView(0)
+        val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
+         val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
+
         val token=myPreferencesToken.loadData("token")
         ApiManager.getApi().getInstructorInfo(token!!).enqueue(object : Callback<InstructorInfoResponse> {
             override fun onResponse(
@@ -96,15 +108,13 @@ class DrMainActivity : AppCompatActivity() {
                 response: Response<InstructorInfoResponse>
             ) {
                 if(response.isSuccessful){
-                    val header = viewBinding.navView.getHeaderView(0)
-                    val dateTextView = header.findViewById<TextView>(R.id.name_drawer_tv)
-                  //  val imgProfile = header.findViewById<ImageView>(R.id.profile_header)
                     dateTextView.text= "Hi,"+response.body()?.fullName
-//                    Glide.with(viewBinding.navView)
-//                        .load(response.body()?.imagePath)
-//                        .placeholder(R.drawable.avatar_1)
-//                        .into(imgProfile)
-                }else{
+
+                    Glide.with(viewBinding.navView)
+                        .load(response.body()?.imagePath)
+                        .placeholder(R.drawable.avatar_1)
+                        .into(imgProfile)
+                }else {
                     val toast = Toast.makeText(this@DrMainActivity, "current user fail", Toast.LENGTH_LONG)
                     toast.show()
                 }
@@ -113,7 +123,6 @@ class DrMainActivity : AppCompatActivity() {
                 val toast = Toast.makeText(this@DrMainActivity, "header", Toast.LENGTH_LONG)
                 toast.show()
             }
-
         })
     }
     private fun drawerItemsSelected(){
@@ -137,9 +146,6 @@ class DrMainActivity : AppCompatActivity() {
                         }
                     )
                 }
-//                R.id.ic_grades->{
-//                    navigateFromActivity(this@DrMainActivity, AllCoursesGrades())
-//                }
             }
             true
         }
