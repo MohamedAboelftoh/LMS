@@ -1,5 +1,7 @@
 package com.example.lms.ui.student.fragments.account
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,10 @@ import com.example.lms.ui.api.module.ApiManager
 import com.example.lms.ui.api.module.MyPreferencesToken
 import com.example.lms.ui.db.DataBase
 import com.example.lms.ui.student.checkForInternet
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,13 +47,13 @@ class CardDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(checkForInternet(requireContext())) {
-            loadAccountInfo()
-        }
-        else {
-            bindData(
-                DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal())
-        }
+//        if(checkForInternet(requireContext())) {
+//            loadAccountInfo()
+//        }
+//        else {
+//            bindData(DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal())
+//        }
+        bindData(DataBase.getInstance(requireContext()).studentInfoDao().getStuInfoFromLocal())
     }
     fun loadAccountInfo(){
         val token=myPreferencesToken.loadData("token")

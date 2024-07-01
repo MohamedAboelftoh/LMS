@@ -85,18 +85,6 @@ lateinit var myPreferencesToken: MyPreferencesToken
             .start()
     }
     private fun uploadImageSelected(imageUrl: Uri) {
-//        val token = myPreferencesToken.loadData("token")
-//        val filesDir = requireContext().filesDir
-//        val file = File(filesDir, "image.png") // Change the file extension to .jpg for images
-//
-//        val inputStream = requireContext().contentResolver.openInputStream(imageUrl)
-//        val outputStream = FileOutputStream(file)
-//        inputStream?.copyTo(outputStream)
-//        inputStream?.close()
-//        outputStream.close()
-//
-//        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull()) // Change the MIME type to image/*
-//        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
         val token = myPreferencesToken.loadData("token")
         val requestBody = RequestBody.create("*/*".toMediaTypeOrNull()
             , requireContext().contentResolver.openInputStream(imageUrl)!!.readBytes())

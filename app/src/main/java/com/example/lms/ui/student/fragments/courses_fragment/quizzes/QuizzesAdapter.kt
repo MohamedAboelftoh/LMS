@@ -91,6 +91,14 @@ class QuizzesAdapter(private var quizzesList:List<CourseQuizzesResponseItem?>?=n
                 holder.viewBinding.btnStart.text="Ended"
 
             }
+            else if(quizItem.status=="Solved"){
+                holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat
+                        .getColor(holder.itemView.context, R.color.colorPrimary)
+                )
+                holder.viewBinding.btnStart.isEnabled=false
+                holder.viewBinding.btnStart.text="Solved"
+            }
             else{
                 holder.viewBinding.btnStart.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat
